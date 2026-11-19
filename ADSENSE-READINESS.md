@@ -18,6 +18,9 @@ This site is structured to support a future publisher review: it has direct navi
 ## Current implementation
 
 - MOB EXTRA's own sponsored promotions are displayed using the managed files in `assets/ads/`. They do not load an external ad network or record views/clicks.
+- Pages load Google Tag Manager container `GTM-TZ7P5GLL`. The container's published tags are managed outside this repository, so verify its live configuration and update the privacy notice if it changes. The local `gtag()` stub alone would not load Google Analytics; the hub and legal pages now use the standard GTM bootstrap.
+- Firebase Firestore is used by review widgets on portfolio and service pages. Review the Firebase security rules, data fields, and actual collection behavior against the privacy notice before applying.
+- The site verification meta tag supports Search Console ownership verification. The site is currently a GitHub Pages static site, not Google Sites. Do not describe Google Sites as a data processor unless the deployment actually embeds or uses it.
 - No AdSense publisher ID, ad-unit IDs, or third-party ad scripts are configured. Add only real values provided by an approved publisher account.
 - The privacy policy describes the current first-party promotions. Update it and add any required consent controls before enabling external ad technology.
 - An `ads.txt` file is intentionally not supplied before a real publisher ID exists.

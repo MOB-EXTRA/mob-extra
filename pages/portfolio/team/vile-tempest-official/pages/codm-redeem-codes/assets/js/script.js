@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
         actionColumnContent = `
           <td class="action-cell">
             <a href="https://www.youtube.com/channel/UCbDtYZS08VvB6luAcyn08bQ" target="_blank" rel="noopener noreferrer" class="yt-unlock-btn" title="Watch YouTube to get this code">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+              <i class="fa-brands fa-youtube" aria-hidden="true"></i>
               <span>Get on YT</span>
             </a>
           </td>

@@ -337,24 +337,7 @@
         >
 
           <span class="code-symbol" aria-hidden="true">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 48 48"
-              width="24"
-              height="24"
-              fill="none"
-            >
-              <circle cx="24" cy="24" r="19" fill="#E5A323"/>
-              <circle cx="24" cy="24" r="15"
-                      fill="#FFD45C" stroke="#FFE69A" stroke-width="2"/>
-              <circle cx="24" cy="24" r="11"
-                      stroke="#C98216" stroke-width="1.5"/>
-              <path d="M28.5 17.5c-1.1-1-2.5-1.5-4.5-1.5-3 0-5 1.5-5 3.5 0 5 10 2 10 7 0 2-2 4-5 4-2 0-4-.7-5-2"
-                    stroke="#9A5D0A" stroke-width="2.5"
-                    stroke-linecap="round"/>
-              <path d="M24 13v22" stroke="#9A5D0A"
-                    stroke-width="2" stroke-linecap="round"/>
-            </svg>
+            <i class="fa-solid fa-ticket" aria-hidden="true"></i>
           </span>
 
           <div class="code-detail">

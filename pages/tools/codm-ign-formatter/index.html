@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="../../../assets/css/site.css" />
     <link rel="stylesheet" href="../../../assets/css/content-pages.css" />
     <link rel="stylesheet" href="../../../assets/css/tools.css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css" onerror="document.documentElement.classList.add('fa-unavailable')" />
+    <link rel="stylesheet" href="../../../assets/css/fontawesome-fallback.css" />
+    <script defer src="../../../assets/js/fontawesome-fallback.js"></script>
   </head>
   <body>
     <div data-site-header></div>
@@ -49,10 +52,10 @@
           </div>
           <div class="callout formatter-preview" aria-live="polite">Preview: <strong id="ignPreview" class="ign-preview">Your formatted name appears here</strong></div>
           <div class="ign-copy-row">
-            <button class="button button-primary" id="copyIgn" type="button">Copy formatted text <span>↗</span></button>
+            <button class="button button-primary" id="copyIgn" type="button">Copy formatted text <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></button>
             <span class="category-label">Characters: <span id="charCount">0</span> / 14</span>
           </div>
-          <p class="callout">For CODM, use Inventory → Rename Card → Use to paste a custom name. Unicode spacing support can change with game updates.</p>
+          <p class="callout">For CODM, use Inventory, then Rename Card, then Use to paste a custom name. Unicode spacing support can change with game updates.</p>
           <p class="category-label ign-message" id="toolMessage" aria-live="polite"></p>
         </div>
       </section>

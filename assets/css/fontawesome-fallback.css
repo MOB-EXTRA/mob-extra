@@ -1,0 +1,17 @@
+/* Shared icon sizing and readable fallback styling. */
+i[class^="fa-"], i[class*=" fa-"] { display: inline-block; line-height: 1; }
+.fa-unavailable i[class^="fa-"], .fa-unavailable i[class*=" fa-"] {
+  font-family: inherit !important;
+  font-style: normal;
+  font-weight: 700;
+  min-width: 1em;
+  text-align: center;
+  font-size: 0.72em;
+  letter-spacing: -0.04em;
+}
+.fa-unavailable i[class^="fa-"]::before,
+.fa-unavailable i[class*=" fa-"]::before {
+  content: attr(data-fa-fallback) !important;
+  display: inline-block !important;
+}
+.ptb-download-icon i[data-fa-fallback] { font-size: 0.62rem; }

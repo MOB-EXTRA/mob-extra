@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <div class="search-input-wrapper">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="site-search-input" placeholder="Search current view (e.g. codm test server)..." autocomplete="off" />
-        <button class="search-close-btn" aria-label="Close Search">×</button>
+        <button class="search-close-btn" aria-label="Close Search"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
       </div>
     </div>
   `;

@@ -12,6 +12,10 @@ import {
 let currentFilter = "all";
 let cachedReviews = [];
 
+const renderStars = (rating) => Array.from({ length: 5 }, (_, index) =>
+  `<i class="fa-${index < Number(rating) ? "solid" : "regular"} fa-star" aria-hidden="true"></i>`,
+).join("");
+
 // Unique Device Fingerprint Setup stored in localStorage
 let deviceToken = localStorage.getItem("vile_tempest_device_token");
 if (!deviceToken) {
@@ -319,7 +323,7 @@ function updatePlayStoreAnalytics(reviews) {
 
   if (reviews.length === 0) {
     avgScoreElem.textContent = "0.0";
-    avgStarsElem.textContent = "☆☆☆☆☆";
+    avgStarsElem.innerHTML = renderStars(0);
     totalReviewsElem.textContent = "0 reviews";
     totalReviewsElem.dataset.targetCount = "0";
     for (let i = 1; i <= 5; i++) {
@@ -350,7 +354,7 @@ function updatePlayStoreAnalytics(reviews) {
   totalReviewsElem.textContent = "0 reviews"; // Reset for counter trigger
 
   const fullStars = Math.round(avg);
-  avgStarsElem.textContent = "★".repeat(fullStars) + "☆".repeat(5 - fullStars);
+  avgStarsElem.innerHTML = renderStars(fullStars);
 
   for (let i = 1; i <= 5; i++) {
     const bar = document.getElementById(`bar-${i}`);
@@ -379,7 +383,7 @@ function renderReviewsFeed(reviews) {
   }
 
   filtered.forEach((data) => {
-    const starsStr = "★".repeat(data.rating) + "☆".repeat(5 - data.rating);
+    const starsStr = renderStars(data.rating);
     const subCategoryText = data.specificUtility
       ? ` • ${data.specificUtility}`
       : "";

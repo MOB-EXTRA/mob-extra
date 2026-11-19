@@ -67,8 +67,9 @@
     link.className = "text-link";
     link.href = window.portfolioViewerUrl(page.url);
     link.append("View portfolio ");
-    const arrow = document.createElement("b");
-    arrow.textContent = "→";
+    const arrow = document.createElement("i");
+    arrow.className = "fa-solid fa-arrow-right";
+    arrow.setAttribute("aria-hidden", "true");
     link.append(arrow);
 
     card.append(description, link);
@@ -89,6 +90,8 @@
       const eyebrow = document.createElement("div");
       eyebrow.className = "eyebrow";
       const dot = document.createElement("i");
+      dot.className = "fa-solid fa-users";
+      dot.setAttribute("aria-hidden", "true");
       eyebrow.append(dot, " PEOPLE BEHIND THE PROJECTS");
       const title = document.createElement("h2");
       title.id = "portfolio-showcase-title";
@@ -137,8 +140,9 @@
       services.className = "text-link";
       services.href = new URL("pages/services/index.html", window.siteBase || window.location.href).href;
       services.append("Professional services ");
-      const servicesArrow = document.createElement("b");
-      servicesArrow.textContent = "→";
+      const servicesArrow = document.createElement("i");
+      servicesArrow.className = "fa-solid fa-arrow-right";
+      servicesArrow.setAttribute("aria-hidden", "true");
       services.append(servicesArrow);
       note.append(noteText, services);
       section.append(heading, ...groupSections, note);

@@ -30,10 +30,10 @@
       <button class="menu-toggle" aria-expanded="false" aria-label="Open navigation"><span></span><span></span></button>
       <nav class="main-nav" aria-label="Main navigation">
         <a class="${currentPath === `${sitePrefix}/index.html` || currentPath === `${sitePrefix}/` ? "active" : ""}" href="${path("index.html")}">Home</a>
-        <div class="nav-group" data-nav-group="hubs"><a class="${currentPath.includes("/pages/hubs/") ? "active" : ""}" href="${path("pages/hubs/index.html")}">Hubs <span>⌄</span></a><div class="nav-menu"><a href="${path("pages/hubs/index.html")}">All game hubs</a></div></div>
-        <div class="nav-group" data-nav-group="tools"><a class="${currentPath.includes("/pages/tools/") ? "active" : ""}" href="${path("pages/tools/index.html")}">Tools <span>⌄</span></a><div class="nav-menu"><a href="${path("pages/tools/index.html")}">All tools</a></div></div>
-        <div class="nav-group" data-nav-group="more"><a href="${path("pages/portfolio/index.html")}">More <span>⌄</span></a><div class="nav-menu"><a href="${path("pages/portfolio/index.html")}">Portfolios</a><a href="${path("pages/services/index.html")}">Services</a><a href="${path("pages/about.html")}">About MOB EXTRA</a></div></div>
-        <a class="nav-cta ${currentPath.endsWith("/contact.html") ? "active" : ""}" href="${path("pages/contact.html")}">Get in touch <span>↗</span></a>
+        <div class="nav-group" data-nav-group="hubs"><a class="${currentPath.includes("/pages/hubs/") ? "active" : ""}" href="${path("pages/hubs/index.html")}">Hubs <span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span></a><div class="nav-menu"><a href="${path("pages/hubs/index.html")}">All game hubs</a></div></div>
+        <div class="nav-group" data-nav-group="tools"><a class="${currentPath.includes("/pages/tools/") ? "active" : ""}" href="${path("pages/tools/index.html")}">Tools <span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span></a><div class="nav-menu"><a href="${path("pages/tools/index.html")}">All tools</a></div></div>
+        <div class="nav-group" data-nav-group="more"><a href="${path("pages/portfolio/index.html")}">More <span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span></a><div class="nav-menu"><a href="${path("pages/portfolio/index.html")}">Portfolios</a><a href="${path("pages/services/index.html")}">Services</a><a href="${path("pages/about.html")}">About MOB EXTRA</a></div></div>
+        <a class="nav-cta ${currentPath.endsWith("/contact.html") ? "active" : ""}" href="${path("pages/contact.html")}">Get in touch <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a>
       </nav>
     </div></header>`;
 
@@ -42,8 +42,8 @@
       <div class="footer-brand"><a class="brand" href="${path("index.html")}"><img src="${path("assets/img/mob-extra.png")}" alt="" width="38" height="38"><span>MOB<span class="brand-accent">EXTRA</span><small>PLAY SMARTER</small></span></a><p>Independent resources for mobile players.<br>Made with curiosity and care.</p></div>
       <div class="footer-col"><span>EXPLORE</span><a href="${path("pages/hubs/codm/codm-redeem-codes-hub.html")}">CODM redeem codes</a><a href="${path("pages/hubs/codm/codm-ptb-download.html")}">CODM test builds</a><a href="${path("pages/hubs/mlbb/mlbb-redeem-codes-hub.html")}">MLBB redeem codes</a><a href="${path("pages/tools/index.html")}">Player tools</a></div>
       <div class="footer-col"><span>PEOPLE &amp; SERVICES</span><a href="${path("pages/portfolio/index.html")}">Portfolios</a><a href="${path("pages/portfolio/view.html?src=team%2Fmarc%2F")}">Marc Johnford</a><a href="${path("pages/portfolio/view.html?src=team%2Fcarl%2F")}">Carl Vincent</a><a href="${path("pages/services/index.html")}">Professional services</a></div>
-      <div class="footer-col"><span>ABOUT &amp; LEGAL</span><a href="${path("pages/about.html")}">About MOB EXTRA</a><a href="${path("pages/editorial.html")}">Editorial policy</a><a href="${path("pages/contact.html")}">Contact</a><a href="${path("pages/privacy.html")}">Privacy policy</a><a href="${path("pages/terms.html")}">Terms &amp; disclaimer</a></div>
-    </div><div class="container footer-bottom"><span>© <span data-year>2026</span> MOB EXTRA</span><span>Built for players, wherever you play.</span><a href="#main">Back to top ↑</a></div></footer>`;
+      <div class="footer-col"><span>ABOUT &amp; LEGAL</span><a href="${path("pages/about.html")}">About MOB EXTRA</a><a href="${path("pages/editorial.html")}">Editorial policy</a><a href="${path("pages/contact.html")}">Contact</a><a href="${path("pages/privacy.html")}">Privacy policy</a><a href="${path("pages/terms.html")}">Terms of use</a></div>
+    </div><div class="container footer-bottom"><span>© <span data-year>2026</span> MOB EXTRA</span><span>Built for players, wherever you play.</span><a href="#main">Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a></div></footer>`;
 
   document.querySelectorAll("[data-site-header]").forEach((node) => node.outerHTML = header);
   document.querySelectorAll("[data-site-footer]").forEach((node) => node.outerHTML = footer);
@@ -161,7 +161,10 @@
         if (index < destinations.length - 1) {
           const separator = document.createElement("b");
           separator.setAttribute("aria-hidden", "true");
-          separator.textContent = "✳";
+          const icon = document.createElement("i");
+          icon.className = "fa-solid fa-sparkles";
+          icon.setAttribute("aria-hidden", "true");
+          separator.append(icon);
           set.append(separator);
         }
       });

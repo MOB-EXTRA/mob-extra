@@ -1,11 +1,9 @@
 <!doctype html>
 <html lang="en">
   <head>    <!-- Google Tag Manager -->
-    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-TZ7P5GLL"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      (function(w,d,s,l,i){w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TZ7P5GLL');
     </script>
     <meta name="google-site-verification" content="oKpI2605t_0eu-Go_blNQpwz81QbXaXJcPsoFFaRDNA" />
     <meta charset="utf-8" />
@@ -25,6 +23,9 @@
     <link rel="stylesheet" href="../../../assets/css/site.css" />
     <link rel="stylesheet" href="../../../assets/css/content-pages.css" />
     <link rel="stylesheet" href="../../../assets/css/ptb-hub.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css" onerror="document.documentElement.classList.add('fa-unavailable')" />
+    <link rel="stylesheet" href="../../../assets/css/fontawesome-fallback.css" />
+    <script defer src="../../../assets/js/fontawesome-fallback.js"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -63,13 +64,13 @@
             <h2>Check current test server availability</h2>
             <p>
               Test builds are released periodically and can close or reach
-              capacity without notice. This page checks the original shared
-              status repositories in order, with automatic fallback if a source
-              is unavailable.
+              capacity without notice. This page checks the shared community
+              status repositories in order, then asks you to review the source
+              and acknowledge the external-link notes before showing links.
             </p>
           </div>
           <a class="button button-primary" href="#available-builds"
-            >View live status <span>↗</span></a
+            >View live status <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a
           >
         </div>
         <section
@@ -106,45 +107,38 @@
             </section>
             <section id="android" class="content-card" data-reveal>
               <h2>Android installation overview</h2>
+              <p>Choose the 32-bit or 64-bit package that matches your device. If you are unsure, check your device specifications before downloading. The hub does not host these files; each button opens the current external source.</p>
               <ol>
                 <li>
-                  Check the live directory for an active test period and the
-                  supported package for your device.
+                  Return to the <a href="#available-builds">live build cards</a> and choose the package for your device architecture.
                 </li>
                 <li>
-                  Use a link that points to a recognized developer or platform
-                  distribution source. Avoid modified APKs and third-party
-                  repacks.
+                  Open the destination in your browser. Check the file name, publisher/source, and requested permissions. Avoid modified APKs and repacks.
                 </li>
                 <li>
-                  Review the file details and device storage requirements before
-                  installing.
+                  When the download completes, open it from your browser or file manager and follow Android’s installation prompts. Your device may ask you to allow installs from that browser; only proceed if you trust the source.
                 </li>
                 <li>
-                  If installation fails, confirm compatibility and whether the
-                  test build is still open. Do not uninstall your live game
-                  unless you understand the account and app implications.
+                  If installation fails, check free storage, device compatibility, and whether the test period remains active. Avoid removing your live game unless you understand the account and app implications.
                 </li>
               </ol>
+              <div class="callout"><strong>32-bit vs 64-bit:</strong> These are separate packages. Select the one compatible with your device; one is not universally better for every phone.</div>
             </section>
             <section id="ios" class="content-card" data-reveal>
               <h2>iOS installation overview</h2>
+              <p>iOS test builds are distributed through Apple TestFlight when the publisher opens a test and has invitation capacity.</p>
               <ol>
                 <li>
-                  Check whether the current test period has an iOS build and
-                  available TestFlight capacity.
+                  Return to the <a href="#available-builds">live build cards</a> and choose the iOS TestFlight invitation if one is listed.
                 </li>
                 <li>
-                  Open the invitation link from your iPhone or iPad. Install
-                  Apple’s TestFlight app from the App Store if prompted.
+                  Open the invitation on your iPhone or iPad. Install Apple’s TestFlight app from the App Store if prompted.
                 </li>
                 <li>
-                  Follow the publisher’s instructions shown in TestFlight. Slots
-                  can fill and builds can expire.
+                  Review the app and publisher details shown in TestFlight, then follow its install steps. Slots can fill and builds can expire.
                 </li>
                 <li>
-                  Only install through the official TestFlight flow. Do not
-                  trust profiles or certificates offered by unrelated sites.
+                  Use the official TestFlight flow only. Do not install profiles or certificates offered by unrelated sites.
                 </li>
               </ol>
             </section>
@@ -203,9 +197,9 @@
           </div>
           <aside class="side-card" data-reveal>
             <h2>On this page</h2>
-            <a href="#android">Android guide <span>↗</span></a
-            ><a href="#ios">iOS guide <span>↗</span></a
-            ><a href="#safety">Safety notes <span>↗</span></a>
+            <a href="#android">Android guide <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a
+            ><a href="#ios">iOS guide <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a
+            ><a href="#safety">Safety notes <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a>
             <p>
               See our
               <a href="../../editorial.html">source and update policy</a> or

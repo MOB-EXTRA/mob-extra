@@ -32,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css" onerror="document.documentElement.classList.add('fa-unavailable')"
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
@@ -44,6 +44,8 @@
 
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/animations.css" />
+      <link rel="stylesheet" href="../../../../assets/css/fontawesome-fallback.css" />
+    <script defer src="../../../../assets/js/fontawesome-fallback.js"></script>
   </head>
 
   <body>
@@ -94,7 +96,7 @@
             <a href="../../../../index.html">MOB EXTRA</a>
           </nav>
 
-          <a class="btn-talk" href="#contact"> Let's talk! <span>↗</span> </a>
+          <a class="btn-talk" href="#contact"> Let's talk! <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span> </a>
         </div>
       </div>
     </header>
@@ -125,7 +127,7 @@
         <div class="intro-column">
           <div class="eyebrow">
             <span>HI THERE! THIS IS</span>
-            <i></i>
+            <i class="fa-solid fa-hand" aria-hidden="true"></i>
           </div>
 
           <p class="engineer-name">Carl Vincent Cagatin</p>
@@ -143,10 +145,10 @@
 
           <div class="hero-actions">
             <a class="button-primary" href="#projects">
-              View Projects <span>→</span>
+              View Projects <span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
             </a>
 
-            <a class="button-text" href="#about"> About Me <span>↗</span> </a>
+            <a class="button-text" href="#about"> About Me <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span> </a>
           </div>
         </div>
 
@@ -204,7 +206,7 @@
 
           <!-- HELP LINK -->
           <a class="help-link" href="#contact">
-            How can I help? <span>↗</span>
+            How can I help? <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
           </a>
 
           <!-- EXPERIENCE AND CREDENTIALS -->
@@ -222,7 +224,7 @@
             </div>
 
             <div class="credential-note">
-              <div class="credential-mark">◆</div>
+              <div class="credential-mark"><i class="fa-solid fa-award" aria-hidden="true"></i></div>
 
               <div>
                 <span class="credential-label"> LICENSED CIVIL ENGINEER </span>
@@ -251,7 +253,7 @@
               </p>
             </div>
             <a class="projects-contact-link" href="#contact"
-              >Discuss a project <span>↗</span></a
+              >Discuss a project <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a
             >
           </div>
 
@@ -270,7 +272,7 @@
               </p>
             </div>
             <a class="projects-contact-link" href="#contact"
-              >Request a conversation <span>↗</span></a
+              >Request a conversation <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a
             >
           </div>
         </div>
@@ -309,7 +311,7 @@
           </div>
 
           <a class="button-primary" href="mailto:mob.extra.contact@gmail.com">
-            Get in Touch <span>→</span>
+            Get in Touch <span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
           </a>
         </div>
       </section>
@@ -319,7 +321,7 @@
     <footer class="site-footer">
       <p>© 2026 Engr. Carl Vincent. All Rights Reserved.</p>
 
-      <a href="#hero">Back to top ↑</a>
+      <a href="#hero">Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a>
     </footer>
 
     <script src="assets/js/script.js"></script>

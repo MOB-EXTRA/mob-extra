@@ -11,6 +11,10 @@ import {
 
 let cachedReviews = [];
 
+const renderStars = (rating) => Array.from({ length: 5 }, (_, index) =>
+  `<i class="fa-${index < Number(rating) ? "solid" : "regular"} fa-star" aria-hidden="true"></i>`,
+).join("");
+
 // Unique Device Fingerprint Specific to the Redeem Codes Hub
 let deviceToken = localStorage.getItem("vile_tempest_redeem_device_token");
 if (!deviceToken) {
@@ -263,7 +267,7 @@ function renderUserDeviceReviewPanel(redeemReviews) {
         </div>
         <div style="margin-top: 6px;">
           <strong class="redeem-review-author">${escapeHtml(myReview.author)}</strong>
-          <span class="redeem-review-stars">${"★".repeat(myReview.rating) + "☆".repeat(5 - myReview.rating)}</span>
+          <span class="redeem-review-stars">${renderStars(myReview.rating)}</span>
           <p class="redeem-review-comment">${escapeHtml(myReview.comment)}</p>
         </div>
       </div>
@@ -321,7 +325,7 @@ function updatePlayStoreAnalytics(reviews) {
 
   if (reviews.length === 0) {
     avgScoreElem.textContent = "0.0";
-    avgStarsElem.textContent = "☆☆☆☆☆";
+    avgStarsElem.innerHTML = renderStars(0);
     totalReviewsElem.textContent = "0 reviews";
     for (let i = 1; i <= 5; i++) {
       const bar = document.getElementById(`bar-${i}`);
@@ -345,7 +349,7 @@ function updatePlayStoreAnalytics(reviews) {
   totalReviewsElem.textContent = `${reviews.length} review${reviews.length === 1 ? "" : "s"}`;
 
   const fullStars = Math.round(avg);
-  avgStarsElem.textContent = "★".repeat(fullStars) + "☆".repeat(5 - fullStars);
+  avgStarsElem.innerHTML = renderStars(fullStars);
 
   for (let i = 1; i <= 5; i++) {
     const bar = document.getElementById(`bar-${i}`);
@@ -368,7 +372,7 @@ function renderReviewsFeed(reviews) {
   }
 
   reviews.forEach((data) => {
-    const starsStr = "★".repeat(data.rating) + "☆".repeat(5 - data.rating);
+    const starsStr = renderStars(data.rating);
     const isMyDevice = data.deviceToken === deviceToken;
     const badgeHtml = isMyDevice
       ? ` <span style="background: rgba(56, 189, 248, 0.2); color: var(--accent-cyan); font-size: 9px; font-weight: 800; padding: 1px 4px; border-radius: 3px;">YOUR REVIEW</span>`

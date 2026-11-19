@@ -22,8 +22,9 @@
       link.className = "text-link";
       link.href = page.url;
       link.append(`${actionLabel} `);
-      const arrow = document.createElement("b");
-      arrow.textContent = "→";
+      const arrow = document.createElement("i");
+      arrow.className = "fa-solid fa-arrow-right";
+      arrow.setAttribute("aria-hidden", "true");
       link.append(arrow);
 
       card.append(heading, description, link);

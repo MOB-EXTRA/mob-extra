@@ -174,7 +174,9 @@ function renderReviewCards() {
     const rating = Number(review.rating);
     const ratingStars = document.createElement("span");
     ratingStars.className = "service-review-card-stars";
-    ratingStars.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
+    ratingStars.innerHTML = Array.from({ length: 5 }, (_, index) =>
+      `<i class="fa-${index < rating ? "solid" : "regular"} fa-star" aria-hidden="true"></i>`,
+    ).join("");
     ratingStars.setAttribute("aria-label", `${rating} out of 5 stars`);
     top.append(authorMeta, ratingStars);
 
@@ -261,7 +263,7 @@ function updateSummary() {
 
   if (!currentReviews.length) {
     average.textContent = "—";
-    stars.textContent = "☆☆☆☆☆";
+    stars.innerHTML = Array.from({ length: 5 }, () => '<i class="fa-regular fa-star" aria-hidden="true"></i>').join("");
     stars.setAttribute("aria-label", "No ratings yet");
     count.textContent = "No reviews yet";
   } else {
@@ -270,7 +272,9 @@ function updateSummary() {
       currentReviews.length;
     const rounded = Math.round(score);
     average.textContent = score.toFixed(2);
-    stars.textContent = "★".repeat(rounded) + "☆".repeat(5 - rounded);
+    stars.innerHTML = Array.from({ length: 5 }, (_, index) =>
+      `<i class="fa-${index < rounded ? "solid" : "regular"} fa-star" aria-hidden="true"></i>`,
+    ).join("");
     stars.setAttribute("aria-label", `${score.toFixed(2)} out of 5 stars`);
     if (reviewSectionVisible) animateReviewCount(count, currentReviews.length);
     else count.textContent = `${currentReviews.length} reviews`;
@@ -409,7 +413,7 @@ function renderRecentReviews() {
     meta.append(author, category);
     const rating = document.createElement("span");
     rating.className = "review-recent-score";
-    rating.textContent = `★ ${Number(review.rating).toFixed(2)}`;
+    rating.innerHTML = `<i class="fa-solid fa-star" aria-hidden="true"></i> ${Number(review.rating).toFixed(2)}`;
     const comment = document.createElement("p");
     comment.textContent = review.comment.trim();
     row.append(meta, rating, comment);
@@ -465,7 +469,7 @@ function renderReviewTypeOverview() {
     metric.textContent = String(items.length);
     const note = document.createElement("span");
     note.className = "review-type-meta";
-    note.textContent = `${items.length ? mean.toFixed(2) : "—"} ★ average · ${currentReviews.length ? Math.round((items.length / currentReviews.length) * 100) : 0}% of reviews`;
+    note.innerHTML = `${items.length ? mean.toFixed(2) : "—"} <i class="fa-solid fa-star" aria-hidden="true"></i> average · ${currentReviews.length ? Math.round((items.length / currentReviews.length) * 100) : 0}% of reviews`;
     const bar = document.createElement("i");
     bar.className = "review-type-bar";
     bar.style.setProperty(
@@ -538,14 +542,13 @@ async function loadReviews() {
     initialStatus.lastChild.textContent = " Connecting to live feed";
 
   try {
-    const [{ initializeApp }, firestore] = await Promise.all([
+    const [{ initializeApp, getApps }, firestore] = await Promise.all([
       import("https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js"),
       import("https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js"),
     ]);
-    const app = initializeApp(
-      REVIEWS_FIREBASE_CONFIG,
-      "portfolio-community-reviews",
-    );
+    const appName = "portfolio-community-reviews";
+    const app = getApps().find((entry) => entry.name === appName) ||
+      initializeApp(REVIEWS_FIREBASE_CONFIG, appName);
     const db = firestore.getFirestore(app);
     const reviewQuery = firestore.query(
       firestore.collection(db, "site_reviews"),
