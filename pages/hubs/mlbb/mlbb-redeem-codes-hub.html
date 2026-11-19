@@ -1,18 +1,27 @@
 <!doctype html>
 <html lang="en">
-  <head>    <!-- Google Tag Manager -->
-    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-TZ7P5GLL"></script>
+  <head>
+    <!-- Google Tag Manager -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtm.js?id=GTM-TZ7P5GLL"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
     </script>
-    <meta name="google-site-verification" content="oKpI2605t_0eu-Go_blNQpwz81QbXaXJcPsoFFaRDNA" />
+    <meta
+      name="google-site-verification"
+      content="oKpI2605t_0eu-Go_blNQpwz81QbXaXJcPsoFFaRDNA"
+    />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="A dedicated Mobile Legends: Bang Bang redeem code hub with redemption instructions, code status updates, and account safety tips."
+      content="A dedicated Mobile Legends: Bang Bang redeem code hub with redemption instructions, Server ID tips, code status updates, FAQs, and account safety guidance."
     />
     <meta name="theme-color" content="#07111e" />
     <meta name="nav-section" content="hubs" />
@@ -28,14 +37,70 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "MLBB Redeem Codes Hub",
-        "description": "Mobile Legends: Bang Bang code updates and redemption help.",
-        "isPartOf": { "@type": "WebSite", "name": "MOB EXTRA" }
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "name": "MLBB Redeem Codes Hub",
+            "description": "Mobile Legends: Bang Bang code updates, redemption instructions, and player FAQs.",
+            "isPartOf": { "@type": "WebSite", "name": "MOB EXTRA" }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Why is the MLBB code list currently empty?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "MOB EXTRA does not publish guessed or untraceable codes. This hub is updated when a verifiable publisher source and publication date are available."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What details do I need to redeem a Mobile Legends: Bang Bang code?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "You typically need the promotional redemption code, your numeric MLBB Game ID (found on your in-game profile screen), and a one-time verification code sent to your in-game mailbox."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can all servers and regions use the same MLBB code?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Not always. Many Mobile Legends promotional codes are restricted to specific regional servers, tournament broadcasts, or limited claim caps."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Where are MLBB code rewards delivered after claiming?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Successfully claimed items are sent directly to your in-game Mail inbox inside Mobile Legends: Bang Bang."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is MOB EXTRA operated by Moonton?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. MOB EXTRA is an independent fan resource and is not affiliated with Mobile Legends: Bang Bang or its publisher."
+                }
+              }
+            ]
+          }
+        ]
       }
     </script>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css" onerror="document.documentElement.classList.add('fa-unavailable')" />
-    <link rel="stylesheet" href="../../../assets/css/fontawesome-fallback.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"
+      onerror="document.documentElement.classList.add('fa-unavailable')"
+    />
+    <link
+      rel="stylesheet"
+      href="../../../assets/css/fontawesome-fallback.css"
+    />
     <script defer src="../../../assets/js/fontawesome-fallback.js"></script>
   </head>
   <body>
@@ -66,15 +131,16 @@
         <div class="hub-lead-grid">
           <article class="info-card" data-reveal>
             <span class="small-label">CODE STATUS</span>
-            <h2>No confirmed listings yet</h2>
+            <h2>Recently reported listings</h2>
             <p>
-              There are no MLBB codes independently confirmed for publication in
-              this hub at the moment. We’ll add entries when we can identify a
-              reliable source and date; this page is not a promise that codes
-              are active.
+              The MLBB codes shown below are loaded from the shared source
+              repository with their recorded dates. Availability can vary by
+              region, account type, or redemption cap, so test codes promptly
+              and do not treat listings as guaranteed active offers.
             </p>
             <div class="status-line">
-              <i class="fa-regular fa-calendar-check" aria-hidden="true"></i><span>Last reviewed: November 17, 2026</span>
+              <i class="fa-regular fa-calendar-check" aria-hidden="true"></i
+              ><span>Last reviewed: Not available</span>
             </div>
           </article>
           <article class="info-card" data-reveal data-delay="80">
@@ -146,6 +212,7 @@
                 We’ll include the original source date with future listings.
               </div>
             </section>
+
             <section id="redeem" class="content-card" data-reveal>
               <h2>How MLBB code redemption works</h2>
               <div class="steps-grid">
@@ -174,19 +241,69 @@
                   </p>
                 </article>
               </div>
+              <div class="callout" style="margin-top: 14px">
+                <strong>How to find your MLBB Game ID:</strong> Open Mobile
+                Legends: Bang Bang, tap your <strong>Avatar</strong> in the
+                top-left corner of the lobby, and look at the numeric ID shown
+                below your profile name (for example,
+                <code>123456789 (1234)</code>). Enter only the main Game ID
+                before the parentheses unless the official form asks for the
+                Server/Zone ID separately.
+              </div>
             </section>
+
+            <section id="rewards" class="content-card" data-reveal>
+              <h2>What rewards do official MLBB codes usually grant?</h2>
+              <p>
+                Legitimate Mobile Legends: Bang Bang promotional codes are
+                typically distributed during esports broadcasts (such as MPL,
+                MSC, or M-Series tournaments), seasonal updates, and regional
+                livestreams. Common rewards include:
+              </p>
+              <ul>
+                <li>
+                  <strong>Hero & Skin Trial Cards:</strong> Time-limited passes
+                  (1-day, 3-day, or 7-day) to test featured heroes or
+                  elite/special skins.
+                </li>
+                <li>
+                  <strong>Magic Dust, Fragments & Battle Points:</strong>
+                  Emblem upgrade materials, Hero Fragments, Premium Skin
+                  Fragments, and Double BP Cards.
+                </li>
+                <li>
+                  <strong>Event Tokens & Emotes:</strong> Occasional tournament
+                  chests, avatar borders, or limited battle emotes.
+                </li>
+              </ul>
+              <p>
+                Be cautious of any website claiming to offer unlimited free
+                Diamonds through a generator—official codes rarely grant
+                Diamonds directly and never require your account password.
+              </p>
+            </section>
+
             <section id="troubleshooting" class="content-card" data-reveal>
               <h2>Common redemption problems</h2>
               <ul>
-                <li>The offer has expired or reached its claim limit.</li>
                 <li>
-                  Your account region or game version does not match the
-                  promotion.
+                  <strong>Limit reached or expired:</strong> Many livestream and
+                  esports codes have strict global redemption caps that fill up
+                  within minutes of broadcast.
                 </li>
-                <li>The code was already used on your account.</li>
                 <li>
-                  Required verification has not arrived yet, or the publisher
-                  service is temporarily busy.
+                  <strong>Region or server mismatch:</strong> Your account
+                  region or game version does not match the campaign’s target
+                  territory.
+                </li>
+                <li>
+                  <strong>Already claimed:</strong> Promotional codes are
+                  limited to one redemption per MLBB Game ID.
+                </li>
+                <li>
+                  <strong>Verification code delay:</strong> The one-time
+                  verification code sent to your in-game mail usually expires
+                  after 30 minutes—request a fresh code if the portal times out.
                 </li>
               </ul>
               <p>
@@ -195,6 +312,7 @@
                 diamonds.
               </p>
             </section>
+
             <section id="faq" class="content-card" data-reveal>
               <h2>Frequently asked questions</h2>
               <div class="faq-item">
@@ -206,10 +324,27 @@
                 </p>
               </div>
               <div class="faq-item">
+                <h3>What details do I need to redeem an MLBB code?</h3>
+                <p>
+                  You will normally need the active promotional code, your
+                  numeric MLBB Game ID from your profile page, and the
+                  verification code sent to your in-game mail inbox.
+                </p>
+              </div>
+              <div class="faq-item">
                 <h3>Can all regions use the same code?</h3>
                 <p>
                   Not necessarily. Check each publisher announcement for
-                  eligible regions and servers.
+                  eligible regions and servers before attempting to redeem.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>Where do claimed rewards appear?</h3>
+                <p>
+                  Once the official redemption page confirms success, open
+                  Mobile Legends: Bang Bang and check your in-game
+                  <strong>Mail</strong> icon on the top-right of the lobby to
+                  claim the attached items.
                 </p>
               </div>
               <div class="faq-item">
@@ -223,9 +358,38 @@
           </div>
           <aside class="side-card" data-reveal>
             <h2>On this page</h2>
-            <a href="#redeem">How to redeem <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a
-            ><a href="#troubleshooting">Troubleshooting <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a
-            ><a href="#faq">FAQs <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a>
+            <a href="#redeem"
+              >How to redeem
+              <span
+                ><i
+                  class="fa-solid fa-arrow-up-right-from-square"
+                  aria-hidden="true"
+                ></i></span
+            ></a>
+            <a href="#rewards"
+              >Typical rewards
+              <span
+                ><i
+                  class="fa-solid fa-arrow-up-right-from-square"
+                  aria-hidden="true"
+                ></i></span
+            ></a>
+            <a href="#troubleshooting"
+              >Troubleshooting
+              <span
+                ><i
+                  class="fa-solid fa-arrow-up-right-from-square"
+                  aria-hidden="true"
+                ></i></span
+            ></a>
+            <a href="#faq"
+              >FAQs
+              <span
+                ><i
+                  class="fa-solid fa-arrow-up-right-from-square"
+                  aria-hidden="true"
+                ></i></span
+            ></a>
             <p>
               All game names and marks belong to their owners. See our
               <a href="../../editorial.html">update approach</a> and
@@ -238,6 +402,6 @@
     <div data-site-footer></div>
     <script src="../../../assets/js/site.js" defer></script>
     <script src="../../../assets/js/pages/redeem-hub.js" defer></script>
-      <script src="../../../assets/ads/ads.js" defer></script>
+    <script src="../../../assets/ads/ads.js" defer></script>
   </body>
 </html>

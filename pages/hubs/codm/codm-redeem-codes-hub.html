@@ -1,18 +1,27 @@
 <!doctype html>
 <html lang="en">
-  <head>    <!-- Google Tag Manager -->
-    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-TZ7P5GLL"></script>
+  <head>
+    <!-- Google Tag Manager -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtm.js?id=GTM-TZ7P5GLL"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
     </script>
-    <meta name="google-site-verification" content="oKpI2605t_0eu-Go_blNQpwz81QbXaXJcPsoFFaRDNA" />
+    <meta
+      name="google-site-verification"
+      content="oKpI2605t_0eu-Go_blNQpwz81QbXaXJcPsoFFaRDNA"
+    />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Browse community-tracked Call of Duty: Mobile redeem code updates for Global and Garena, with redemption steps and troubleshooting guidance."
+      content="Browse community-tracked Call of Duty: Mobile redeem code updates for Global and Garena, with UID lookup instructions, redemption steps, FAQs, and troubleshooting guidance."
     />
     <meta name="theme-color" content="#07111e" />
     <meta name="nav-section" content="hubs" />
@@ -28,14 +37,70 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "CODM Redeem Codes Hub",
-        "description": "Community-tracked Call of Duty: Mobile code updates and redemption help.",
-        "isPartOf": { "@type": "WebSite", "name": "MOB EXTRA" }
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "name": "CODM Redeem Codes Hub",
+            "description": "Community-tracked Call of Duty: Mobile code updates, UID instructions, and redemption help.",
+            "isPartOf": { "@type": "WebSite", "name": "MOB EXTRA" }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Are CODM redeem codes guaranteed to work?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. MOB EXTRA lists each code's recorded source date and game version, but promotional codes are time-limited, region-locked, or capped by total claims."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I find my Call of Duty: Mobile UID?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Open Call of Duty: Mobile, tap your player profile banner in the top-left corner of the main lobby, select the Basic tab, and tap the Copy icon next to your numeric UID below your avatar."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Why do Global CODM codes not work on Garena (or vice versa)?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Global and Garena run on separate publishing infrastructures with distinct redemption portals and promotional campaigns, so codes issued for one version cannot be redeemed on the other."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Where do I claim my rewards after redeeming a CODM code?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "After submitting a valid code on the official portal, open Call of Duty: Mobile and check your in-game Mailbox icon at the top of the lobby screen."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does MOB EXTRA provide or sell COD Points?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. MOB EXTRA is an independent information resource and does not sell in-game currency or guarantee rewards."
+                }
+              }
+            ]
+          }
+        ]
       }
     </script>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css" onerror="document.documentElement.classList.add('fa-unavailable')" />
-    <link rel="stylesheet" href="../../../assets/css/fontawesome-fallback.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"
+      onerror="document.documentElement.classList.add('fa-unavailable')"
+    />
+    <link
+      rel="stylesheet"
+      href="../../../assets/css/fontawesome-fallback.css"
+    />
     <script defer src="../../../assets/js/fontawesome-fallback.js"></script>
   </head>
   <body>
@@ -74,7 +139,8 @@
               account.
             </p>
             <div class="status-line">
-              <i class="fa-regular fa-calendar-check" aria-hidden="true"></i><span>Each listing includes its original source date</span>
+              <i class="fa-regular fa-calendar-check" aria-hidden="true"></i
+              ><span>Each listing includes its original source date</span>
             </div>
           </article>
           <article class="info-card" data-reveal data-delay="80">
@@ -157,6 +223,7 @@
                 channels before retrying.
               </div>
             </section>
+
             <section id="redeem" class="content-card" data-reveal>
               <h2>How to redeem CODM codes</h2>
               <div class="steps-grid">
@@ -191,7 +258,40 @@
                   </p>
                 </article>
               </div>
+              <div class="callout" style="margin-top: 14px">
+                <strong>How to copy your CODM UID:</strong> Open Call of Duty:
+                Mobile, tap your <strong>Player Profile</strong> banner in the
+                top-left corner of the lobby, switch to the
+                <strong>Basic</strong> tab, and tap the
+                <strong>Copy</strong> button next to the long numeric
+                <strong>UID</strong> beneath your avatar.
+              </div>
             </section>
+
+            <section id="regions" class="content-card" data-reveal>
+              <h2>Global vs. Garena CODM codes explained</h2>
+              <p>
+                Call of Duty: Mobile operates under different regional
+                publishers, which directly affects how promotional codes work:
+              </p>
+              <ul>
+                <li>
+                  <strong>Global Version (Activision):</strong> Covers North
+                  America, Europe, Latin America, India, and other global
+                  territories. Codes are redeemed on Activision’s web portal
+                  using your UID, the promotional code, and a 4-digit CAPTCHA
+                  verification number.
+                </li>
+                <li>
+                  <strong>Garena Version (Southeast Asia):</strong> Covers the
+                  Philippines, Singapore, Malaysia, Indonesia, Thailand, and
+                  Taiwan. Garena codes are typically redeemed inside the in-game
+                  <strong>Events → Featured → Redemption Center</strong>
+                  tab rather than on Activision’s website.
+                </li>
+              </ul>
+            </section>
+
             <section id="troubleshooting" class="content-card" data-reveal>
               <h2>Why a code may not work</h2>
               <ul>
@@ -200,17 +300,18 @@
                   often have a fixed time window or a limited number of claims.
                 </li>
                 <li>
-                  <strong>Region mismatch:</strong> a Garena code may not work
-                  on Global, and vice versa.
+                  <strong>Region mismatch:</strong> a Garena code will not work
+                  on Global, and Global codes will reject Garena UIDs.
                 </li>
                 <li>
                   <strong>Already redeemed:</strong> many rewards can be claimed
                   only once per account.
                 </li>
                 <li>
-                  <strong>Input or server issue:</strong> remove accidental
-                  spaces, check for similar characters, and try again later if
-                  the official portal is busy.
+                  <strong>CAPTCHA or server congestion:</strong> during major
+                  season launches or championship streams, the redemption portal
+                  may fail to load verification images—refresh the CAPTCHA and
+                  remove any trailing spaces when pasting your code.
                 </li>
               </ul>
               <p>
@@ -218,6 +319,7 @@
                 free rewards. MOB EXTRA does not request account credentials.
               </p>
             </section>
+
             <section id="faq" class="content-card" data-reveal>
               <h2>Frequently asked questions</h2>
               <div class="faq-item">
@@ -226,6 +328,22 @@
                   No. We share their recorded source date and version, but
                   cannot verify every account’s eligibility or guarantee that a
                   time-limited offer remains active.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>How do I find my Call of Duty: Mobile UID?</h3>
+                <p>
+                  Tap your profile icon at the top-left of the lobby, open the
+                  <strong>Basic</strong> tab, and tap the copy icon next to your
+                  numeric UID below your avatar picture.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>Where do claimed rewards arrive in-game?</h3>
+                <p>
+                  Once confirmed by the redemption center, rewards are delivered
+                  to your in-game <strong>Mailbox</strong> (the envelope icon
+                  along the top bar of the main lobby).
                 </p>
               </div>
               <div class="faq-item">
@@ -247,9 +365,38 @@
           </div>
           <aside class="side-card" data-reveal>
             <h2>On this page</h2>
-            <a href="#redeem">How to redeem <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a
-            ><a href="#troubleshooting">Troubleshooting <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a
-            ><a href="#faq">FAQs <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a>
+            <a href="#redeem"
+              >How to redeem
+              <span
+                ><i
+                  class="fa-solid fa-arrow-up-right-from-square"
+                  aria-hidden="true"
+                ></i></span
+            ></a>
+            <a href="#regions"
+              >Global vs. Garena
+              <span
+                ><i
+                  class="fa-solid fa-arrow-up-right-from-square"
+                  aria-hidden="true"
+                ></i></span
+            ></a>
+            <a href="#troubleshooting"
+              >Troubleshooting
+              <span
+                ><i
+                  class="fa-solid fa-arrow-up-right-from-square"
+                  aria-hidden="true"
+                ></i></span
+            ></a>
+            <a href="#faq"
+              >FAQs
+              <span
+                ><i
+                  class="fa-solid fa-arrow-up-right-from-square"
+                  aria-hidden="true"
+                ></i></span
+            ></a>
             <p>
               Codes and game services are owned by their respective publishers.
               See our <a href="../../editorial.html">update approach</a> and
@@ -262,6 +409,6 @@
     <div data-site-footer></div>
     <script src="../../../assets/js/site.js" defer></script>
     <script src="../../../assets/js/pages/redeem-hub.js" defer></script>
-      <script src="../../../assets/ads/ads.js" defer></script>
+    <script src="../../../assets/ads/ads.js" defer></script>
   </body>
 </html>
