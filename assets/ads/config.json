@@ -6,7 +6,32 @@
       "label": "SPONSORED",
       "title": "Useful tools for mobile players.",
       "description": "Open the player tools directory for focused utilities, including the CODM name formatter.",
-      "keywords": ["CODM", "gaming", "mobile games", "redeem codes", "player tools", "name formatter", "MLBB"],
+      "keywords": [
+        "CODM",
+        "gaming",
+        "mobile games",
+        "redeem codes",
+        "player tools",
+        "name formatter",
+        "MLBB"
+      ],
+      "href": "pages/tools/index.html",
+      "cta": "Explore player tools"
+    },
+    {
+      "sponsor": "Vile Tempest Official",
+      "label": "SPONSORED",
+      "title": "Useful tools for mobile players.",
+      "description": "Open the player tools directory for focused utilities, including the CODM name formatter.",
+      "keywords": [
+        "CODM",
+        "gaming",
+        "mobile games",
+        "redeem codes",
+        "player tools",
+        "name formatter",
+        "MLBB"
+      ],
       "href": "pages/tools/index.html",
       "cta": "Explore player tools"
     },
@@ -15,7 +40,17 @@
       "label": "SPONSORED",
       "title": "Have an engineering project?",
       "description": "Explore professional engineering services, detailed Bill of Quantities (BOQ), construction quotations, and technical project documentation.",
-      "keywords": ["engineering", "civil engineering", "bill of quantities", "BOQ", "construction", "quotation", "CAD drafting", "project documentation", "professional services"],
+      "keywords": [
+        "engineering",
+        "civil engineering",
+        "bill of quantities",
+        "BOQ",
+        "construction",
+        "quotation",
+        "CAD drafting",
+        "project documentation",
+        "professional services"
+      ],
       "href": "pages/services/index.html",
       "cta": "View services"
     }

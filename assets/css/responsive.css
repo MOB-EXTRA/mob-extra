@@ -15,7 +15,8 @@
     font-size: 55px;
   }
 
-  .hub-grid {
+  .hub-grid,
+  .tool-grid {
     gap: 11px;
   }
 
@@ -144,7 +145,8 @@
     margin: 15px 0 0;
   }
 
-  .hub-grid {
+  .hub-grid,
+  .tool-grid {
     grid-template-columns: 1fr;
   }
 
