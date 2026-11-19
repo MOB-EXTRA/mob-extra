@@ -1,0 +1,17 @@
+:root {
+  --bg: #07111e;
+  --panel: #0d1b2a;
+  --panel2: #102237;
+  --ink: #eef3f7;
+  --muted: #9ba8b6;
+  --dim: #687789;
+  --line: rgba(225,239,250,.11);
+  --lime: #20c7e9;
+  --mint: #5be0ee;
+  --blue: #90cdf4;
+  --orange: #ffb866;
+  --max: 1200px;
+  --sans: 'DM Sans',sans-serif;
+  --display: 'Manrope',sans-serif;
+  --mono: 'DM Mono',monospace;
+}

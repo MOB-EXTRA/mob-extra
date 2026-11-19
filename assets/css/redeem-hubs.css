@@ -1,0 +1,239 @@
+.content-card,
+.side-card,
+.info-card,
+.code-card,
+.steps-card {
+  background: linear-gradient(150deg, #172230, #121a25);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 25px;
+}
+.content-card h2,
+.side-card h2,
+.info-card h2,
+.steps-card h2 {
+  font: 650 21px var(--display);
+  letter-spacing: -0.03em;
+  margin: 0 0 12px;
+}
+.content-card p,
+.side-card p,
+.info-card p,
+.steps-card p {
+  color: #a7b3be;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.content-card li,
+.steps-card li {
+  color: #a7b3be;
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 7px 0;
+}
+.hub-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 23px;
+}
+.hub-lead-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 17px;
+}
+.code-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin: 23px 0 13px;
+}
+.code-toolbar h2 {
+  font: 650 22px var(--display);
+  margin: 0;
+}
+.code-toolbar p {
+  color: #82919d;
+  font-size: 11px;
+  margin: 4px 0 0;
+}
+.code-filters {
+  display: flex;
+  gap: 7px;
+}
+.filter-btn {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: #9eacb9;
+  padding: 7px 11px;
+  border-radius: 5px;
+  cursor: pointer;
+  font: 10px var(--mono);
+}
+.filter-btn.active,
+.filter-btn:hover {
+  background: #20c7e9;
+  color: #11170b;
+  border-color: #20c7e9;
+}
+.code-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.code-card {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px;
+}
+.code-symbol {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: #20c7e912;
+  border-radius: 7px;
+  color: var(--lime);
+}
+.code-detail {
+  min-width: 0;
+  flex: 1;
+}
+.code-detail code {
+  display: block;
+  color: #edf4e8;
+  font: 600 14px var(--mono);
+  letter-spacing: 0.035em;
+  overflow-wrap: anywhere;
+}
+.code-detail span {
+  display: block;
+  margin-top: 4px;
+  color: #8999a6;
+  font: 9px var(--mono);
+}
+.copy-btn {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: #c4d0d6;
+  padding: 7px 9px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 10px;
+}
+.copy-btn:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.step {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+}
+.step b {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  background: #20c7e9;
+  color: #14200d;
+  border-radius: 7px;
+  font: 600 12px var(--mono);
+}
+.step h3 {
+  font: 600 14px var(--display);
+  margin: 13px 0 4px;
+}
+.step p {
+  margin: 0;
+  font-size: 11px;
+}
+.code-controls {
+  display: flex;
+  gap: 8px;
+  align-items: end;
+  flex-wrap: wrap;
+}
+.code-search-label,
+.code-limit-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #92a4b4;
+  font: 9px var(--mono);
+  letter-spacing: 0.06em;
+}
+.code-search-label input,
+.code-limit-label select {
+  min-height: 33px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #0c1825;
+  color: var(--ink);
+  padding: 0 10px;
+  font: 10px var(--sans);
+}
+.code-search-label input {
+  width: 190px;
+}
+.code-limit-label select {
+  cursor: pointer;
+}
+.code-count {
+  margin: 0 0 12px;
+  color: #8296a5;
+  font: 10px var(--mono);
+}
+.code-source {
+  margin: -5px 0 12px;
+  color: #728899;
+  font: 9px var(--mono);
+}
+
+@media (max-width: 700px) {
+  /* Stack the lead info cards vertically on mobile */
+  .hub-lead-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .code-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .code-filters {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .filter-btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .code-grid,
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .code-controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .code-search-label,
+  .code-search-label input,
+  .code-limit-label,
+  .code-limit-label select {
+    width: 100%;
+  }
+}

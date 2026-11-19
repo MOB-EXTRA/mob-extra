@@ -1,0 +1,23 @@
+/* Design tokens and font stacks. */
+
+:root {
+  --paper: #f7f7f4;
+  --ink: #202722;
+  --muted: #737a73;
+  --line: #dfe2db;
+  --green: #b9e371;
+  --green-dark: #27341f;
+  --orange: #f4a36f;
+  --display: "Manrope",sans-serif;
+  --body: "DM Sans",sans-serif;
+  --mono: "DM Mono",monospace
+}
+
+* {
+  box-sizing: border-box
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px
+}

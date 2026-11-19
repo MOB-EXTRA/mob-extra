@@ -1,0 +1,9 @@
+{
+  "projects": [
+    "works/vile-tempest-official-site/project.json",
+    "works/boq-workflow-assistant/project.json",
+    "works/purpose-built-utilities/project.json",
+    "works/technical-diagrams/project.json",
+    "works/cad-drafting/project.json"
+  ]
+}

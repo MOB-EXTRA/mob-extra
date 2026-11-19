@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#07111e">
+    <title>Page not found | MOB EXTRA</title>
+    <script>
+      (() => {
+        const match = window.location.pathname.match(/^(.*\/mob-extra\/)/i);
+        const base = document.createElement("base");
+        base.href = match ? match[1] : "/";
+        document.head.append(base);
+      })();
+    </script>
+    <link rel="icon" href="./assets/img/favicon.png">
+    <link rel="stylesheet" href="./assets/css/site.css">
+    <link rel="stylesheet" href="./assets/css/content-pages.css">
+    <link rel="stylesheet" href="./assets/css/animations/motion.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap"><a class="brand" href="./"><img src="./assets/img/mob-extra.png" alt="" width="38" height="38"><span>MOB<span class="brand-accent">EXTRA</span><small>PLAY SMARTER</small></span></a><a class="nav-cta" href="./">Back to home <span>↗</span></a></div>
+    </header>
+    <main id="main" class="page-shell">
+      <section class="page-hero container"><span class="page-kicker">404 · PAGE NOT FOUND</span><h1>Looks like this<br><span>page moved.</span></h1><p>The link may be outdated or the address may have a typo. Head back to the home page and choose a game hub or player tool.</p><a class="button button-primary" href="./">Go to MOB EXTRA <span>↗</span></a></section>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-bottom"><span>© <span data-year>2026</span> MOB EXTRA</span><a href="./">Home</a><a href="./pages/contact.html">Report a broken link</a></div>
+    </footer>
+    <script src="./assets/js/site.js" defer></script>
+    <script src="./assets/js/animations/replay.js" defer></script>
+    <link rel="stylesheet" href="./assets/css/review-widget.css">
+    <script type="module" src="./assets/js/review-widget.js"></script>
+      <script src="assets/ads/ads.js" defer></script>
+  </body>
+</html>

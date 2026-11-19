@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Free instant PX to REM, REM to PX, batch CSS converter, and responsive clamp() generator for web developers by MOB EXTRA."
+    />
+    <meta name="theme-color" content="#07111e" />
+    <meta name="nav-section" content="tools" />
+    <meta name="nav-label" content="PX ↔ REM converter" />
+    <meta name="nav-description" content="Convert pixels and rem, batch convert CSS values, and generate fluid clamp() rules." />
+    <title>PX ↔ REM & Fluid CSS Converter | MOB EXTRA Dev Tools</title>
+    <link rel="icon" href="../../../assets/img/favicon.png" />
+    <link rel="stylesheet" href="../../../assets/css/site.css" />
+    <link rel="stylesheet" href="../../../assets/css/px-rem-tool.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PX to REM & Fluid CSS Converter",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div data-site-header></div>
+    <script src="../../../assets/js/components.js" defer></script>
+
+    <main id="main" class="tool-shell">
+      <!-- Top Monetization Slot (728x90 Leaderboard / Responsive) -->
+      <div class="container">
+      </div>
+
+      <section class="tool-hero container">
+        <div class="breadcrumbs">
+          <a href="../../../index.html">Home</a><span>/</span
+          ><a href="../../../pages/tools/index.html">Tools</a><span>/</span><span>PX ↔ REM</span>
+        </div>
+        <span class="page-kicker">CSS UNIT UTILITIES · DEVELOPER SUITE</span>
+        <h1>PX ↔ REM & <span>Fluid CSS Converter.</span></h1>
+        <p>
+          Instant two-way pixel and rem calculation, batch stylesheet
+          conversion, and fluid <code>clamp()</code> generation—built for fast
+          front-end workflows.
+        </p>
+      </section>
+
+      <section class="container tool-workspace">
+        <!-- Main Interactive Column -->
+        <div class="tool-primary">
+          <!-- Mode Switcher Tabs -->
+          <div class="tool-tabs" role="tablist">
+            <button
+              class="tool-tab active"
+              role="tab"
+              aria-selected="true"
+              data-tab="converter"
+            >
+              Instant Converter
+            </button>
+            <button
+              class="tool-tab"
+              role="tab"
+              aria-selected="false"
+              data-tab="batch"
+            >
+              Batch CSS Convert
+            </button>
+            <button
+              class="tool-tab"
+              role="tab"
+              aria-selected="false"
+              data-tab="clamp"
+            >
+              Fluid clamp()
+            </button>
+          </div>
+
+          <!-- TAB 1: INSTANT CONVERTER -->
+          <div class="tool-panel active" id="panel-converter">
+            <div class="base-bar">
+              <label for="root-size">Root Font Size (<code>html</code>):</label>
+              <div class="base-input-wrap">
+                <input
+                  type="number"
+                  id="root-size"
+                  value="16"
+                  min="1"
+                  max="128"
+                  step="1"
+                />
+                <span>px</span>
+              </div>
+              <div class="base-presets">
+                <button type="button" class="preset-chip" data-base="10">
+                  10px (62.5%)
+                </button>
+                <button type="button" class="preset-chip active" data-base="16">
+                  16px (Default)
+                </button>
+                <button type="button" class="preset-chip" data-base="18">
+                  18px
+                </button>
+              </div>
+            </div>
+
+            <div class="converter-grid">
+              <div class="unit-box">
+                <div class="unit-header">
+                  <label for="input-px">PIXELS (PX)</label>
+                  <button
+                    type="button"
+                    class="copy-btn"
+                    data-copy-target="input-px"
+                    data-suffix="px"
+                  >
+                    Copy
+                  </button>
+                </div>
+                <div class="unit-field">
+                  <input
+                    type="number"
+                    id="input-px"
+                    value="16"
+                    step="any"
+                    aria-label="Pixels value"
+                  />
+                  <span class="unit-tag">px</span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                id="swap-btn"
+                class="swap-trigger"
+                title="Swap values"
+                aria-label="Swap PX and REM values"
+              >
+                ⇄
+              </button>
+
+              <div class="unit-box">
+                <div class="unit-header">
+                  <label for="input-rem">ROOT EM (REM)</label>
+                  <button
+                    type="button"
+                    class="copy-btn"
+                    data-copy-target="input-rem"
+                    data-suffix="rem"
+                  >
+                    Copy
+                  </button>
+                </div>
+                <div class="unit-field">
+                  <input
+                    type="number"
+                    id="input-rem"
+                    value="1"
+                    step="any"
+                    aria-label="REM value"
+                  />
+                  <span class="unit-tag">rem</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live CSS Snippet Preview -->
+            <div class="snippet-bar">
+              <code id="css-snippet">font-size: 1rem; /* 16px */</code>
+              <button
+                type="button"
+                class="copy-btn"
+                data-copy-text="css-snippet"
+              >
+                Copy CSS
+              </button>
+            </div>
+
+            <!-- Quick Reference Cheat Table -->
+            <div class="reference-card">
+              <div class="ref-header">
+                <h3>Quick Reference Scale</h3>
+                <span>Click any row to copy</span>
+              </div>
+              <div class="table-scroll">
+                <table class="scale-table">
+                  <thead>
+                    <tr>
+                      <th>Pixels (px)</th>
+                      <th>REM</th>
+                      <th>Tailwind Class</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="scale-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: BATCH CSS CONVERTER -->
+          <div class="tool-panel" id="panel-batch">
+            <div class="batch-controls">
+              <div class="batch-direction">
+                <button
+                  type="button"
+                  class="dir-btn active"
+                  data-dir="px-to-rem"
+                >
+                  PX → REM
+                </button>
+                <button type="button" class="dir-btn" data-dir="rem-to-px">
+                  REM → PX
+                </button>
+              </div>
+              <button type="button" id="batch-sample" class="preset-chip">
+                Load Sample CSS
+              </button>
+            </div>
+
+            <div class="batch-grid">
+              <div class="code-box">
+                <label for="batch-input">Input CSS</label>
+                <textarea
+                  id="batch-input"
+                  rows="10"
+                  placeholder="Paste your CSS here (e.g. padding: 24px 16px; font-size: 18px;)..."
+                ></textarea>
+              </div>
+              <div class="code-box">
+                <div class="unit-header">
+                  <label for="batch-output">Converted CSS</label>
+                  <button
+                    type="button"
+                    class="copy-btn"
+                    data-copy-target="batch-output"
+                  >
+                    Copy Result
+                  </button>
+                </div>
+                <textarea
+                  id="batch-output"
+                  rows="10"
+                  readonly
+                  placeholder="Converted output will appear here automatically..."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: FLUID CLAMP() GENERATOR -->
+          <div class="tool-panel" id="panel-clamp">
+            <div class="clamp-grid">
+              <div class="clamp-field">
+                <label for="clamp-min-fs">Min Font Size (px)</label>
+                <input type="number" id="clamp-min-fs" value="16" />
+              </div>
+              <div class="clamp-field">
+                <label for="clamp-max-fs">Max Font Size (px)</label>
+                <input type="number" id="clamp-max-fs" value="32" />
+              </div>
+              <div class="clamp-field">
+                <label for="clamp-min-vw">Min Viewport (px)</label>
+                <input type="number" id="clamp-min-vw" value="375" />
+              </div>
+              <div class="clamp-field">
+                <label for="clamp-max-vw">Max Viewport (px)</label>
+                <input type="number" id="clamp-max-vw" value="1280" />
+              </div>
+            </div>
+
+            <div class="snippet-bar clamp-result">
+              <code id="clamp-output"
+                >font-size: clamp(1rem, 0.586rem + 1.768vw, 2rem);</code
+              >
+              <button
+                type="button"
+                class="copy-btn"
+                data-copy-text="clamp-output"
+              >
+                Copy clamp()
+              </button>
+            </div>
+          </div>
+
+          <!-- SEO Content & Educational Guide (Boosts AdSense RPM & Organic Search Traffic) -->
+          <article class="seo-guide">
+            <h2>Why use REM instead of PX in modern CSS?</h2>
+            <p>
+              While pixels (<code>px</code>) provide fixed dimensions,
+              <strong>REM (Root EM)</strong> units scale proportionally with the
+              user's browser root font size. Using <code>rem</code> ensures your
+              typography, spacing, and layouts respect user accessibility
+              settings and zoom preferences across desktop and mobile devices.
+            </p>
+            <div class="formula-box">
+              <strong>Conversion Formula:</strong>
+              <code>rem = px ÷ root_font_size</code>  | 
+              <code>px = rem × root_font_size</code>
+            </div>
+          </article>
+        </div>
+
+        <!-- Sticky Monetization & Tools Sidebar -->
+        <aside class="tool-sidebar">
+
+          <div class="sidebar-card">
+            <span class="small-label">MOB EXTRA SUITE</span>
+            <h3>More Developer & Player Tools</h3>
+            <ul class="tool-links">
+              <li><a href="../../../pages/tools/index.html">All MOB EXTRA Tools →</a></li>
+              <li>
+                <a href="../../../pages/services/index.html"
+                  >Custom Web & Automation Services →</a
+                >
+              </li>
+              <li>
+                <a href="../../../pages/portfolio/index.html">Meet the Developers →</a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <div id="copy-toast" class="copy-toast" role="status" aria-live="polite">
+      Copied to clipboard
+    </div>
+    <div data-site-footer></div>
+
+    <script src="../../../assets/js/site.js" defer></script>
+    <script src="../../../assets/js/pages/px-rem-tool.js" defer></script>
+      <script src="../../../assets/ads/ads.js" defer></script>
+  </body>
+</html>

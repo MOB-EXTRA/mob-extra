@@ -1,0 +1,111 @@
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 14px;
+}
+.tool-card {
+  padding: 22px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg,#172230,#121a25);
+}
+.tool-card h2 {
+  font: 600 17px var(--display);
+  margin: 10px 0 4px;
+}
+.tool-card p {
+  font-size: 12px;
+  color: #a0adb8;
+}
+.tool-card .text-link {
+  margin-top: 6px;
+}
+.ign-input {
+  display: block;
+  width: 100%;
+  margin: 9px 0 12px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #0d151f;
+  color: var(--ink);
+  font: 14px var(--mono);
+  resize: vertical;
+}
+.ign-options,
+.ign-actions,
+.ign-copy-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ign-options .filter-btn,
+.ign-actions .filter-btn {
+  min-height: 38px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #111c28;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 12px;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.ign-options .filter-btn:hover,
+.ign-options .filter-btn.active,
+.ign-actions .filter-btn:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+  background: #20c7e90c;
+}
+.ign-actions {
+  margin-top: 10px;
+}
+.ign-preview {
+  color: #eef3f7;
+  font-family: var(--mono);
+}
+.ign-copy-row {
+  align-items: center;
+  gap: 10px;
+}
+.ign-message {
+  min-height: 1.4em;
+  margin-top: 12px;
+}
+.formatter-card {
+  max-width: 900px;
+  margin-inline: auto;
+}
+.formatter-card > .category-label {
+  display: block;
+  margin-top: 24px;
+}
+.formatter-preview {
+  min-height: 64px;
+  overflow-wrap: anywhere;
+}
+.formatter-card .ign-copy-row {
+  margin-top: 18px;
+}
+.tool-directory-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+}
+.tool-directory-grid .tool-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+.tool-directory-grid .tool-card p {
+  flex: 1;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.tool-grid-spaced {
+  margin-top: 15px;
+}
+@media (max-width: 700px) {
+  .tool-grid {
+    grid-template-columns: 1fr;
+  }
+}

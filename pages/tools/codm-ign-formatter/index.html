@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Format a Call of Duty: Mobile name with Unicode spacing, preview it, and copy the result." />
+    <meta name="theme-color" content="#07111e" />
+    <meta name="nav-section" content="tools" />
+    <meta name="nav-label" content="CODM name formatter" />
+    <meta name="nav-description" content="Preview and copy CODM names with selectable Unicode spacing characters." />
+    <title>CODM Name Formatter | MOB EXTRA Tools</title>
+    <link rel="icon" href="../../../assets/img/favicon.png" />
+    <link rel="stylesheet" href="../../../assets/css/site.css" />
+    <link rel="stylesheet" href="../../../assets/css/content-pages.css" />
+    <link rel="stylesheet" href="../../../assets/css/tools.css" />
+  </head>
+  <body>
+    <div data-site-header></div>
+    <script src="../../../assets/js/components.js" defer></script>
+    <main id="main" class="page-shell">
+      <section class="page-hero page-hero-compact container" data-reveal>
+        <div class="breadcrumbs"><a href="../../../index.html">Home</a><span>/</span><a href="../index.html">Tools</a><span>/</span><span>CODM name formatter</span></div>
+        <span class="page-kicker">CALL OF DUTY: MOBILE · PLAYER TOOL</span>
+        <h1>Make your name<br /><span>fit your style.</span></h1>
+        <p>Preview and copy a name with Unicode spacing. Character support can vary by game update, region, and platform, so test the result in-game before using it as your permanent name.</p>
+      </section>
+      <section class="page-content container">
+        <div class="content-card formatter-card" data-reveal>
+          <span class="small-label">NAME FORMATTING</span>
+          <label for="ignText" class="category-label">YOUR NAME OR TEXT</label>
+          <textarea id="ignText" class="ign-input" rows="3" maxlength="14" placeholder="Type a name or phrase…"></textarea>
+          <div class="ign-options" aria-label="Choose spacing character">
+            <button class="filter-btn active" type="button" data-space="hangul" aria-pressed="true">Hangul filler</button>
+            <button class="filter-btn" type="button" data-space="nbsp" aria-pressed="false">Non-breaking space</button>
+            <button class="filter-btn" type="button" data-space="braille" aria-pressed="false">Braille blank</button>
+            <button class="filter-btn" type="button" data-space="enquad" aria-pressed="false">En quad</button>
+          </div>
+          <div class="ign-actions">
+            <button class="filter-btn" id="insertSpace" type="button">Insert selected space</button>
+            <button class="filter-btn" id="copyBlank" type="button">Copy space only</button>
+            <button class="filter-btn" id="clearIgn" type="button">Clear text</button>
+          </div>
+          <div class="callout formatter-preview" aria-live="polite">Preview: <strong id="ignPreview" class="ign-preview">Your formatted name appears here</strong></div>
+          <div class="ign-copy-row">
+            <button class="button button-primary" id="copyIgn" type="button">Copy formatted text <span>↗</span></button>
+            <span class="category-label">Characters: <span id="charCount">0</span> / 14</span>
+          </div>
+          <p class="callout">For CODM, use Inventory → Rename Card → Use to paste a custom name. Unicode spacing support can change with game updates.</p>
+          <p class="category-label ign-message" id="toolMessage" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+    <div data-site-footer></div>
+    <script src="../../../assets/js/site.js" defer></script>
+    <script src="../../../assets/js/pages/codm-ign-formatter.js" defer></script>
+      <script src="../../../assets/ads/ads.js" defer></script>
+  </body>
+</html>

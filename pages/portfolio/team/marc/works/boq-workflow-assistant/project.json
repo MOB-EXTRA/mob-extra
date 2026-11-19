@@ -1,0 +1,9 @@
+{
+  "id": "boq-workflow-assistant",
+  "title": "Bill of quantities template",
+  "eyebrow": "BOQ INPUT WORKSPACE",
+  "description": "Enter item and quantity inputs by work section. The template calculates material, labor, direct, OCM, profit, subtotal, unit, and total costs, with detailed and summary sheets plus a material-rate database.",
+  "category": "BOQ · COST ESTIMATION",
+  "thumbnail": "thumbnails/1.png",
+  "thumbnailAlt": "BOQ workflow assistant background"
+}
