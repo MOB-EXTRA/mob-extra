@@ -471,6 +471,55 @@ a {
   justify-content: center;
 }
 
+/* Soft grounded horizon shadow under the lower fade */
+.portrait-column::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  width: min(76%, 340px);
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(15, 23, 42, 0.16) 0%,
+    rgba(109, 40, 66, 0.06) 52%,
+    transparent 75%
+  );
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.seated-portrait {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  max-width: 450px;
+  max-height: 560px;
+  object-fit: contain;
+  object-position: center bottom;
+  transform: scale(var(--hero-portrait-zoom, 1));
+  transform-origin: center bottom;
+  filter: drop-shadow(0 12px 22px rgba(15, 23, 42, 0.1));
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 66%,
+    rgba(0, 0, 0, 0.55) 84%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 66%,
+    rgba(0, 0, 0, 0.55) 84%,
+    transparent 100%
+  );
+}
+
 .portrait-backdrop {
   position: absolute;
   inset: 0;

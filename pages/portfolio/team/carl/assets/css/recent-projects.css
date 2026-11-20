@@ -5,7 +5,7 @@
 
 #finished-projects,
 .main-nav a[href="#finished-projects"] {
-  /* Visible by default; uncomment display: none only if hiding the section */
+  /* display: none; */
 }
 
 /* ==========================================

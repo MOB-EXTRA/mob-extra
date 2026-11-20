@@ -1,12 +1,90 @@
+/* ==========================================
+   ORGANIC FLOATING HERO BADGES & BLUEPRINT TAGS
+   Asymmetric paths, speeds, and phase offsets
+   ========================================== */
 @media (prefers-reduced-motion: no-preference) {
-  .hero-section .portrait-column,
-  .hero-section .intro-column,
-  .hero-section .content-column {
-    animation: arrive .7s cubic-bezier(.2,.75,.25,1) both;
+  .portrait-column .blueprint-tag.tag-top {
+    will-change: transform;
+    animation: float-structural-tag 6.8s cubic-bezier(0.37, 0, 0.63, 1) -1.4s
+      infinite;
   }
-  .hero-section .intro-column { animation-delay: .08s; }
-  .hero-section .content-column { animation-delay: .16s; }
-  .reveal-ready [data-reveal] { opacity:0; transform:translateY(18px); transition:opacity .65s ease,transform .65s cubic-bezier(.2,.75,.25,1); }
-  .reveal-ready [data-reveal].is-visible { opacity:1; transform:translateY(0); }
-  @keyframes arrive { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+
+  .portrait-column .blueprint-tag.tag-mid {
+    will-change: transform;
+    animation: float-build-tag 5.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) -3.1s
+      infinite;
+  }
+
+  .portrait-column .floating-badge {
+    will-change: transform;
+    animation: float-licensed-badge 7.6s
+      cubic-bezier(0.33, 0.02, 0.42, 0.99) -2.2s infinite;
+  }
+
+  .portrait-column .blueprint-tag:hover,
+  .portrait-column .floating-badge:hover {
+    animation-play-state: paused;
+  }
+
+  .portrait-column .floating-badge:hover {
+    transform: translateY(-4px) scale(1.015);
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+/* Slow, calm architectural drift with subtle tilt */
+@keyframes float-structural-tag {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-0.6deg);
+  }
+  28% {
+    transform: translate3d(5px, -8px, 0) rotate(0.9deg);
+  }
+  63% {
+    transform: translate3d(-4px, -3px, 0) rotate(-0.4deg);
+  }
+  85% {
+    transform: translate3d(2px, 4px, 0) rotate(0.5deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-0.6deg);
+  }
+}
+
+/* Snappier, slightly more energetic horizontal-vertical glide */
+@keyframes float-build-tag {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0.5deg);
+  }
+  22% {
+    transform: translate3d(-6px, -6px, 0) rotate(-0.8deg);
+  }
+  54% {
+    transform: translate3d(4px, -10px, 0) rotate(0.7deg);
+  }
+  78% {
+    transform: translate3d(-2px, 3px, 0) rotate(-0.3deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0.5deg);
+  }
+}
+
+/* Weighted, grounded buoy motion for the primary credential card */
+@keyframes float-licensed-badge {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  35% {
+    transform: translate3d(0, -7px, 0) rotate(-0.45deg);
+  }
+  70% {
+    transform: translate3d(-4px, -2px, 0) rotate(0.55deg);
+  }
+  88% {
+    transform: translate3d(2px, 3px, 0) rotate(-0.2deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
 }
