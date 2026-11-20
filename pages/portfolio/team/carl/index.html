@@ -1,26 +1,44 @@
 <!doctype html>
 <html lang="en">
-  <head>    <!-- Google Tag Manager -->
-    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-TZ7P5GLL"></script>
+  <head>
+    <!-- Google Tag Manager -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtm.js?id=GTM-TZ7P5GLL"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
     </script>
-    <meta name="google-site-verification" content="oKpI2605t_0eu-Go_blNQpwz81QbXaXJcPsoFFaRDNA" />
+    <meta
+      name="google-site-verification"
+      content="oKpI2605t_0eu-Go_blNQpwz81QbXaXJcPsoFFaRDNA"
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b1113" />
     <meta name="nav-section" content="more" />
     <meta name="nav-label" content="Carl Vincent portfolio" />
     <meta name="portfolio-group" content="team" />
-    <meta name="nav-description" content="Carl Vincent Cagatin is a licensed civil engineer with practical experience in construction operations, site coordination, technical documentation, and structural project execution for clients." />
+    <meta
+      name="nav-description"
+      content="Carl Vincent Cagatin is a licensed civil engineer with practical experience in construction operations, site coordination, technical documentation, and structural project execution for clients."
+    />
     <meta name="directory-title" content="Engr. Carl Vincent Cagatin" />
     <meta name="directory-kicker" content="CIVIL ENGINEERING · CONSTRUCTION" />
     <meta name="directory-image" content="assets/img/thumbnail.png" />
-    <meta name="directory-image-alt" content="Carl Vincent Cagatin portfolio thumbnail" />
+    <meta
+      name="directory-image-alt"
+      content="Carl Vincent Cagatin portfolio thumbnail"
+    />
     <meta name="directory-logo" content="assets/img/favicon.png" />
-    <meta name="directory-logo-alt" content="Carl Vincent Cagatin portfolio logo" />
+    <meta
+      name="directory-logo-alt"
+      content="Carl Vincent Cagatin portfolio logo"
+    />
     <meta
       name="description"
       content="Meet Carl Vincent Cagatin, a licensed civil engineer with practical experience in construction operations, site coordination, technical documentation, and project execution."
@@ -32,7 +50,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css" onerror="document.documentElement.classList.add('fa-unavailable')"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"
+      onerror="document.documentElement.classList.add('fa-unavailable')"
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
@@ -43,8 +62,13 @@
     />
 
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/recent-projects.css" />
     <link rel="stylesheet" href="assets/css/animations.css" />
-      <link rel="stylesheet" href="../../../../assets/css/fontawesome-fallback.css" />
+
+    <link
+      rel="stylesheet"
+      href="../../../../assets/css/fontawesome-fallback.css"
+    />
     <script defer src="../../../../assets/js/fontawesome-fallback.js"></script>
   </head>
 
@@ -52,30 +76,17 @@
     <!-- HEADER -->
     <header class="site-header">
       <div class="nav-container">
-        <a class="greeting-tag" href="#hero">Good day!</a>
-
-        <div class="socials">
-          <span>Get in Touch</span>
-          <span class="social-divider">//</span>
-
-          <a
-            href="https://www.facebook.com/carlvincent.cagatin.10"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Message Me"
-            ><i class="fa-brands fa-facebook-f"></i
-          ></a>
-          <a
-            href="https://www.facebook.com/carlvincent.cagatin.10"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Call Me"
-            ><i class="fa-solid fa-phone"></i
-          ></a>
-          <a href="mailto:mob.extra.contact@gmail.com" aria-label="Email Me">
-            <i class="fa-solid fa-at" aria-hidden="true"></i>
-          </a>
-        </div>
+        <a class="brand-lockup" href="#hero">
+          <img
+            src="assets/img/favicon.png"
+            alt="RCV Civil Engineering emblem"
+            class="brand-emblem"
+          />
+          <div class="brand-text">
+            <strong>RCV<span>.CE</span></strong>
+            <small class="greeting-tag">Good day!</small>
+          </div>
+        </a>
 
         <button
           class="menu-toggle"
@@ -89,242 +100,810 @@
 
         <div class="nav-right">
           <nav class="main-nav">
-            <a class="active" href="#hero">Index</a>
-            <a href="#services">Services</a>
-            <a href="#projects">Projects</a>
+            <a class="active" href="#hero">Home</a>
             <a href="#about">About</a>
-            <a href="../../../../index.html">MOB EXTRA</a>
+            <a href="#projects">Experience</a>
+            <a href="#finished-projects">Recent Builds</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+            <span class="nav-indicator" aria-hidden="true"></span>
           </nav>
 
-          <a class="btn-talk" href="#contact"> Let's talk! <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span> </a>
+          <a class="btn-talk" href="#contact">
+            Let's Talk
+            <i
+              class="fa-solid fa-arrow-up-right-from-square"
+              aria-hidden="true"
+            ></i>
+          </a>
         </div>
       </div>
     </header>
 
-    <!-- HERO SECTION -->
     <main>
+      <!-- HERO SECTION -->
       <section class="hero-section" id="hero">
-        <!-- Decorative Elements -->
-        <div class="hero-decoration hero-decoration-one"></div>
-        <div class="hero-decoration hero-decoration-two"></div>
+        <div class="hero-blueprint-grid" aria-hidden="true"></div>
+        <div class="hero-glow hero-glow-amber" aria-hidden="true"></div>
+        <div class="hero-glow hero-glow-steel" aria-hidden="true"></div>
 
-        <!-- PORTRAIT -->
-        <div class="portrait-column">
-          <img
-            src="assets/img/carl-img-3.png"
-            alt="Engr. Carl Vincent"
-            class="seated-portrait"
-          />
+        <div class="hero-container">
+          <!-- LEFT: INTRODUCTION -->
+          <div class="intro-column">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              <span>HI THERE, I'M</span>
+            </div>
 
-          <div class="portrait-caption">
-            <span>BUILD</span>
-            <span>SOLVE</span>
-            <span>IMPROVE</span>
+            <h1 class="hero-headline">
+              <span class="engineer-name">Carl Vincent Cagatin</span>
+              <span class="hero-role">Civil Engineer</span>
+            </h1>
+
+            <p class="hero-description">
+              A Licensed Civil Engineer with hands-on on-site
+              experience—delivering disciplined construction operations,
+              technical estimation, and field coordination built on structural
+              integrity and safety.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button-primary" href="#finished-projects">
+                Recent Builds
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="button-secondary" href="#about">
+                <i class="fa-solid fa-compass-drafting" aria-hidden="true"></i>
+                Credentials
+              </a>
+            </div>
+
+            <div class="hero-office-strip">
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              <span>
+                <strong>Office:</strong> Icao Drive, Purok Tunggo, Minaog,
+                Dipolog City, Zamboanga del Norte
+              </span>
+            </div>
+
+            <div class="hero-socials">
+              <a
+                href="https://www.facebook.com/carlvincent.cagatin.10"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook Profile"
+                ><i class="fa-brands fa-facebook-f" aria-hidden="true"></i
+              ></a>
+              <a
+                href="https://www.facebook.com/carlvincent.cagatin.10"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Phone Contact"
+                ><i class="fa-solid fa-phone" aria-hidden="true"></i
+              ></a>
+              <a
+                href="mailto:mob.extra.contact@gmail.com"
+                aria-label="Send Email"
+                ><i class="fa-solid fa-envelope" aria-hidden="true"></i
+              ></a>
+              <span class="social-caption">Direct Engineering Inquiries</span>
+            </div>
           </div>
-        </div>
 
-        <!-- INTRODUCTION -->
-        <div class="intro-column">
-          <div class="eyebrow">
-            <span>HI THERE! THIS IS</span>
-            <i class="fa-solid fa-hand" aria-hidden="true"></i>
-          </div>
-
-          <p class="engineer-name">Carl Vincent Cagatin</p>
-
-          <h1 class="hero-headline">
-            CIVIL
-            <span>ENGINEER</span>
-          </h1>
-
-          <p class="hero-description">
-            A Licensed Civil Engineer with hands-on on-site experience, actively
-            involved in construction operations, field coordination, and the
-            execution of engineering projects.
-          </p>
-
-          <div class="hero-actions">
-            <a class="button-primary" href="#projects">
-              View Projects <span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
-            </a>
-
-            <a class="button-text" href="#about"> About Me <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span> </a>
-          </div>
-        </div>
-
-        <!-- SERVICES AND CREDENTIALS -->
-        <aside class="content-column" id="services">
-          <div class="services-stack">
-            <!-- EXPERIENCE 1 -->
-            <article class="service-item">
-              <div class="service-icon">
-                <i class="fa-solid fa-house-chimney" aria-hidden="true"></i>
+          <!-- RIGHT: PORTRAIT & FLOATING CREDENTIAL BADGE -->
+          <div class="portrait-column">
+            <div class="portrait-backdrop" aria-hidden="true">
+              <div class="backdrop-ring"></div>
+              <div class="blueprint-tag tag-top">
+                <i class="fa-solid fa-ruler-combined" aria-hidden="true"></i>
+                <span>STRUCTURAL & FIELD</span>
               </div>
-
-              <div>
-                <h2>On-Site Construction Operations</h2>
-                <p>
-                  Hands-on experience in actual construction environments,
-                  supporting field activities, work implementation, and
-                  day-to-day site operations.
-                </p>
+              <div class="blueprint-tag tag-mid">
+                <span>BUILD · SOLVE · IMPROVE</span>
               </div>
-            </article>
+            </div>
 
-            <!-- EXPERIENCE 2 -->
-            <article class="service-item">
-              <div class="service-icon">
-                <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
-              </div>
+            <img
+              src="assets/img/carl-img-2.png"
+              alt="Engr. Carl Vincent Cagatin"
+              class="seated-portrait"
+            />
 
-              <div>
-                <h2>Technical Documentation & Estimation</h2>
-                <p>
-                  Experience working with engineering drawings, construction
-                  documentation, quantity estimates, and project-related
-                  technical requirements.
-                </p>
-              </div>
-            </article>
-
-            <!-- EXPERIENCE 3 -->
-            <article class="service-item">
-              <div class="service-icon">
+            <div class="floating-badge">
+              <div class="badge-icon">
                 <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
               </div>
-
               <div>
-                <h2>Site Coordination & Project Execution</h2>
-                <p>
-                  Practical involvement in coordinating construction activities,
-                  monitoring work progress, and supporting the implementation of
-                  project requirements.
-                </p>
-              </div>
-            </article>
-          </div>
-
-          <!-- HELP LINK -->
-          <a class="help-link" href="#contact">
-            How can I help? <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-          </a>
-
-          <!-- EXPERIENCE AND CREDENTIALS -->
-          <div class="credentials">
-            <div class="stats-row">
-              <div>
-                <strong>01</strong>
-                <span>Licensed<br />Civil Engineer</span>
-              </div>
-
-              <div>
-                <strong>03</strong>
-                <span>Core areas<br />of practice</span>
-              </div>
-            </div>
-
-            <div class="credential-note">
-              <div class="credential-mark"><i class="fa-solid fa-award" aria-hidden="true"></i></div>
-
-              <div>
-                <span class="credential-label"> LICENSED CIVIL ENGINEER </span>
-
-                <p>
-                  A Licensed Civil Engineer with practical construction site
-                  experience, bringing field knowledge and technical
-                  understanding to real-world engineering projects.
-                </p>
+                <strong>Licensed CE</strong>
+                <span>On-Site & Technical Execution</span>
               </div>
             </div>
           </div>
-        </aside>
+        </div>
       </section>
 
-      <!-- PROJECTS -->
-      <section class="content-section" id="projects">
+      <!-- ABOUT ME & STATS -->
+      <section class="content-section section-about" id="about">
         <div class="section-container">
-          <div class="projects-heading">
+          <div class="about-grid">
+            <div class="about-copy">
+              <p class="section-kicker">ABOUT ME</p>
+              <h2 class="section-heading">
+                Grounded in <span>Field Experience.</span>
+              </h2>
+              <p class="section-sub">
+                A Licensed Civil Engineer with professional experience rooted in
+                actual construction site operations. I bridge engineering plans
+                with real-world execution—combining technical documentation,
+                quantity estimation, and proactive site coordination to keep
+                projects safe, compliant, and on schedule.
+              </p>
+              <p class="about-office-line">
+                <i class="fa-solid fa-building-flag" aria-hidden="true"></i>
+                <span>
+                  Engineering Office: Icao Drive, Purok Tunggo, Minaog, Dipolog
+                  City, Zamboanga del Norte
+                </span>
+              </p>
+              <div class="signature-row">
+                <span class="signature-mark">Engr. C.V. Cagatin</span>
+                <span class="signature-role">Registered Civil Engineer</span>
+              </div>
+
+              <div
+                class="about-highlights"
+                aria-label="Key engineering strengths"
+              >
+                <div class="about-highlight-item">
+                  <i class="fa-solid fa-hard-hat" aria-hidden="true"></i>
+                  <div>
+                    <strong>Site Supervision</strong>
+                    <span>Field & structural checks</span>
+                  </div>
+                </div>
+                <div class="about-highlight-item">
+                  <i class="fa-solid fa-calculator" aria-hidden="true"></i>
+                  <div>
+                    <strong>BOQ & Estimation</strong>
+                    <span>Take-offs & cost plans</span>
+                  </div>
+                </div>
+                <div class="about-highlight-item">
+                  <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
+                  <div>
+                    <strong>Docs & QA/QC</strong>
+                    <span>Plans, logs & safety</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-cards">
+              <article class="stat-card">
+                <div class="stat-icon">
+                  <i class="fa-solid fa-award" aria-hidden="true"></i>
+                </div>
+                <strong>PRC</strong>
+                <span>Licensed Civil Engineer</span>
+              </article>
+
+              <article class="stat-card">
+                <div class="stat-icon">
+                  <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                </div>
+                <strong>03+</strong>
+                <span>Core Engineering Pillars</span>
+              </article>
+
+              <article class="stat-card">
+                <div class="stat-icon">
+                  <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                </div>
+                <strong>100%</strong>
+                <span>Site Safety & Code Focus</span>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED EXPERIENCE / PROJECTS -->
+      <section class="content-section section-dark-alt" id="projects">
+        <div class="section-container">
+          <div class="section-header-row">
             <div>
               <p class="section-kicker">FIELDWORK · DOCUMENTATION · DELIVERY</p>
               <h2 class="section-heading">Featured <span>Experience</span></h2>
-              <p class="section-sub">
-                A closer look at the work behind safe, coordinated, well-built
-                projects.
-              </p>
             </div>
-            <a class="projects-contact-link" href="#contact"
-              >Discuss a project <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a
-            >
+
+            <a class="pill-link" href="#contact">
+              Discuss a Project
+              <span class="pill-arrow"
+                ><i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+              ></span>
+            </a>
+          </div>
+
+          <div class="project-cards-grid">
+            <article class="project-card">
+              <div class="project-visual visual-site">
+                <span class="project-badge">01 · FIELD OPS</span>
+                <i class="fa-solid fa-building-shield" aria-hidden="true"></i>
+                <div class="visual-lines"></div>
+              </div>
+              <div class="project-body">
+                <div>
+                  <h3>On-Site Construction Operations</h3>
+                  <p>Field Supervision & Work Implementation</p>
+                </div>
+                <a
+                  href="#contact"
+                  class="card-action-btn"
+                  aria-label="Inquire about On-Site Construction Operations"
+                >
+                  <i
+                    class="fa-solid fa-arrow-up-right-from-square"
+                    aria-hidden="true"
+                  ></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-visual visual-boq">
+                <span class="project-badge">02 · ESTIMATION</span>
+                <i class="fa-solid fa-compass-drafting" aria-hidden="true"></i>
+                <div class="visual-lines"></div>
+              </div>
+              <div class="project-body">
+                <div>
+                  <h3>Technical Documentation & BOQ</h3>
+                  <p>Engineering Drawings & Quantity Estimates</p>
+                </div>
+                <a
+                  href="#contact"
+                  class="card-action-btn"
+                  aria-label="Inquire about Technical Documentation and Estimation"
+                >
+                  <i
+                    class="fa-solid fa-arrow-up-right-from-square"
+                    aria-hidden="true"
+                  ></i>
+                </a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-visual visual-coord">
+                <span class="project-badge">03 · EXECUTION</span>
+                <i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>
+                <div class="visual-lines"></div>
+              </div>
+              <div class="project-body">
+                <div>
+                  <h3>Site Coordination & Delivery</h3>
+                  <p>Progress Monitoring & Quality Compliance</p>
+                </div>
+                <a
+                  href="#contact"
+                  class="card-action-btn"
+                  aria-label="Inquire about Site Coordination and Project Execution"
+                >
+                  <i
+                    class="fa-solid fa-arrow-up-right-from-square"
+                    aria-hidden="true"
+                  ></i>
+                </a>
+              </div>
+            </article>
           </div>
 
           <div class="experience-panel">
             <div class="experience-panel-mark">
-              <i class="fa-solid fa-compass-drafting" aria-hidden="true"></i>
+              <i class="fa-solid fa-file-contract" aria-hidden="true"></i>
             </div>
             <div>
-              <p class="section-kicker">PRACTICAL ENGINEERING EXPERIENCE</p>
+              <p class="section-kicker">PROJECT PORTFOLIO RECORD</p>
               <h3>Field knowledge. Technical rigor. Reliable delivery.</h3>
               <p>
-                Experience spans construction site operations, coordination,
-                progress monitoring, drawing review, technical documentation,
-                and quantity estimation. Project names, locations, dates, and
-                outcomes can be added here when confirmed.
+                Practical involvement spans construction site supervision,
+                contractor coordination, progress tracking, blueprint review,
+                technical documentation, and Bill of Quantities (BOQ)
+                estimation. Detailed project case studies and site records are
+                available upon direct inquiry.
               </p>
             </div>
-            <a class="projects-contact-link" href="#contact"
-              >Request a conversation <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a
-            >
+            <a class="button-primary" href="#contact">
+              Request Details
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
       </section>
 
-      <!-- ABOUT -->
-      <section class="content-section section-muted" id="about">
+      <!-- RECENT & FINISHED PROJECTS / BUILDS -->
+      <section class="content-section" id="finished-projects">
         <div class="section-container">
-          <p class="section-kicker">PROFESSIONAL BACKGROUND</p>
+          <div class="section-header-row">
+            <div>
+              <p class="section-kicker">COMPLETED BUILDS & CASE RECORDS</p>
+              <h2 class="section-heading">
+                Recent Finished <span>Projects</span>
+              </h2>
+            </div>
 
-          <h2 class="section-heading">Grounded in <span>Experience.</span></h2>
+            <a class="pill-link" href="#contact">
+              Request Quotation
+              <span class="pill-arrow"
+                ><i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+              ></span>
+            </a>
+          </div>
 
-          <p class="section-sub">
-            A Licensed Civil Engineer with professional experience rooted in
-            actual construction site operations. Combining engineering knowledge
-            with practical field experience, site coordination, and project
-            implementation.
-          </p>
+          <div class="builds-grid">
+            <!-- BUILD 1 -->
+            <article
+              class="build-card"
+              data-category="Residential House"
+              data-location="Dipolog City, Zamboanga del Norte"
+              data-budget="₱2.5M – ₱5.0M"
+              data-year="2026"
+              data-scope="Supervision · BOQ"
+            >
+              <div class="build-media">
+                <img
+                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80"
+                  alt="Finished modern residential house build"
+                  loading="lazy"
+                />
+                <span class="build-status">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  Completed
+                </span>
+              </div>
+
+              <div class="build-content">
+                <div class="build-kicker-line">
+                  <span>Residential House</span>
+                  <span>145 sqm</span>
+                </div>
+                <h3>Modern Single-Family Residence</h3>
+                <p class="build-summary">
+                  Structural supervision, material coordination, and
+                  cost-disciplined execution.
+                </p>
+
+                <div class="build-meta-grid">
+                  <div class="meta-cell">
+                    <span>Location</span>
+                    <strong>Dipolog City, Zamboanga del Norte</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Budget</span>
+                    <strong>₱2.5M – ₱5.0M</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Finished</span>
+                    <strong>Sep 2026</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Scope</span>
+                    <strong>Supervision · BOQ</strong>
+                  </div>
+                </div>
+
+                <div class="build-footer">
+                  <span class="build-note">QA/QC & Code Checked</span>
+                  <a href="#contact" class="build-inquire-link">
+                    Inquire
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- BUILD 2 -->
+            <article
+              class="build-card"
+              data-category="House & Structural"
+              data-location="Dapitan City, Zamboanga del Norte"
+              data-budget="₱5.0M – ₱10.0M"
+              data-year="2026"
+              data-scope="Structural · Estimation"
+            >
+              <div class="build-media">
+                <img
+                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
+                  alt="Finished two-story house and structural build"
+                  loading="lazy"
+                />
+                <span class="build-status">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  Completed
+                </span>
+              </div>
+
+              <div class="build-content">
+                <div class="build-kicker-line">
+                  <span>House & Structural</span>
+                  <span>220 sqm</span>
+                </div>
+                <h3>Two-Storey Residential Expansion</h3>
+                <p class="build-summary">
+                  Reinforced concrete framing, schedule control, and itemized
+                  quantity tracking.
+                </p>
+
+                <div class="build-meta-grid">
+                  <div class="meta-cell">
+                    <span>Location</span>
+                    <strong>Dapitan City, Zamboanga del Norte</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Budget</span>
+                    <strong>₱5.0M – ₱10.0M</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Finished</span>
+                    <strong>Jun 2026</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Scope</span>
+                    <strong>Structural · Estimation</strong>
+                  </div>
+                </div>
+
+                <div class="build-footer">
+                  <span class="build-note">Itemized BOQ & Logs</span>
+                  <a href="#contact" class="build-inquire-link">
+                    Inquire
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- BUILD 3 -->
+            <article
+              class="build-card"
+              data-category="Commercial & Site"
+              data-location="Dipolog City, Zamboanga del Norte"
+              data-budget="₱10.0M+"
+              data-year="2025"
+              data-scope="Plan Review · Coord"
+            >
+              <div class="build-media">
+                <img
+                  src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80"
+                  alt="Architectural planning and commercial build execution"
+                  loading="lazy"
+                />
+                <span class="build-status">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  Completed
+                </span>
+              </div>
+
+              <div class="build-content">
+                <div class="build-kicker-line">
+                  <span>Commercial & Site</span>
+                  <span>480 sqm</span>
+                </div>
+                <h3>Commercial & Utility Facility</h3>
+                <p class="build-summary">
+                  On-site coordination, drawing verification, and safety
+                  compliance through turnover.
+                </p>
+
+                <div class="build-meta-grid">
+                  <div class="meta-cell">
+                    <span>Location</span>
+                    <strong>Dipolog City, Zamboanga del Norte</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Budget</span>
+                    <strong>₱10.0M+</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Finished</span>
+                    <strong>Nov 2025</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Scope</span>
+                    <strong>Plan Review · Coord</strong>
+                  </div>
+                </div>
+
+                <div class="build-footer">
+                  <span class="build-note">On-Site Verified</span>
+                  <a href="#contact" class="build-inquire-link">
+                    Inquire
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- BUILD 4 (TEST PROJECT) -->
+            <article
+              class="build-card"
+              data-category="Residential House"
+              data-location="Ozamiz City, Misamis Occidental"
+              data-budget="Under ₱2.5M"
+              data-year="2025"
+              data-scope="Supervision · Estimation"
+            >
+              <div class="build-media">
+                <img
+                  src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80"
+                  alt="Finished compact bungalow residence"
+                  loading="lazy"
+                />
+                <span class="build-status">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  Completed
+                </span>
+              </div>
+
+              <div class="build-content">
+                <div class="build-kicker-line">
+                  <span>Residential House</span>
+                  <span>96 sqm</span>
+                </div>
+                <h3>Compact Family Bungalow</h3>
+                <p class="build-summary">
+                  Efficient foundation layout, masonry supervision, and accurate
+                  material cost control.
+                </p>
+
+                <div class="build-meta-grid">
+                  <div class="meta-cell">
+                    <span>Location</span>
+                    <strong>Ozamiz City, Misamis Occidental</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Budget</span>
+                    <strong>Under ₱2.5M</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Finished</span>
+                    <strong>Jul 2025</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Scope</span>
+                    <strong>Supervision · Estimation</strong>
+                  </div>
+                </div>
+
+                <div class="build-footer">
+                  <span class="build-note">Cost-Controlled Build</span>
+                  <a href="#contact" class="build-inquire-link">
+                    Inquire
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- BUILD 5 (TEST PROJECT) -->
+            <article
+              class="build-card"
+              data-category="House & Structural"
+              data-location="Dipolog City, Zamboanga del Norte"
+              data-budget="₱2.5M – ₱5.0M"
+              data-year="2024"
+              data-scope="Structural · BOQ"
+            >
+              <div class="build-media">
+                <img
+                  src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=900&q=80"
+                  alt="Structural retrofit and reinforced concrete house"
+                  loading="lazy"
+                />
+                <span class="build-status">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  Completed
+                </span>
+              </div>
+
+              <div class="build-content">
+                <div class="build-kicker-line">
+                  <span>House & Structural</span>
+                  <span>175 sqm</span>
+                </div>
+                <h3>Structural Framing & Roof Deck</h3>
+                <p class="build-summary">
+                  Rebar inspection, concrete pour supervision, and detailed BOQ
+                  verification.
+                </p>
+
+                <div class="build-meta-grid">
+                  <div class="meta-cell">
+                    <span>Location</span>
+                    <strong>Dipolog City, Zamboanga del Norte</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Budget</span>
+                    <strong>₱2.5M – ₱5.0M</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Finished</span>
+                    <strong>Dec 2024</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Scope</span>
+                    <strong>Structural · BOQ</strong>
+                  </div>
+                </div>
+
+                <div class="build-footer">
+                  <span class="build-note">NSCP Compliant</span>
+                  <a href="#contact" class="build-inquire-link">
+                    Inquire
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- BUILD 6 (TEST PROJECT) -->
+            <article
+              class="build-card"
+              data-category="Commercial & Site"
+              data-location="Dapitan City, Zamboanga del Norte"
+              data-budget="₱5.0M – ₱10.0M"
+              data-year="2024"
+              data-scope="Supervision · Coord"
+            >
+              <div class="build-media">
+                <img
+                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80"
+                  alt="Commercial office and site development build"
+                  loading="lazy"
+                />
+                <span class="build-status">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  Completed
+                </span>
+              </div>
+
+              <div class="build-content">
+                <div class="build-kicker-line">
+                  <span>Commercial & Site</span>
+                  <span>340 sqm</span>
+                </div>
+                <h3>Commercial Annex & Site Works</h3>
+                <p class="build-summary">
+                  Site grading, drainage coordination, contractor milestones,
+                  and handover logs.
+                </p>
+
+                <div class="build-meta-grid">
+                  <div class="meta-cell">
+                    <span>Location</span>
+                    <strong>Dapitan City, Zamboanga del Norte</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Budget</span>
+                    <strong>₱5.0M – ₱10.0M</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Finished</span>
+                    <strong>May 2024</strong>
+                  </div>
+                  <div class="meta-cell">
+                    <span>Scope</span>
+                    <strong>Supervision · Coord</strong>
+                  </div>
+                </div>
+
+                <div class="build-footer">
+                  <span class="build-note">Turnkey Handover</span>
+                  <a href="#contact" class="build-inquire-link">
+                    Inquire
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
-      <!-- CONTACT -->
-      <section class="content-section" id="contact">
-        <div class="section-container contact-container">
-          <div>
-            <p class="section-kicker">LET'S CONNECT</p>
+      <!-- LET'S WORK TOGETHER CTA -->
+      <section class="content-section cta-section" id="contact">
+        <div class="section-container">
+          <div class="cta-banner">
+            <div class="cta-copy">
+              <p class="section-kicker">LET'S WORK TOGETHER</p>
+              <h2 class="section-heading">
+                Have a construction or <span>engineering project?</span>
+              </h2>
+              <p class="section-sub">
+                Connect with Engr. Carl Vincent Cagatin for site engineering,
+                project coordination, quantity estimation, and professional
+                collaboration.
+              </p>
 
-            <h2 class="section-heading">
-              Engineering starts with <span>experience.</span>
-            </h2>
+              <div class="cta-office-card">
+                <div class="cta-office-details">
+                  <span class="cta-office-label">
+                    <i
+                      class="fa-solid fa-map-location-dot"
+                      aria-hidden="true"
+                    ></i>
+                    OFFICE LOCATION
+                  </span>
+                  <strong id="carl-office-address">
+                    Icao Drive, Purok Tunggo, Minaog, Dipolog City, Zamboanga
+                    del Norte
+                  </strong>
+                </div>
+                <button
+                  type="button"
+                  class="cta-copy-btn"
+                  data-copy-target="#carl-office-address"
+                  aria-label="Copy office address"
+                >
+                  <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                  <span>Copy Address</span>
+                </button>
+              </div>
 
-            <p class="section-sub">
-              Connect with Carl Vincent for professional opportunities,
-              engineering collaboration, and construction-related discussions.
-            </p>
+              <div class="cta-buttons">
+                <a
+                  class="button-primary"
+                  href="mailto:mob.extra.contact@gmail.com"
+                >
+                  Let's Talk
+                  <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                </a>
+                <a
+                  class="button-secondary"
+                  href="https://www.facebook.com/carlvincent.cagatin.10"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                  Message on Facebook
+                </a>
+              </div>
+            </div>
+
+            <div class="cta-graphic" aria-hidden="true">
+              <div class="cta-orbit"></div>
+              <div class="cta-emblem-box">
+                <i class="fa-solid fa-compass-drafting"></i>
+              </div>
+            </div>
           </div>
-
-          <a class="button-primary" href="mailto:mob.extra.contact@gmail.com">
-            Get in Touch <span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
-          </a>
         </div>
       </section>
     </main>
 
     <!-- FOOTER -->
     <footer class="site-footer">
-      <p>© 2026 Engr. Carl Vincent. All Rights Reserved.</p>
+      <div class="footer-container">
+        <div class="footer-brand">
+          <img
+            src="assets/img/favicon.png"
+            alt="RCV Civil Engineering emblem"
+            class="brand-emblem"
+          />
+          <span>Engr. Carl Vincent Cagatin · Civil Engineering</span>
+        </div>
 
-      <a href="#hero">Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a>
+        <p>© 2026 Engr. Carl Vincent. All Rights Reserved.</p>
+
+        <a href="#hero" class="back-top">
+          Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+        </a>
+      </div>
     </footer>
 
     <script src="assets/js/script.js"></script>
     <script src="assets/js/animations.js"></script>
+    <script src="assets/js/filter-recent-projects.js"></script>
   </body>
 </html>
