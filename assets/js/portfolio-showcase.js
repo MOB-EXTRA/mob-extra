@@ -3,13 +3,19 @@
   const hosts = [...document.querySelectorAll("[data-portfolio-showcase]")];
   if (!hosts.length || !window.siteCatalogReady) return;
 
-  const portfolioRoot = new URL("pages/portfolio/", window.siteBase || window.location.href);
+  const portfolioRoot = new URL(
+    "pages/portfolio/",
+    window.siteBase || window.location.href,
+  );
   const directoryPath = new URL("index.html", portfolioRoot).pathname;
-  const isDirectory = (pathname) => pathname === portfolioRoot.pathname || pathname === directoryPath;
+  const isDirectory = (pathname) =>
+    pathname === portfolioRoot.pathname || pathname === directoryPath;
   const isPortfolioPage = (page) => {
     if (page.section !== "more" || !page.portfolioGroup) return false;
     const pathname = new URL(page.url).pathname;
-    return pathname.startsWith(portfolioRoot.pathname) && !isDirectory(pathname);
+    return (
+      pathname.startsWith(portfolioRoot.pathname) && !isDirectory(pathname)
+    );
   };
 
   const createPortfolioCard = (page, index) => {
@@ -92,7 +98,7 @@
       const dot = document.createElement("i");
       dot.className = "fa-solid fa-users";
       dot.setAttribute("aria-hidden", "true");
-      eyebrow.append(dot, " PEOPLE BEHIND THE PROJECTS");
+      eyebrow.append(dot, " FEATURED PROFILES");
       const title = document.createElement("h2");
       title.id = "portfolio-showcase-title";
       title.append("Explore the ");
@@ -101,15 +107,18 @@
       title.append(accent);
       titleGroup.append(eyebrow, title);
       const intro = document.createElement("p");
-      intro.textContent = "Meet the people behind MOB EXTRA, explore their experience and selected work, and find the right contact path for each independent portfolio.";
+      intro.textContent =
+        "Explore the development work behind MOB EXTRA alongside partnered civil engineering services—review past projects, capabilities, and direct contact details.";
       heading.append(titleGroup, intro);
 
       const groups = [
-        { key: "team", title: "MOB EXTRA Team" },
+        { key: "team", title: "Creator & Collaborator" },
         { key: "community", title: "Hosted Community Portfolios" },
       ];
       const groupSections = groups.flatMap((group) => {
-        const entries = pages.filter((page) => page.portfolioGroup === group.key);
+        const entries = pages.filter(
+          (page) => page.portfolioGroup === group.key,
+        );
         if (!entries.length) return [];
         const sectionGroup = document.createElement("section");
         sectionGroup.className = "portfolio-showcase-group";
@@ -118,7 +127,9 @@
         const grid = document.createElement("div");
         grid.className = "portfolio-card-grid";
         grid.setAttribute("aria-live", "polite");
-        entries.forEach((page, index) => grid.append(createPortfolioCard(page, index)));
+        entries.forEach((page, index) =>
+          grid.append(createPortfolioCard(page, index)),
+        );
         sectionGroup.append(groupTitle, grid);
         return [sectionGroup];
       });
@@ -135,10 +146,16 @@
       const noteText = document.createElement("p");
       const noteTitle = document.createElement("strong");
       noteTitle.textContent = "Independent profiles.";
-      noteText.append(noteTitle, " Each portfolio represents its named professional. Contact details and services are shown on the relevant profile page.");
+      noteText.append(
+        noteTitle,
+        " Each portfolio represents its named professional. Contact details and services are shown on the relevant profile page.",
+      );
       const services = document.createElement("a");
       services.className = "text-link";
-      services.href = new URL("pages/services/index.html", window.siteBase || window.location.href).href;
+      services.href = new URL(
+        "pages/services/index.html",
+        window.siteBase || window.location.href,
+      ).href;
       services.append("Professional services ");
       const servicesArrow = document.createElement("i");
       servicesArrow.className = "fa-solid fa-arrow-right";
