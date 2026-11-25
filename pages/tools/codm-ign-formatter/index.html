@@ -1,27 +1,90 @@
 <!doctype html>
 <html lang="en">
-  <head>    <!-- Google Tag Manager -->
-    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-TZ7P5GLL"></script>
+  <head>
+    <!-- Google Tag Manager -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtm.js?id=GTM-TZ7P5GLL"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
     </script>
-    <meta name="google-site-verification" content="oKpI2605t_0eu-Go_blNQpwz81QbXaXJcPsoFFaRDNA" />
+    <meta
+      name="google-site-verification"
+      content="oKpI2605t_0eu-Go_blNQpwz81QbXaXJcPsoFFaRDNA"
+    />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Format a Call of Duty: Mobile name with Unicode spacing, preview it, and copy the result." />
+    <meta
+      name="description"
+      content="Format a Call of Duty: Mobile name with Unicode spacing, preview it, and copy the result."
+    />
     <meta name="theme-color" content="#07111e" />
     <meta name="nav-section" content="tools" />
     <meta name="nav-label" content="CODM name formatter" />
-    <meta name="nav-description" content="Preview and copy CODM names with selectable Unicode spacing characters." />
+    <meta
+      name="nav-description"
+      content="Preview and copy CODM names with selectable Unicode spacing characters."
+    />
     <title>CODM Name Formatter | MOB EXTRA Tools</title>
     <link rel="icon" href="../../../assets/img/favicon.png" />
     <link rel="stylesheet" href="../../../assets/css/site.css" />
     <link rel="stylesheet" href="../../../assets/css/content-pages.css" />
     <link rel="stylesheet" href="../../../assets/css/tools.css" />
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css" onerror="document.documentElement.classList.add('fa-unavailable')" />
-    <link rel="stylesheet" href="../../../assets/css/fontawesome-fallback.css" />
+    <link rel="stylesheet" href="../../../assets/css/codm-ign-formatter.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"
+      onerror="document.documentElement.classList.add('fa-unavailable')"
+    />
+    <link
+      rel="stylesheet"
+      href="../../../assets/css/fontawesome-fallback.css"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Where is the Inventory located in CODM to use a Rename Card?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "From the main lobby, tap Loadout at the bottom of the screen, then tap the Inventory icon in the top-right corner. Locate your Rename Card inside the inventory grid and tap Use."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I get a CODM Rename Card without spending CP?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. In the in-game Store under the Items tab, select the Rename Card and switch the purchase currency from COD Points (CP) to Credits (C) so you can buy it with free in-game Credits."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does my formatted name show fewer than 14 visible letters?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Invisible spacing characters like Hangul filler (U+3164) and Braille blank (U+2800) still occupy 1 character slot each toward the 14-character limit."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How often can I change my name in Call of Duty: Mobile?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can change your name once every 3 days, provided you have a Rename Card in your Inventory."
+            }
+          }
+        ]
+      }
+    </script>
     <script defer src="../../../assets/js/fontawesome-fallback.js"></script>
   </head>
   <body>
@@ -29,40 +92,401 @@
     <script src="../../../assets/js/components.js" defer></script>
     <main id="main" class="page-shell">
       <section class="page-hero page-hero-compact container" data-reveal>
-        <div class="breadcrumbs"><a href="../../../index.html">Home</a><span>/</span><a href="../index.html">Tools</a><span>/</span><span>CODM name formatter</span></div>
+        <div class="breadcrumbs">
+          <a href="../../../index.html">Home</a><span>/</span
+          ><a href="../index.html">Tools</a><span>/</span
+          ><span>CODM name formatter</span>
+        </div>
         <span class="page-kicker">CALL OF DUTY: MOBILE · PLAYER TOOL</span>
         <h1>Make your name<br /><span>fit your style.</span></h1>
-        <p>Preview and copy a name with Unicode spacing. Character support can vary by game update, region, and platform, so test the result in-game before using it as your permanent name.</p>
+        <p>
+          Preview and copy a name with Unicode spacing. Character support can
+          vary by game update, region, and platform, so test the result in-game
+          before using it as your permanent name.
+        </p>
       </section>
-      <section class="page-content container">
+      <section class="page-content container formatter-page-content">
         <div class="content-card formatter-card" data-reveal>
-          <span class="small-label">NAME FORMATTING</span>
-          <label for="ignText" class="category-label">YOUR NAME OR TEXT</label>
-          <textarea id="ignText" class="ign-input" rows="3" maxlength="14" placeholder="Type a name or phrase…"></textarea>
-          <div class="ign-options" aria-label="Choose spacing character">
-            <button class="filter-btn active" type="button" data-space="hangul" aria-pressed="true">Hangul filler</button>
-            <button class="filter-btn" type="button" data-space="nbsp" aria-pressed="false">Non-breaking space</button>
-            <button class="filter-btn" type="button" data-space="braille" aria-pressed="false">Braille blank</button>
-            <button class="filter-btn" type="button" data-space="enquad" aria-pressed="false">En quad</button>
+          <div class="formatter-heading">
+            <div>
+              <span class="formatter-eyebrow">NAME FORMATTING</span>
+              <h2>Build your CODM name</h2>
+              <p>
+                Enter your name, choose a spacing character, then copy the
+                result.
+              </p>
+            </div>
+            <span class="formatter-step" aria-hidden="true">PLAYER TOOL</span>
           </div>
-          <div class="ign-actions">
-            <button class="filter-btn" id="insertSpace" type="button">Insert selected space</button>
-            <button class="filter-btn" id="copyBlank" type="button">Copy space only</button>
-            <button class="filter-btn" id="clearIgn" type="button">Clear text</button>
+
+          <fieldset class="formatter-space-section">
+            <legend>CHOOSE A SPACING CHARACTER</legend>
+            <p class="formatter-section-hint">
+              Choose what to insert when you press Space.
+            </p>
+            <div class="ign-options">
+              <button
+                class="formatter-choice active"
+                type="button"
+                data-space="hangul"
+                aria-pressed="true"
+              >
+                Hangul filler
+              </button>
+              <button
+                class="formatter-choice"
+                type="button"
+                data-space="nbsp"
+                aria-pressed="false"
+              >
+                Non-breaking space
+              </button>
+              <button
+                class="formatter-choice"
+                type="button"
+                data-space="braille"
+                aria-pressed="false"
+              >
+                Braille blank
+              </button>
+              <button
+                class="formatter-choice"
+                type="button"
+                data-space="enquad"
+                aria-pressed="false"
+              >
+                En quad
+              </button>
+            </div>
+          </fieldset>
+
+          <div class="formatter-workspace">
+            <div class="formatter-editor-column">
+              <div class="formatter-input-section">
+                <div class="formatter-label-row">
+                  <label for="ignText" class="category-label"
+                    >YOUR NAME OR TEXT</label
+                  >
+                  <span class="formatter-count"
+                    ><span id="charCount">0</span> / 14 characters</span
+                  >
+                </div>
+                <input
+                  id="ignText"
+                  class="ign-input"
+                  type="text"
+                  maxlength="14"
+                  placeholder="Type your name…"
+                  aria-describedby="ignHint"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  spellcheck="false"
+                  enterkeyhint="done"
+                />
+                <p class="formatter-hint" id="ignHint">
+                  Up to 14 characters. Spaces are converted to your selected
+                  character.
+                </p>
+              </div>
+
+              <section
+                class="formatter-preview-panel"
+                aria-label="Formatted name preview"
+                aria-live="polite"
+              >
+                <span class="formatter-preview-label">LIVE PREVIEW</span>
+                <strong id="ignPreview" class="ign-preview"
+                  >Your formatted name appears here</strong
+                >
+              </section>
+            </div>
+
+            <div class="formatter-control-panel" id="formatterControlPanel">
+              <div class="formatter-quick-actions">
+                <h3>Quick actions</h3>
+                <div class="ign-actions">
+                  <button
+                    class="button button-primary"
+                    id="insertSpace"
+                    type="button"
+                  >
+                    Insert selected space
+                  </button>
+                  <button
+                    class="button button-quiet"
+                    id="copyBlank"
+                    type="button"
+                  >
+                    Copy space only
+                  </button>
+                  <button
+                    class="button button-quiet formatter-clear"
+                    id="clearIgn"
+                    type="button"
+                  >
+                    Clear text
+                  </button>
+                </div>
+              </div>
+
+              <div class="ign-copy-row">
+                <button
+                  class="button button-primary"
+                  id="copyIgn"
+                  type="button"
+                  aria-label="Copy formatted name"
+                >
+                  Copy name
+                  <span
+                    ><i class="fa-regular fa-copy" aria-hidden="true"></i
+                  ></span>
+                </button>
+                <p>
+                  Paste it into the Rename Card screen in CODM. Unicode support
+                  may vary by game update.
+                </p>
+              </div>
+              <p
+                class="formatter-message"
+                id="toolMessage"
+                aria-live="polite"
+              ></p>
+            </div>
           </div>
-          <div class="callout formatter-preview" aria-live="polite">Preview: <strong id="ignPreview" class="ign-preview">Your formatted name appears here</strong></div>
-          <div class="ign-copy-row">
-            <button class="button button-primary" id="copyIgn" type="button">Copy formatted text <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></button>
-            <span class="category-label">Characters: <span id="charCount">0</span> / 14</span>
-          </div>
-          <p class="callout">For CODM, use Inventory, then Rename Card, then Use to paste a custom name. Unicode spacing support can change with game updates.</p>
-          <p class="category-label ign-message" id="toolMessage" aria-live="polite"></p>
         </div>
+        <article
+          class="content-card formatter-guide"
+          data-reveal
+          aria-labelledby="codm-guide-heading"
+        >
+          <div class="formatter-guide-header">
+            <span class="formatter-eyebrow"
+              >PLAYER GUIDE · RENAME WALKTHROUGH</span
+            >
+            <h2 id="codm-guide-heading">
+              How to Change Your Name in Call of Duty: Mobile (via Inventory)
+            </h2>
+            <p>
+              If you already own a <strong>Rename Card</strong>—or want to use
+              the card directly without getting stuck on the basic profile edit
+              screen—use the <strong>Loadout → Inventory</strong> method in the
+              CODM lobby.
+            </p>
+          </div>
+
+          <div class="formatter-guide-grid">
+            <section class="formatter-guide-block">
+              <h3>Step-by-Step: Rename Through Inventory (Recommended)</h3>
+              <ol class="formatter-steps">
+                <li>
+                  <strong>Copy your formatted name first:</strong> Type your IGN
+                  in the formatter above, choose your preferred Unicode spacing
+                  character, and tap <strong>Copy name</strong>.
+                </li>
+                <li>
+                  <strong>Open Loadout in the lobby:</strong> From the Call of
+                  Duty: Mobile main lobby screen, tap
+                  <strong>Loadout</strong> in the bottom navigation bar (do not
+                  open your top-left Basic Player Profile).
+                </li>
+                <li>
+                  <strong>Open your Inventory:</strong> Look at the top-right
+                  area of the Loadout screen and tap the
+                  <strong>Inventory</strong> (backpack/crate) icon.
+                </li>
+                <li>
+                  <strong>Select your Rename Card:</strong> Find the
+                  <strong>Rename Card</strong> in your item list and tap
+                  <strong>Use</strong>.
+                </li>
+                <li>
+                  <strong>Paste and confirm:</strong> Tap the name input field
+                  in the Rename Card prompt, paste your copied IGN, verify that
+                  all characters render properly without missing boxes, and tap
+                  <strong>Change</strong>.
+                </li>
+              </ol>
+            </section>
+
+            <section class="formatter-guide-block">
+              <h3>Why Use Inventory Instead of Basic Profile?</h3>
+              <ul class="formatter-bullets">
+                <li>
+                  <strong>Direct item activation:</strong> Editing through
+                  <em>Player Profile → Basic → Edit Name</em> prompts you to buy
+                  a Rename Card even when you prefer activating an existing card
+                  from your bag.
+                </li>
+                <li>
+                  <strong>Quick confirmation of available cards:</strong>
+                  Opening <strong>Inventory</strong> immediately shows how many
+                  Rename Cards you currently hold before you paste your
+                  formatted text.
+                </li>
+                <li>
+                  <strong
+                    >Buying a Rename Card with Credits (C) instead of
+                    CP:</strong
+                  >
+                  If you do not have a Rename Card yet, open the in-game
+                  <strong>Store → Items</strong> (or tap Buy on the card prompt)
+                  and switch the currency toggle from <strong>CP</strong> to
+                  <strong>Credits (C)</strong> to purchase one with free earned
+                  Credits.
+                </li>
+              </ul>
+            </section>
+          </div>
+
+          <section class="formatter-guide-block">
+            <h3>Comparing Unicode Spacing Characters for CODM</h3>
+            <p class="formatter-guide-sub">
+              Standard keyboard spaces (<code>U+0020</code>) are often trimmed
+              or rejected in Call of Duty: Mobile IGN fields. Each preset in
+              this tool inserts a distinct Unicode whitespace or filler
+              character:
+            </p>
+            <div class="formatter-table-wrap">
+              <table class="formatter-table">
+                <thead>
+                  <tr>
+                    <th>Preset Name</th>
+                    <th>Unicode Code Point</th>
+                    <th>Visual Width & Behavior</th>
+                    <th>Best Use Case</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Hangul filler</strong></td>
+                    <td><code>U+3164</code></td>
+                    <td>Full-width invisible Hangul character</td>
+                    <td>
+                      Most popular choice for clean visible gaps between clan
+                      tags and IGNs
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Non-breaking space</strong></td>
+                    <td><code>U+00A0</code></td>
+                    <td>Standard space width without line break</td>
+                    <td>
+                      Subtle single-space separation that looks closest to
+                      normal typing
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Braille blank</strong></td>
+                    <td><code>U+2800</code></td>
+                    <td>Empty Braille pattern cell</td>
+                    <td>
+                      Alternative invisible separator if another blank character
+                      is filtered
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>En quad</strong></td>
+                    <td><code>U+2000</code></td>
+                    <td>Half-em typographic spacing</td>
+                    <td>
+                      Balanced medium gap for stylized symbols and short handles
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="formatter-guide-block">
+            <h3>CODM Name Rules & Troubleshooting Tips</h3>
+            <ul class="formatter-bullets">
+              <li>
+                <strong>14-character limit:</strong> CODM enforces a strict
+                14-character cap on player names, and every invisible Unicode
+                separator counts as 1 character toward that total.
+              </li>
+              <li>
+                <strong>Rename cooldown:</strong> After changing your IGN, Call
+                of Duty: Mobile applies a <strong>7-day cooldown</strong> before
+                you can use another Rename Card.
+              </li>
+              <li>
+                <strong
+                  >"Invalid character" or tofu boxes (<code>□</code>):</strong
+                >
+                Because Garena and Global updates periodically adjust allowed
+                Unicode ranges, test a different spacing preset (such as
+                switching from Hangul filler to Braille blank or Non-breaking
+                space) if the game rejects your pasted name.
+              </li>
+              <li>
+                <strong>Local browser formatting:</strong> Your text is
+                formatted directly inside your browser—nothing you type is
+                uploaded or stored on external servers.
+              </li>
+            </ul>
+          </section>
+
+          <section class="formatter-guide-block">
+            <h3>Frequently Asked Questions</h3>
+            <div class="formatter-faq-list">
+              <details class="formatter-faq" open>
+                <summary>
+                  Where is the Inventory located in CODM to use a Rename Card?
+                </summary>
+                <p>
+                  From the main lobby, tap <strong>Loadout</strong> at the
+                  bottom of the screen, then tap the
+                  <strong>Inventory</strong> icon in the top-right corner.
+                  Locate your <strong>Rename Card</strong> inside the inventory
+                  grid and tap <strong>Use</strong>.
+                </p>
+              </details>
+
+              <details class="formatter-faq">
+                <summary>
+                  Can I get a CODM Rename Card without spending CP?
+                </summary>
+                <p>
+                  Yes. In the in-game Store under the
+                  <strong>Items</strong> tab, select the Rename Card and switch
+                  the purchase currency from COD Points (CP) to
+                  <strong>Credits (C)</strong> so you can buy it with free
+                  in-game Credits.
+                </p>
+              </details>
+
+              <details class="formatter-faq">
+                <summary>
+                  Why does my formatted name show fewer than 14 visible letters?
+                </summary>
+                <p>
+                  Invisible spacing characters like Hangul filler
+                  (<code>U+3164</code>) and Braille blank (<code>U+2800</code>)
+                  still occupy 1 character slot each. If you add two invisible
+                  spaces around a clan tag, you have 12 characters remaining for
+                  letters and symbols.
+                </p>
+              </details>
+
+              <details class="formatter-faq">
+                <summary>
+                  How often can I change my name in Call of Duty: Mobile?
+                </summary>
+                <p>
+                  You can change your name once every <strong>7 days</strong>,
+                  provided you have a Rename Card in your Inventory.
+                </p>
+              </details>
+            </div>
+          </section>
+        </article>
       </section>
     </main>
     <div data-site-footer></div>
     <script src="../../../assets/js/site.js" defer></script>
     <script src="../../../assets/js/pages/codm-ign-formatter.js" defer></script>
-      <script src="../../../assets/ads/ads.js" defer></script>
+    <script src="../../../assets/ads/ads.js" defer></script>
   </body>
 </html>

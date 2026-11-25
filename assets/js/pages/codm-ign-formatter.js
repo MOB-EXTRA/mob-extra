@@ -5,7 +5,24 @@
   const preview = document.querySelector('#ignPreview');
   const characterCount = document.querySelector('#charCount');
   const message = document.querySelector('#toolMessage');
-  let selectedSpace = '\u3164';
+  const controlPanel = document.querySelector('#formatterControlPanel');
+  const mobileViewport = window.matchMedia('(max-width: 760px)');
+  const spaces = {
+    hangul: '\u3164',
+    nbsp: '\u00a0',
+    braille: '\u2800',
+    enquad: '\u2000'
+  };
+  let selectedSpace = spaces.hangul;
+
+  function updateMobileEditorLayout() {
+    const activeElement = document.activeElement;
+    const hasFocus = activeElement === input || controlPanel.contains(activeElement);
+    document.documentElement.classList.toggle(
+      'formatter-mobile-editor-active',
+      mobileViewport.matches && hasFocus
+    );
+  }
 
   function updatePreview() {
     const text = input.value;
@@ -13,17 +30,38 @@
     characterCount.textContent = [...text].length;
   }
 
-  input.addEventListener('input', updatePreview);
-
-  document.querySelector('#insertSpace').addEventListener('click', () => {
-    if ([...input.value].length >= 14) return;
-
+  function insertSelectedSpace() {
     const start = input.selectionStart;
     const end = input.selectionEnd;
-    input.value = input.value.slice(0, start) + selectedSpace + input.value.slice(end);
-    input.setSelectionRange(start + 1, start + 1);
-    input.focus();
+    const replacedLength = [...input.value.slice(start, end)].length;
+    if ([...input.value].length - replacedLength + 1 > 14) return;
+
+    input.setRangeText(selectedSpace, start, end, 'end');
     updatePreview();
+  }
+
+  input.addEventListener('input', () => {
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    const normalized = input.value.replace(/ /g, selectedSpace);
+    if (normalized !== input.value) {
+      input.value = normalized;
+      input.setSelectionRange(start, end);
+    }
+    updatePreview();
+  });
+  input.addEventListener('focus', () => {
+    updateMobileEditorLayout();
+    if (mobileViewport.matches) input.scrollIntoView({ block: 'start' });
+  });
+  input.addEventListener('blur', () => requestAnimationFrame(updateMobileEditorLayout));
+  controlPanel.addEventListener('focusin', updateMobileEditorLayout);
+  controlPanel.addEventListener('focusout', () => requestAnimationFrame(updateMobileEditorLayout));
+  window.addEventListener('resize', updateMobileEditorLayout);
+
+  document.querySelector('#insertSpace').addEventListener('click', () => {
+    insertSelectedSpace();
+    input.focus();
   });
 
   document.querySelector('#copyBlank').addEventListener('click', async () => {
@@ -49,14 +87,14 @@
         candidate.setAttribute('aria-pressed', String(candidate === button));
       });
 
-      const spaces = {
-        hangul: '\u3164',
-        nbsp: '\u00a0',
-        braille: '\u2800',
-        enquad: '\u2000'
-      };
+      const previousSpace = selectedSpace;
       selectedSpace = spaces[button.dataset.space] || spaces.hangul;
+      const start = input.selectionStart;
+      const end = input.selectionEnd;
+      input.value = input.value.split(previousSpace).join(selectedSpace).replace(/ /g, selectedSpace);
+      input.setSelectionRange(start, end);
       updatePreview();
+      if (mobileViewport.matches) input.focus({ preventScroll: true });
     });
   });
 
@@ -76,4 +114,5 @@
   });
 
   updatePreview();
+  updateMobileEditorLayout();
 })();

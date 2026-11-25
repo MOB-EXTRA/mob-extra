@@ -45,8 +45,99 @@
         </p>
       </section>
       <section class="page-content container">
-        <div class="tool-grid tool-grid-spaced tool-directory-grid" data-tool-directory>
+        <div
+          id="directory"
+          class="tool-grid tool-grid-spaced tool-directory-grid"
+          data-tool-directory
+          aria-live="polite"
+        >
           <p class="content-card">Loading available tools…</p>
+        </div>
+
+        <div class="content-grid" style="margin-top: 20px">
+          <div>
+            <article id="included" class="content-card" data-reveal>
+              <h2>What MOB EXTRA tools can help you do</h2>
+              <p>
+                Each tool is designed for a focused task, with its own
+                instructions and controls:
+              </p>
+              <ul>
+                <li>
+                  <strong>Format a CODM name:</strong> Preview a name with
+                  selectable Unicode spacing characters, then copy it for use
+                  in-game.
+                </li>
+                <li>
+                  <strong>Convert CSS values:</strong> Convert between pixels
+                  and rem, batch-convert CSS values, and generate fluid
+                  <code>clamp()</code> rules.
+                </li>
+                <li>
+                  <strong>Find the right utility:</strong> Browse the directory
+                  cards for a short feature summary before opening a tool.
+                </li>
+              </ul>
+            </article>
+
+            <article id="faq" class="content-card" data-reveal>
+              <h2>Frequently asked questions about player tools</h2>
+              <div class="faq-item">
+                <h3>How do I choose a tool?</h3>
+                <p>
+                  Read the summary on each tool card, then open the utility
+                  that matches the task you want to complete.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>Will more tools be added?</h3>
+                <p>
+                  Yes. Published pages marked as tools in the site catalog are
+                  added to this directory automatically.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>Can I suggest a tool or report a problem?</h3>
+                <p>
+                  Yes—visit our <a href="../contact.html">Contact page</a> to
+                  share a suggestion or report an issue.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <aside class="side-card" data-reveal>
+            <h2>On this page</h2>
+            <a href="#directory"
+              >Available tools
+              <span
+                ><i
+                  class="fa-solid fa-arrow-up-right-from-square"
+                  aria-hidden="true"
+                ></i></span
+            ></a>
+            <a href="#included"
+              >What the tools do
+              <span
+                ><i
+                  class="fa-solid fa-arrow-up-right-from-square"
+                  aria-hidden="true"
+                ></i></span
+            ></a>
+            <a href="#faq"
+              >FAQs
+              <span
+                ><i
+                  class="fa-solid fa-arrow-up-right-from-square"
+                  aria-hidden="true"
+                ></i></span
+            ></a>
+            <p>
+              Tool listings are populated from the site catalog. See our
+              <a href="../editorial.html">update approach</a> or
+              <a href="../contact.html">contact us</a> with feedback.
+            </p>
+          </aside>
         </div>
       </section>
     </main>
