@@ -36,6 +36,21 @@
 .tool-grid-spaced {
   margin-top: 15px;
 }
+.tool-directory-info {
+  margin-top: 20px;
+}
+.tool-directory-info .tool-card p {
+  line-height: 1.8;
+}
+.tool-directory-info .tool-card ul {
+  padding-left: 20px;
+}
+.tool-directory-info .tool-card li {
+  color: #a0adb8;
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 7px 0;
+}
 @media (max-width: 700px) {
   .tool-grid {
     grid-template-columns: 1fr;

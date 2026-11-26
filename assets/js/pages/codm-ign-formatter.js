@@ -13,7 +13,7 @@
     braille: '\u2800',
     enquad: '\u2000'
   };
-  let selectedSpace = spaces.hangul;
+  let selectedSpace = spaces.nbsp;
 
   function updateMobileEditorLayout() {
     const activeElement = document.activeElement;
@@ -88,7 +88,7 @@
       });
 
       const previousSpace = selectedSpace;
-      selectedSpace = spaces[button.dataset.space] || spaces.hangul;
+      selectedSpace = spaces[button.dataset.space] || spaces.nbsp;
       const start = input.selectionStart;
       const end = input.selectionEnd;
       input.value = input.value.split(previousSpace).join(selectedSpace).replace(/ /g, selectedSpace);
