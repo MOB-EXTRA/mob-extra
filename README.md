@@ -1,6 +1,6 @@
 # MOB EXTRA
 
-Static, mobile-first website for the MOB EXTRA gaming resource hub. The source is kept in this folder; the separate `?\?\GitHub` reference projects are not modified.
+Static, mobile-first website for the MOB EXTRA gaming resource hub. The source is kept in this folder; the separate `?\?\GitHub` reference projects are not modified..
 
 ## Structure
 
