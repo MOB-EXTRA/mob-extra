@@ -1,6 +1,6 @@
 # MOB EXTRA
 
-Static, mobile-first website for the MOB EXTRA gaming resource hub. The source is kept in this folder; the separate `D:\maki\GitHub` reference projects are not modified.
+Static, mobile-first website for the MOB EXTRA gaming resource hub. The source is kept in this folder; the separate `?\?\GitHub` reference projects are not modified.
 
 ## Structure
 
@@ -25,14 +25,14 @@ Static, mobile-first website for the MOB EXTRA gaming resource hub. The source i
 
 ## Consolidated source projects
 
-| Read-only project in `D:\maki\GitHub` | New MOB EXTRA destination |
-| --- | --- |
-| `Vile-Tempest-Official` | Home, CODM hubs, tools, portfolio, and professional services pages |
-| `SlimeSpace` | Player tools and shared CODM redeem hub |
-| `CODM.TestServer.DL.Link` | CODM test build guide and its original shared status repositories |
-| `marc-johnford-cagatin` | `pages/portfolio/team/marc/` with its own CSS modules, JavaScript, project data, galleries, images, and legal page |
-| `carl-vincent-cagatin` | `pages/portfolio/team/carl/` with its own CSS, animation/navigation scripts, profile images, and legal page |
-| `vile-tempest-official` | `pages/portfolio/team/vile-tempest-official/` with its existing site assets and pages |
+| Read-only project in `?\?\GitHub` | New MOB EXTRA destination                                                                                          |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `Vile-Tempest-Official`           | Home, CODM hubs, tools, portfolio, and professional services pages                                                 |
+| `SlimeSpace`                      | Player tools and shared CODM redeem hub                                                                            |
+| `CODM.TestServer.DL.Link`         | CODM test build guide and its original shared status repositories                                                  |
+| `marc-johnford-cagatin`           | `pages/portfolio/team/marc/` with its own CSS modules, JavaScript, project data, galleries, images, and legal page |
+| `carl-vincent-cagatin`            | `pages/portfolio/team/carl/` with its own CSS, animation/navigation scripts, profile images, and legal page        |
+| `vile-tempest-official`           | `pages/portfolio/team/vile-tempest-official/` with its existing site assets and pages                              |
 
 CODM redeem listings and test build status are read from the original shared-data repositories 1, 2, and 3 in order. If a repository is unavailable, the page tries the next one. This keeps frequently updated records out of the MOB EXTRA site repository. MLBB uses the same hub layout and interaction code but stays in a clear empty state until a reliable source is added.
 
@@ -53,9 +53,12 @@ Each portfolio keeps its original visual identity and frontend assets; the portf
 The shared navigation, homepage scrolling ticker, and page directories discover pages from `sitemap.xml`. The portfolio showcase reads each profile's metadata from its sitemap-listed HTML page and builds the card automatically. Current profiles belong in `pages/portfolio/team/`; externally hosted member profiles belong in `pages/portfolio/community/`. Each group gets a heading in the shared showcase. Portfolio cards, navigation, and ticker links open through the shared viewer so the portfolio can retain its design and users always have one consistent return button. To add a tool, add its page URL to the sitemap and set these metadata tags in its HTML `<head>`:
 
 ```html
-<meta name="nav-section" content="tools">
-<meta name="nav-label" content="Your tool name">
-<meta name="nav-description" content="A short description shown in the tools directory.">
+<meta name="nav-section" content="tools" />
+<meta name="nav-label" content="Your tool name" />
+<meta
+  name="nav-description"
+  content="A short description shown in the tools directory."
+/>
 ```
 
 For a game page, use `nav-section` value `hubs`; for a portfolio or other section page, use `more`. The shared menu and matching directory fetch sitemap-listed pages and read their labels/descriptions, so there is no separate navigation list to edit. The homepage ticker uses the same entries as clickable links and loops them smoothly. Ensure the page uses the shared header/footer placeholders and loads `assets/js/components.js` using the correct relative asset path.
