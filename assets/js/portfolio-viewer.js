@@ -103,7 +103,7 @@
   }
   frame.src = destination.href;
   frame.title = `Portfolio: ${safePath.split("/").filter(Boolean).pop() || "selected profile"}`;
-  frame.addEventListener("load", () => {
+  frame.addEventListener("load", async () => {
     try {
       const page = frame.contentDocument;
       if (!page) return;
@@ -113,21 +113,39 @@
         motionScript.dataset.motionReplay = "";
         page.body.append(motionScript);
       }
-      if (/\/(?:terms|privacy|legal)(?:\.html|\/|$)/i.test(destination.pathname) || /\/pages\/portfolio\/(?:team\/)?carl(?:\/|$)/i.test(destination.pathname)) return;
-      const existingWidget = page.querySelector("[data-service-reviews]");
-      if (!existingWidget) page.querySelectorAll("#reviews, .redeem-reviews-wrapper, [data-service-reviews]").forEach((node) => node.remove());
-      if (!page.querySelector('link[data-review-widget-style]')) {
-        const stylesheet = page.createElement("link");
-        stylesheet.rel = "stylesheet";
-        stylesheet.href = new URL("assets/css/review-widget.css", commonRoot).href;
-        stylesheet.dataset.reviewWidgetStyle = "";
-        page.head.append(stylesheet);
+      const { isReviewEnabled } = await import(
+        new URL("assets/js/server/api.js", commonRoot).href
+      );
+      if (!isReviewEnabled(page, destination.pathname)) {
+        page
+          .querySelectorAll(
+          "#reviews, [data-service-reviews], [data-review-widget]",
+          )
+          .forEach((node) => node.remove());
+        page
+          .querySelectorAll(
+            "link[data-review-widget-style], script[data-review-widget-script], script[data-review-bootstrap]",
+          )
+          .forEach((node) => node.remove());
+        return;
       }
-      if (!existingWidget && !page.querySelector('script[data-review-widget-script]')) {
+      const existingWidget = page.querySelector("[data-service-reviews]");
+      if (!existingWidget) {
+        page
+          .querySelectorAll(
+            "#reviews, [data-service-reviews]",
+          )
+          .forEach((node) => node.remove());
+      }
+      if (
+        !page.querySelector(
+          "script[data-review-bootstrap], script[data-review-widget-script]",
+        )
+      ) {
         const script = page.createElement("script");
         script.type = "module";
-        script.src = new URL("assets/js/review-widget.js", commonRoot).href;
-        script.dataset.reviewWidgetScript = "";
+        script.src = new URL("assets/js/review-bootstrap.js", commonRoot).href;
+        script.dataset.reviewBootstrap = "";
         page.body.append(script);
       }
     } catch (injectionError) {

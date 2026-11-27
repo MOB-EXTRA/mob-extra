@@ -2,54 +2,31 @@
   const root = document.querySelector('[data-ptb-root]');
   if (!root) return;
 
-  const sourceUrls = [1, 2, 3].map(number =>
-    `https://mob-extra.github.io/MOBEXTRA.github.shared-data-repo.${number}/codm-test-server/codm-config.js`
-  );
-
-  function loadConfig(index = 0) {
-    if (index >= sourceUrls.length) {
-      return Promise.reject(new Error('All PTB repositories are unavailable.'));
+  function loadConfig() {
+    if (!window.MobExtraDataClient) {
+      return Promise.reject(new Error('Shared data client is not loaded.'));
     }
 
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = sourceUrls[index];
-      script.async = true;
-      script.onload = () => {
-        try {
-          if (typeof testServerData === 'undefined') {
-            throw new Error('No test build data was provided.');
-          }
-
-          const data = testServerData;
-          resolve({
-            data: {
-              isOpen: data.status === 1,
-              lastUpdated: data.lastUpdated || '',
-              season: data.season || '',
-              releaseDate: data.releaseDate || '',
-              description: data.updateDescription || '',
-              links: Array.isArray(data.links) ? data.links.map(link => ({
-                platform: link.device || '',
-                url: link.url || ''
-              })).filter(link => link.platform && /^https:\/\//.test(link.url)) : [],
-              verification: typeof notARobot === 'undefined' ? null : {
-                code: String(notARobot.code || ''),
-                source: notARobot.codeSource || ''
-              }
-            },
-            repository: index + 1
-          });
-        } catch {
-          script.remove();
-          loadConfig(index + 1).then(resolve, reject);
-        }
+    return window.MobExtraDataClient.loadTestServer().then(({ data, repositoryNumber }) => {
+      const source = data.testServerData;
+      return {
+        data: {
+          isOpen: source.status === 1,
+          lastUpdated: source.lastUpdated || '',
+          season: source.season || '',
+          releaseDate: source.releaseDate || '',
+          description: source.updateDescription || '',
+          links: Array.isArray(source.links) ? source.links.map(link => ({
+            platform: link.device || '',
+            url: link.url || ''
+          })).filter(link => link.platform && /^https:\/\//.test(link.url)) : [],
+          verification: data.notARobot ? {
+            code: String(data.notARobot.code || ''),
+            source: data.notARobot.codeSource || ''
+          } : null
+        },
+        repository: repositoryNumber
       };
-      script.onerror = () => {
-        script.remove();
-        loadConfig(index + 1).then(resolve, reject);
-      };
-      document.head.append(script);
     });
   }
 
@@ -135,7 +112,15 @@
       const disclaimerLabel = element('label', 'ptb-disclaimer');
       const disclaimer = document.createElement('input');
       disclaimer.type = 'checkbox';
-      disclaimerLabel.append(disclaimer, document.createTextNode(' I understand the test build and external link notes above.'));
+      const disclaimerCopy = element('span', 'ptb-disclaimer-copy');
+      const disclaimerLink = element('a', '', 'link-source disclaimer');
+      disclaimerLink.href = '#ptb-link-disclaimer';
+      disclaimerCopy.append(
+        document.createTextNode('I understand the test-build notes and have read the '),
+        disclaimerLink,
+        document.createTextNode('.')
+      );
+      disclaimerLabel.append(disclaimer, disclaimerCopy);
 
       const unlockButton = element('button', 'button button-primary ptb-unlock-button', 'Show test build links');
       unlockButton.type = 'button';
@@ -174,12 +159,26 @@
       availability.setAttribute('aria-live', 'polite');
       const availabilityIcon = element('span', 'ptb-availability-icon');
       availabilityIcon.append(element('i', data.isOpen ? 'fa-solid fa-circle-check' : 'fa-solid fa-triangle-exclamation'));
-      availability.append(availabilityIcon);
-      availability.append(element('span', 'ptb-availability-label', 'CURRENT TEST WINDOW'));
-      availability.append(element('h3', '', data.isOpen ? 'Test build reported open' : 'Public test build unavailable'));
+      const availabilityHeading = element('div', 'ptb-availability-heading');
+      const availabilityTitle = element('div', 'ptb-availability-title');
+      availabilityTitle.append(
+        element('span', 'ptb-availability-label', 'CURRENT TEST WINDOW'),
+        element('h3', '', data.isOpen ? 'Test build reported open' : 'Public test build unavailable')
+      );
+      availabilityHeading.append(availabilityIcon, availabilityTitle);
+      availability.append(availabilityHeading);
       availability.append(element('p', '', data.isOpen
         ? 'The shared source reports an active test period. Availability can change, so confirm the latest publisher details before installing.'
         : 'The shared source reports that testing is closed. Players may be unable to sign in or reach game servers until the publisher opens another test period.'));
+
+      const safetyNote = element('div', 'ptb-availability-safety');
+      safetyNote.append(
+        element('strong', '', 'DOWNLOAD NOTE'),
+        element('p', '', data.isOpen
+          ? 'Before downloading, check that the package is linked by the publisher and is compatible with your device.'
+          : "When the test server is closed, downloading the APK is generally not recommended because you may not be able to access the test until it reopens. Consider waiting for the publisher's next announcement.")
+      );
+      availability.append(safetyNote);
 
       const availabilityNote = element('div', 'ptb-availability-note');
       const noteIcon = element('i', data.isOpen ? 'fa-solid fa-circle-info' : 'fa-solid fa-bell');
@@ -187,6 +186,33 @@
       availabilityNote.append(noteIcon, document.createTextNode(data.isOpen
         ? 'Only install a package that matches your device and comes from a source you trust.'
         : 'Wait for a new publisher announcement. This hub updates when its community sources publish new links.'));
+
+      const sourceDisclaimer = element('section', 'ptb-source-disclaimer');
+      sourceDisclaimer.id = 'ptb-link-disclaimer';
+      sourceDisclaimer.setAttribute('aria-labelledby', 'ptb-source-disclaimer-title');
+      const sourceDisclaimerTitle = element('h3', '', 'Source, credit & disclaimer');
+      sourceDisclaimerTitle.id = 'ptb-source-disclaimer-title';
+      const sourceDisclaimerText = element('p');
+      const redditSource = element('a', '', "Call of Duty: Mobile's official Reddit profile");
+      redditSource.href = 'https://www.reddit.com/user/COD_Mobile_Official/submitted/';
+      redditSource.target = '_blank';
+      redditSource.rel = 'noopener noreferrer';
+      sourceDisclaimerText.append(
+        document.createTextNode('Source credit: Public test-build links are referenced from posts on '),
+        redditSource,
+        document.createTextNode('. Check the original post for current availability. MOB EXTRA does not host or modify the linked downloads.')
+      );
+      const disclaimerDetails = element('ul', 'ptb-source-disclaimer-list');
+      [
+        'MOB EXTRA is an independent resource and is not affiliated with or endorsed by Activision, Call of Duty, or Reddit. Their names and marks belong to their respective owners.',
+        'Test periods, links, eligibility, and device compatibility can change. We cannot guarantee that a test is open, a link will work, or a package will work with your device.',
+        "Review the publisher's original post and terms before using an external link. Only install files from a source you trust, and proceed with downloads and installation at your own discretion.",
+      ].forEach(detail => disclaimerDetails.append(element('li', '', detail)));
+      sourceDisclaimer.append(
+        sourceDisclaimerTitle,
+        sourceDisclaimerText,
+        disclaimerDetails
+      );
       availability.append(availabilityNote);
 
       const sourceLink = element('a', 'ptb-availability-source', 'View source video ');
@@ -197,7 +223,7 @@
       availability.append(sourceLink);
 
       verificationLayout.append(verificationForm, availability);
-      verificationBox.append(verificationLayout);
+      verificationBox.append(verificationLayout, sourceDisclaimer);
       root.append(verificationBox);
     } else if (data.links.length) {
       root.append(

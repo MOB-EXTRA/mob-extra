@@ -6,7 +6,7 @@
     ".work-card", ".service-card", ".about-copy", ".about-aside", ".contact-wrap > div",
     ".content-section .section-container", ".experience-panel", ".hero-actions", ".hero-content",
     ".hero-image-wrapper", ".services-section", ".services-grid .service-box", ".utilities-section",
-    ".reviews-section", ".contact-section", ".community-intel-section", ".play-store-summary-card", "[data-service-reviews]", "[data-review-dashboard]", "[data-review-trend]",
+    ".contact-section", ".community-intel-section", "[data-service-reviews]", "[data-review-dashboard]", "[data-review-trend]",
     ".hero-section .portrait-column", ".hero-section .intro-column", ".hero-section .content-column",
   ].join(",");
   const observed = new WeakSet();

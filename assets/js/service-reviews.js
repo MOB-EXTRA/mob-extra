@@ -1,11 +1,5 @@
-const REVIEWS_FIREBASE_CONFIG = {
-  apiKey: "AIzaSyCbCgCRWV4cIDjfGg0llNQXzIscnKvLc9w",
-  authDomain: "vile-tempest-reviews.firebaseapp.com",
-  projectId: "vile-tempest-reviews",
-  storageBucket: "vile-tempest-reviews.firebasestorage.app",
-  messagingSenderId: "1047163835896",
-  appId: "1:1047163835896:web:93edcc036534ee83f6720d",
-};
+import { subscribeToReviews } from "./server/api.js";
+import { renderAverageStars } from "./review-stars.js";
 
 const REVIEW_CATEGORIES = [
   "General Feedback",
@@ -28,18 +22,28 @@ function stopReviewCountAnimation(element) {
 }
 
 function resetRatingBars() {
-  document.querySelectorAll("[data-rating-bar]").forEach((bar) => { bar.style.height = "0%"; });
+  document.querySelectorAll("[data-rating-bar]").forEach((bar) => {
+    bar.style.height = "0%";
+  });
 }
 
 function replayRatingBars() {
   const bars = [...document.querySelectorAll("[data-rating-bar]")];
-  bars.forEach((bar) => { bar.style.height = "0%"; });
+  bars.forEach((bar) => {
+    bar.style.height = "0%";
+  });
   bars.forEach((bar) => void bar.offsetHeight);
-  requestAnimationFrame(() => bars.forEach((bar) => { bar.style.height = bar.dataset.targetHeight || "0%"; }));
+  requestAnimationFrame(() =>
+    bars.forEach((bar) => {
+      bar.style.height = bar.dataset.targetHeight || "0%";
+    }),
+  );
 }
 
 function resetReviewTrend() {
-  document.querySelectorAll(".review-trend-track i").forEach((bar) => bar.classList.remove("is-animated"));
+  document
+    .querySelectorAll(".review-trend-track i")
+    .forEach((bar) => bar.classList.remove("is-animated"));
 }
 
 function replayReviewTrend() {
@@ -48,10 +52,12 @@ function replayReviewTrend() {
   const bars = [...chart.querySelectorAll(".review-trend-track i")];
   bars.forEach((bar) => bar.classList.remove("is-animated"));
   void chart.offsetWidth;
-  requestAnimationFrame(() => bars.forEach((bar, index) => {
-    bar.style.transitionDelay = `${index * 100}ms`;
-    bar.classList.add("is-animated");
-  }));
+  requestAnimationFrame(() =>
+    bars.forEach((bar, index) => {
+      bar.style.transitionDelay = `${index * 100}ms`;
+      bar.classList.add("is-animated");
+    }),
+  );
 }
 
 document.addEventListener("site:motion-enter", (event) => {
@@ -174,8 +180,10 @@ function renderReviewCards() {
     const rating = Number(review.rating);
     const ratingStars = document.createElement("span");
     ratingStars.className = "service-review-card-stars";
-    ratingStars.innerHTML = Array.from({ length: 5 }, (_, index) =>
-      `<i class="fa-${index < rating ? "solid" : "regular"} fa-star" aria-hidden="true"></i>`,
+    ratingStars.innerHTML = Array.from(
+      { length: 5 },
+      (_, index) =>
+        `<i class="fa-${index < rating ? "solid" : "regular"} fa-star" aria-hidden="true"></i>`,
     ).join("");
     ratingStars.setAttribute("aria-label", `${rating} out of 5 stars`);
     top.append(authorMeta, ratingStars);
@@ -185,12 +193,15 @@ function renderReviewCards() {
     comment.textContent = review.comment.trim();
     bubble.append(top, comment);
 
-    if (review.specificUtility) {
+    const details = [
+      ...new Set([review.pageTitle, review.specificUtility].filter(Boolean)),
+    ];
+    details.forEach((value) => {
       const detail = document.createElement("span");
       detail.className = "service-review-detail";
-      detail.textContent = review.specificUtility;
+      detail.textContent = value;
       bubble.append(detail);
-    }
+    });
     card.append(avatar, bubble);
     fragment.append(card);
   });
@@ -263,19 +274,14 @@ function updateSummary() {
 
   if (!currentReviews.length) {
     average.textContent = "—";
-    stars.innerHTML = Array.from({ length: 5 }, () => '<i class="fa-regular fa-star" aria-hidden="true"></i>').join("");
-    stars.setAttribute("aria-label", "No ratings yet");
+    renderAverageStars(stars, 0);
     count.textContent = "No reviews yet";
   } else {
     const score =
       currentReviews.reduce((sum, review) => sum + Number(review.rating), 0) /
       currentReviews.length;
-    const rounded = Math.round(score);
     average.textContent = score.toFixed(2);
-    stars.innerHTML = Array.from({ length: 5 }, (_, index) =>
-      `<i class="fa-${index < rounded ? "solid" : "regular"} fa-star" aria-hidden="true"></i>`,
-    ).join("");
-    stars.setAttribute("aria-label", `${score.toFixed(2)} out of 5 stars`);
+    renderAverageStars(stars, score);
     if (reviewSectionVisible) animateReviewCount(count, currentReviews.length);
     else count.textContent = `${currentReviews.length} reviews`;
   }
@@ -359,12 +365,13 @@ function renderMonthlyTrend() {
   chart.replaceChildren(fragment);
 
   // Trigger the bar animations after rendering.
-  if (reviewTrendVisible) requestAnimationFrame(() => {
-    chart.querySelectorAll(".review-trend-track i").forEach((bar, index) => {
-      bar.style.transitionDelay = `${index * 100}ms`;
-      bar.classList.add("is-animated");
+  if (reviewTrendVisible)
+    requestAnimationFrame(() => {
+      chart.querySelectorAll(".review-trend-track i").forEach((bar, index) => {
+        bar.style.transitionDelay = `${index * 100}ms`;
+        bar.classList.add("is-animated");
+      });
     });
-  });
 }
 
 function renderRecentReviews() {
@@ -532,35 +539,27 @@ async function loadReviews() {
   if (!reviewSection) return;
   const bounds = reviewSection.getBoundingClientRect();
   reviewSectionVisible = bounds.bottom > 0 && bounds.top < window.innerHeight;
-  const dashboard = document.querySelector("[data-review-dashboard]")?.getBoundingClientRect();
-  reviewDashboardVisible = Boolean(dashboard && dashboard.bottom > 0 && dashboard.top < window.innerHeight);
-  const trend = document.querySelector("[data-review-trend]")?.getBoundingClientRect();
-  reviewTrendVisible = Boolean(trend && trend.bottom > 0 && trend.top < window.innerHeight);
+  const dashboard = document
+    .querySelector("[data-review-dashboard]")
+    ?.getBoundingClientRect();
+  reviewDashboardVisible = Boolean(
+    dashboard && dashboard.bottom > 0 && dashboard.top < window.innerHeight,
+  );
+  const trend = document
+    .querySelector("[data-review-trend]")
+    ?.getBoundingClientRect();
+  reviewTrendVisible = Boolean(
+    trend && trend.bottom > 0 && trend.top < window.innerHeight,
+  );
   bindReviewFilters();
   const initialStatus = document.querySelector("[data-review-live-status]");
   if (initialStatus)
     initialStatus.lastChild.textContent = " Connecting to live feed";
 
   try {
-    const [{ initializeApp, getApps }, firestore] = await Promise.all([
-      import("https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js"),
-      import("https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js"),
-    ]);
-    const appName = "portfolio-community-reviews";
-    const app = getApps().find((entry) => entry.name === appName) ||
-      initializeApp(REVIEWS_FIREBASE_CONFIG, appName);
-    const db = firestore.getFirestore(app);
-    const reviewQuery = firestore.query(
-      firestore.collection(db, "site_reviews"),
-      firestore.orderBy("timestamp", "desc"),
-    );
-
-    firestore.onSnapshot(
-      reviewQuery,
-      (snapshot) => {
-        currentReviews = validReviews(
-          snapshot.docs.map((entry) => entry.data()),
-        );
+    await subscribeToReviews(
+      (reviews) => {
+        currentReviews = validReviews(reviews);
         const liveStatus = document.querySelector("[data-review-live-status]");
         if (liveStatus) {
           liveStatus.classList.remove("is-offline");

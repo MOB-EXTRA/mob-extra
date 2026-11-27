@@ -11,13 +11,11 @@
   const GAME_CONFIG = {
     codm: {
       name: "CODM",
-      repositoryFolder: "codm-redeem-code",
       defaultRegion: "Global",
     },
 
     mlbb: {
       name: "MLBB",
-      repositoryFolder: "mlbb-redeem-code",
       defaultRegion: "Global",
     },
 
@@ -37,18 +35,7 @@
   };
 
   // ==================================================
-  // 2. REPOSITORY CONFIGURATION
-  // ==================================================
-
-  const REPOSITORY_BASE =
-    "https://mob-extra.github.io/MOBEXTRA.github.shared-data-repo.";
-
-  const REPOSITORY_NUMBERS = [1, 2, 3];
-
-  const REPOSITORY_TIMEOUT = 10000;
-
-  // ==================================================
-  // 3. INITIALIZATION
+  // 2. INITIALIZATION
   // ==================================================
 
   const hub = document.querySelector("[data-code-hub]");
@@ -77,27 +64,14 @@
   }
 
   // ==================================================
-  // 4. GENERATE GAME-SPECIFIC REPOSITORY URLS
-  // ==================================================
-
-  const sources = REPOSITORY_NUMBERS.map(
-    (number) =>
-      `${REPOSITORY_BASE}${number}/${config.repositoryFolder}/redeem-codes.js`,
-  );
-
-  console.log(
-    `[Redeem Hub] ${config.name}: Checking ${sources.length} shared source repositories...`,
-  );
-
-  // ==================================================
-  // 5. STATE
+  // 3. STATE
   // ==================================================
 
   let codes = [];
   let activeRegion = "all";
 
   // ==================================================
-  // 6. HTML ESCAPING
+  // 4. HTML ESCAPING
   // ==================================================
 
   function escapeHTML(value) {
@@ -115,19 +89,17 @@
   }
 
   // ==================================================
-  // 7. SOURCE PARSER
+  // 5. SOURCE PARSER
   // ==================================================
 
   function parseSource(sourceText) {
-    const match = sourceText.match(/\bredeemCodesData\s*=\s*`([\s\S]*?)`\s*;/);
-
-    if (!match) {
+    if (typeof sourceText !== "string" || !/^\s*r-code\s*:/im.test(sourceText)) {
       throw new Error("No redeem code data found in source.");
     }
 
     const entries = [];
 
-    const blocks = match[1].split(/\r?\n\s*\r?\n/);
+    const blocks = sourceText.split(/\r?\n\s*\r?\n/);
 
     for (const block of blocks) {
       const code = block.match(/^\s*r-code:\s*(.+?)\s*$/im)?.[1];
@@ -159,91 +131,20 @@
   }
 
   // ==================================================
-  // 8. SEQUENTIAL REPOSITORY LOADER
-  // ==================================================
-  //
-  // Priority:
-  //
-  // Repository 1
-  //      |
-  //      | Failed?
-  //      v
-  // Repository 2
-  //      |
-  //      | Failed?
-  //      v
-  // Repository 3
-  //
-  // Once a repository succeeds, STOP.
-  // Remaining repositories will NOT be requested.
-  //
-  // ==================================================
-
-  async function loadSource(index = 0) {
-    if (index >= sources.length) {
-      throw new Error("All shared source repositories are unavailable.");
+  // 6. SHARED REPOSITORY DATA
+  function loadSource() {
+    if (!window.MobExtraDataClient) {
+      return Promise.reject(new Error("Shared data client is not loaded."));
     }
 
-    const repositoryNumber = REPOSITORY_NUMBERS[index];
-
-    console.info(
-      `[Redeem Hub] ${config.name}: Checking Repository ${repositoryNumber}...`,
-    );
-
-    try {
-      const controller = new AbortController();
-
-      const timeout = window.setTimeout(
-        () => controller.abort(),
-        REPOSITORY_TIMEOUT,
-      );
-
-      let response;
-
-      try {
-        response = await fetch(sources[index], {
-          method: "GET",
-          cache: "no-cache",
-          signal: controller.signal,
-        });
-      } finally {
-        window.clearTimeout(timeout);
-      }
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      const sourceText = await response.text();
-
-      if (!sourceText.trim()) {
-        throw new Error("Repository returned an empty file.");
-      }
-
-      const entries = parseSource(sourceText);
-
-      console.info(
-        `[Redeem Hub] ${config.name}: Successfully loaded Repository ${repositoryNumber}.`,
-      );
-
-      // STOP: Do not request the remaining repositories.
-      return {
-        entries,
-        source: `Repository ${repositoryNumber}`,
-      };
-    } catch (error) {
-      console.warn(
-        `[Redeem Hub] ${config.name} Repository ${repositoryNumber} failed:`,
-        error.message,
-      );
-
-      // Try the next repository only after failure.
-      return loadSource(index + 1);
-    }
+    return window.MobExtraDataClient.loadRedeemCodes(game).then((result) => ({
+      entries: parseSource(result.data),
+      source: result.repository,
+    }));
   }
 
   // ==================================================
-  // 9. RENDER CODE LIST
+  // 7. RENDER CODE LIST
   // ==================================================
 
   function render() {
@@ -266,12 +167,12 @@
     // DISPLAY LIMIT
     // ----------------------------------------------
 
-    const requestedLimit = limitSelect?.value || "30";
+    const requestedLimit = limitSelect?.value || "20";
 
     const maxItems =
       requestedLimit === "all"
         ? filteredCodes.length
-        : Math.max(30, Number.parseInt(requestedLimit, 10) || 30);
+        : Math.max(20, Number.parseInt(requestedLimit, 10) || 20);
 
     const visibleCodes = filteredCodes.slice(0, maxItems);
 
@@ -361,7 +262,7 @@
   }
 
   // ==================================================
-  // 10. INITIALIZE DATA LOADING
+  // 8. INITIALIZE DATA LOADING
   // ==================================================
 
   listRoot.innerHTML = `
@@ -421,19 +322,19 @@
     });
 
   // ==================================================
-  // 11. SEARCH
+  // 9. SEARCH
   // ==================================================
 
   searchInput?.addEventListener("input", render);
 
   // ==================================================
-  // 12. DISPLAY LIMIT
+  // 10. DISPLAY LIMIT
   // ==================================================
 
   limitSelect?.addEventListener("change", render);
 
   // ==================================================
-  // 13. REGION FILTERS
+  // 11. REGION FILTERS
   // ==================================================
 
   filterButtons.forEach((button) => {
@@ -449,7 +350,7 @@
   });
 
   // ==================================================
-  // 14. COPY CODE (WITH SECURE / LEGACY FALLBACK)
+  // 12. COPY CODE (WITH SECURE / LEGACY FALLBACK)
   // ==================================================
 
   listRoot.addEventListener("click", async (event) => {

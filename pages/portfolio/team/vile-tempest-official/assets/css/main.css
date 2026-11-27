@@ -258,17 +258,6 @@
   }
 }
 
-@media (min-width: 992px) {
-  .reviews-content-grid {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-  }
-
-  .review-form-card {
-    height: 380px;
-  }
-}
-
 .service-box {
   flex: 1 1 100%;
   max-width: 100%;

@@ -47,9 +47,28 @@
   letter-spacing: -0.07em;
 }
 .service-review-stars {
-  color: #f2bf58;
+  display: inline-flex;
+  align-items: center;
+  color: #596c80;
   letter-spacing: 0.08em;
+  line-height: 1.25;
   white-space: nowrap;
+  vertical-align: middle;
+}
+.service-review-stars[data-rating] i {
+  background: linear-gradient(
+    to right,
+    #f2bf58 var(--star-fill),
+    #596c80 var(--star-fill)
+  );
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-clip: text;
+  line-height: 1.25;
+  vertical-align: middle;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .review-dashboard {
@@ -124,7 +143,7 @@
 }
 .review-type-overview {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 10px;
   margin: 12px 0 18px;
 }
@@ -522,7 +541,7 @@
   font: inherit;
 }
 .review-stat-card > strong .service-review-stars {
-  font: 11px var(--mono);
+  font: 14px/1.25 var(--mono);
 }
 .review-stat-card > small {
   color: #71869a;

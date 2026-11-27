@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
     tickerBar.className = "quick-ticker-bar";
 
     const titleElements = document.querySelectorAll(
-      ".utility-title, .services-title, .service-header-row h3, .intel-item-title, .contact-title, .section-main-title, .category-title, .reviews-main-title, .reviews-feed-title",
+      ".utility-title, .services-title, .service-header-row h3, .intel-item-title, .contact-title, .section-main-title, .category-title",
     );
 
     const extractedTopics = new Set();
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
     filterDropdownMenu.className = "filter-dropdown-menu";
 
     const titleElements = document.querySelectorAll(
-      ".utility-title, .services-title, .service-header-row h3, .intel-item-title, .contact-title, .section-main-title, .category-title, .reviews-main-title, .reviews-feed-title",
+      ".utility-title, .services-title, .service-header-row h3, .intel-item-title, .contact-title, .section-main-title, .category-title",
     );
 
     const extractedTopics = new Set();
@@ -311,10 +311,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     } else if (filterType === "reviews") {
-      allCards.forEach((card) => {
-        if (!card.classList.contains("reviews-section")) {
-          card.classList.add("hidden-content");
-        }
+      allCards.forEach((card) => card.classList.add("hidden-content"));
+      document.getElementById("reviews")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
       });
     }
   }

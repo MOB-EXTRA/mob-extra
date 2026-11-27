@@ -203,7 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ".services-section",
     ".service-box",
     ".utilities-section",
-    ".reviews-section",
     ".contact-section",
     ".community-intel-section",
   ];
@@ -225,7 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ==========================================================================
      4. INTERSECTION OBSERVER INITIALIZATION
-     - Triggers visibility classes and initiates review counters upon scroll.
      ========================================================================== */
   const observerOptions = {
     root: null,
@@ -237,26 +235,14 @@ document.addEventListener("DOMContentLoaded", () => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
-        if (
-          entry.target.classList.contains("play-store-summary-card") ||
-          entry.target.contains(summaryCard)
-        ) {
-          runReviewAnimations();
-        }
       } else {
         entry.target.classList.remove("is-visible");
-        if (
-          entry.target.classList.contains("play-store-summary-card") ||
-          entry.target.contains(summaryCard)
-        ) {
-          resetReviewAnimations();
-        }
       }
     });
   }, observerOptions);
 
   const animatedElements = document.querySelectorAll(
-    ".animate-on-scroll, .animate-fade-left, .animate-fade-right, .animate-scale-up, .play-store-summary-card",
+    ".animate-on-scroll, .animate-fade-left, .animate-fade-right, .animate-scale-up",
   );
 
   animatedElements.forEach((el) => {
@@ -264,65 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ==========================================================================
-     5. COMMUNITY REVIEWS & FEEDBACK SECTION (#reviews)
-     - Manages counter increments and bar graph fills when the review summary card enters viewport.
-     ========================================================================== */
-  const summaryCard = document.querySelector(".play-store-summary-card");
-
-  function runReviewAnimations() {
-    const totalReviewsElem = document.getElementById(
-      "play-store-total-reviews",
-    );
-    if (!totalReviewsElem) return;
-
-    const targetCount = parseInt(
-      totalReviewsElem.dataset.targetCount || "0",
-      10,
-    );
-
-    let currentCount = 0;
-    const duration = 3000;
-    const stepTime = Math.max(Math.floor(duration / (targetCount || 1)), 20);
-
-    const counterInterval = setInterval(() => {
-      currentCount++;
-      if (currentCount >= targetCount) {
-        currentCount = targetCount;
-        clearInterval(counterInterval);
-      }
-      totalReviewsElem.textContent = `${currentCount} review${
-        currentCount === 1 ? "" : "s"
-      }`;
-    }, stepTime);
-
-    for (let i = 1; i <= 5; i++) {
-      const bar = document.getElementById(`bar-${i}`);
-      if (bar) {
-        const targetWidth = bar.dataset.targetWidth || "0";
-        setTimeout(() => {
-          bar.style.width = `${targetWidth}%`;
-        }, 100);
-      }
-    }
-  }
-
-  function resetReviewAnimations() {
-    const totalReviewsElem = document.getElementById(
-      "play-store-total-reviews",
-    );
-    if (totalReviewsElem) {
-      totalReviewsElem.textContent = "0 reviews";
-    }
-    for (let i = 1; i <= 5; i++) {
-      const bar = document.getElementById(`bar-${i}`);
-      if (bar) {
-        bar.style.width = "0%";
-      }
-    }
-  }
-
-  /* ==========================================================================
-     6. REUSABLE MULTI-PHRASE ROTATING TYPEWRITER ENGINE
+     5. REUSABLE MULTI-PHRASE ROTATING TYPEWRITER ENGINE
      - Scans for any element with class ".js-typewriter" and rotates through 
        phrases defined inside hidden ".typing-phrases-source" elements.
      ========================================================================== */
@@ -337,8 +265,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (phrases.length === 0) return;
 
-    // Preserve layout height to prevent layout shifts
-    container.style.minHeight = "1.5em";
     container.style.display = "block";
 
     // Inject active typing elements (while hiding the source)
@@ -357,6 +283,59 @@ document.addEventListener("DOMContentLoaded", () => {
     sourceContainer.style.display = "none";
     container.appendChild(textSpan);
     container.appendChild(cursorSpan);
+
+    let measuredWidth = -1;
+    function reservePhraseHeight() {
+      const width = container.clientWidth;
+      if (!width || width === measuredWidth) return;
+      measuredWidth = width;
+
+      const probe = container.cloneNode(false);
+      probe.removeAttribute("id");
+      probe.setAttribute("aria-hidden", "true");
+      probe.style.position = "absolute";
+      probe.style.visibility = "hidden";
+      probe.style.pointerEvents = "none";
+      probe.style.left = "-10000px";
+      probe.style.top = "0";
+      probe.style.width = `${width}px`;
+      probe.style.minHeight = "0";
+      probe.style.height = "auto";
+      probe.style.maxHeight = "none";
+      probe.style.margin = "0";
+
+      const phraseProbe = document.createElement("span");
+      phraseProbe.className = "js-typing-text";
+      const cursorProbe = document.createElement("span");
+      cursorProbe.className = "js-typing-cursor";
+      cursorProbe.textContent = "|";
+      probe.append(phraseProbe, cursorProbe);
+      container.parentElement.appendChild(probe);
+
+      let tallestPhrase = 0;
+      phrases.forEach((phrase) => {
+        phraseProbe.textContent = phrase;
+        tallestPhrase = Math.max(
+          tallestPhrase,
+          probe.getBoundingClientRect().height,
+        );
+      });
+
+      const fontSize = parseFloat(getComputedStyle(container).fontSize);
+      const minimumHeight = Number.isFinite(fontSize) ? fontSize * 1.5 : 0;
+      container.style.minHeight = `${Math.ceil(
+        Math.max(minimumHeight, tallestPhrase),
+      )}px`;
+      probe.remove();
+    }
+
+    reservePhraseHeight();
+    if ("ResizeObserver" in window) {
+      const typewriterResizeObserver = new ResizeObserver(reservePhraseHeight);
+      typewriterResizeObserver.observe(container);
+    } else {
+      window.addEventListener("resize", reservePhraseHeight);
+    }
 
     // Blinking cursor loop
     setInterval(() => {

@@ -1,25 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 3 Sequential Fallback Repositories for Shared Config Manifest (`codm-config.js`) using GitHub Pages
-  const repoConfigs = [
-    {
-      url: "https://mob-extra.github.io/MOBEXTRA.github.shared-data-repo.1/codm-test-server/codm-config.js",
-      name: "Repository 1",
-      base: "https://mob-extra.github.io/MOBEXTRA.github.shared-data-repo.1/codm-test-server/",
-    },
-    {
-      url: "https://mob-extra.github.io/MOBEXTRA.github.shared-data-repo.2/codm-test-server/codm-config.js",
-      name: "Repository 2",
-      base: "https://mob-extra.github.io/MOBEXTRA.github.shared-data-repo.2/codm-test-server/",
-    },
-    {
-      url: "https://mob-extra.github.io/MOBEXTRA.github.shared-data-repo.3/codm-test-server/codm-config.js",
-      name: "Repository 3",
-      base: "https://mob-extra.github.io/MOBEXTRA.github.shared-data-repo.3/codm-test-server/",
-    },
-  ];
-
-  let currentIndex = 0;
-  let activeRepoName = repoConfigs[0].name;
+  let activeRepoName = "";
 
   let isUnlocked = false;
   let verifyData = null;
@@ -74,80 +54,62 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function loadSharedConfigWithFallback() {
-    if (currentIndex >= repoConfigs.length) {
-      console.error("Critical Error: All repositories failed.");
-      if (serverInfoContainer) {
-        serverInfoContainer.innerHTML = `
-          <div class="server-status-header">
-            <h3>CODM Test Server</h3>
-            <span class="status-badge closed"><i class="fa-solid fa-triangle-exclamation"></i> Error</span>
-          </div>
-          <div class="meta-row" style="text-align: center; padding: 1.5rem 0;">
-            <p style="color: var(--codm-red); font-weight: bold; margin-bottom: 0.75rem;"><i class="fa-solid fa-circle-exclamation"></i> All config sources failed!</p>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Please contact the site admin via YouTube to report this issue.</p>
-            <a href="https://www.youtube.com/channel/UCbDtYZS08VvB6luAcyn08bQ" target="_blank" rel="noopener noreferrer" class="btn-tactical btn-yt" style="display: inline-flex; margin: 0 auto; text-decoration: none;">
-              <i class="fa-brands fa-youtube"></i>
-              <span>Contact via YouTube</span>
-            </a>
-          </div>
-        `;
-      }
-
-      // Force links container to stay locked and show an offline notice
-      if (linksGridContainer) {
-        linksGridContainer.classList.add("locked");
-        linksGridContainer.innerHTML = `
-          <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--codm-red);">
-            <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
-            <p style="font-weight: bold; font-size: 1rem;">Internet Connection Required</p>
-            <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 0.4rem;">You must be online and complete access verification to view download links.</p>
-          </div>
-        `;
-      }
+    if (!window.MobExtraDataClient) {
+      showRepositoryError(new Error("Shared data client is not loaded."));
       return;
     }
 
-    const currentRepo = repoConfigs[currentIndex];
-    const script = document.createElement("script");
-    script.src = currentRepo.url;
-    script.async = true;
+    window.MobExtraDataClient.loadTestServer()
+      .then(({ data, repository }) => {
+        activeRepoName = repository;
+        verifyData = data.notARobot;
+        if (
+          data.testServerData.links &&
+          data.testServerData.links.length > 0
+        ) {
+          loadedServerData = data.testServerData;
+          renderServerData(data.testServerData);
+          setTimeout(() => {
+            renderVerificationGateway();
+          }, 3000);
+        } else {
+          console.warn(
+            "Download links are missing or failed to load. Verification gateway will remain hidden.",
+          );
+        }
+      })
+      .catch(showRepositoryError);
+  }
 
-    script.onload = function () {
-      activeRepoName = currentRepo.name;
+  function showRepositoryError(error) {
+    console.error("Shared test-server data is unavailable:", error);
+    if (serverInfoContainer) {
+      serverInfoContainer.innerHTML = `
+        <div class="server-status-header">
+          <h3>CODM Test Server</h3>
+          <span class="status-badge closed"><i class="fa-solid fa-triangle-exclamation"></i> Error</span>
+        </div>
+        <div class="meta-row" style="text-align: center; padding: 1.5rem 0;">
+          <p style="color: var(--codm-red); font-weight: bold; margin-bottom: 0.75rem;"><i class="fa-solid fa-circle-exclamation"></i> All config sources failed!</p>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Please contact the site admin via YouTube to report this issue.</p>
+          <a href="https://www.youtube.com/channel/UCbDtYZS08VvB6luAcyn08bQ" target="_blank" rel="noopener noreferrer" class="btn-tactical btn-yt" style="display: inline-flex; margin: 0 auto; text-decoration: none;">
+            <i class="fa-brands fa-youtube"></i>
+            <span>Contact via YouTube</span>
+          </a>
+        </div>
+      `;
+    }
 
-      if (typeof notARobot !== "undefined") {
-        verifyData = notARobot;
-      }
-
-      // Ensure valid test server data and links exist before displaying them and starting the timer
-      if (
-        typeof testServerData !== "undefined" &&
-        testServerData.links &&
-        testServerData.links.length > 0
-      ) {
-        loadedServerData = testServerData;
-        renderServerData(testServerData);
-
-        // Wait exactly 3 seconds after links are fully loaded and rendered before showing verification
-        setTimeout(() => {
-          renderVerificationGateway();
-        }, 3000);
-      } else {
-        console.warn(
-          "Download links are missing or failed to load. Verification gateway will remain hidden.",
-        );
-      }
-    };
-
-    script.onerror = function () {
-      console.warn(
-        `Repository #${currentIndex + 1} (${currentRepo.name}) failed. Switching to next repository...`,
-      );
-      currentIndex++;
-      loadSharedConfigWithFallback();
-    };
-
-    document.head.appendChild(script);
+    if (linksGridContainer) {
+      linksGridContainer.classList.add("locked");
+      linksGridContainer.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--codm-red);">
+          <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+          <p style="font-weight: bold; font-size: 1rem;">Internet Connection Required</p>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 0.4rem;">You must be online and complete access verification to view download links.</p>
+        </div>
+      `;
+    }
   }
 
   // Dynamic Injection of Verification Gateway keeping original wording/layout + disclaimer checkbox

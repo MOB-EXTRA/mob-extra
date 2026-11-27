@@ -53,17 +53,11 @@
   motionScript.dataset.motionReplay = "";
   document.body.append(motionScript);
 
-  const reviewExcluded = /(?:^|\/)(?:terms|privacy|legal)(?:\.html|\/|$)/i.test(currentPath) || /\/pages\/portfolio\/(?:team\/)?carl(?:\/|$)/i.test(currentPath);
-  if (!reviewExcluded) {
-    const reviewCss = document.createElement("link");
-    reviewCss.rel = "stylesheet";
-    reviewCss.href = path("assets/css/review-widget.css");
-    document.head.append(reviewCss);
-    const reviewScript = document.createElement("script");
-    reviewScript.type = "module";
-    reviewScript.src = path("assets/js/review-widget.js");
-    document.body.append(reviewScript);
-  }
+  const reviewBootstrap = document.createElement("script");
+  reviewBootstrap.type = "module";
+  reviewBootstrap.src = path("assets/js/review-bootstrap.js");
+  reviewBootstrap.dataset.reviewBootstrap = "";
+  document.body.append(reviewBootstrap);
 
   const getMeta = (doc, name) => doc.querySelector(`meta[name="${name}"]`)?.content?.trim() || "";
   window.siteCatalogReady = fetch(path("sitemap.xml"))
@@ -92,6 +86,8 @@
           return {
             section,
             label,
+            reviewCategory: getMeta(doc, "review-category"),
+            reviewFeature: getMeta(doc, "review-feature"),
             portfolioGroup: getMeta(doc, "portfolio-group"),
             description: getMeta(doc, "nav-description") || getMeta(doc, "description"),
             directoryTitle: getMeta(doc, "directory-title") || label,

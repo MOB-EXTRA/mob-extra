@@ -56,8 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     reviewBtn.addEventListener("click", function (e) {
       e.preventDefault();
 
-      // 1. Smooth scroll to the reviews section
-      const reviewsSection = document.getElementById("reviews-feed-container");
+      const reviewsSection = document.getElementById("reviews");
       if (reviewsSection) {
         const headerOffset = 80;
         const elementPosition = reviewsSection.getBoundingClientRect().top;
@@ -66,13 +65,9 @@ document.addEventListener("DOMContentLoaded", function () {
         window.scrollTo({ top: offsetPosition, behavior: "smooth" });
       }
 
-      // 2. Automatically activate the "Commissions / Services" filter pill
-      const filterPills = document.querySelectorAll(".play-store-pill");
-      filterPills.forEach((pill) => {
-        if (pill.getAttribute("data-filter") === "Commissions / Services") {
-          pill.click(); // Triggers your existing filter & render logic
-        }
-      });
+      document
+        .querySelector('[data-review-filter="Commissions / Services"]')
+        ?.click();
     });
   }
 });

@@ -13,4 +13,6 @@ This portfolio is included as a standalone, static site inside MOB EXTRA. It kee
 
 Edit these files directly. The portfolio is plain HTML, CSS, JavaScript, and JSON, so it does not require Node.js, npm, or a build step. Use any static file preview server to review changes.
 
+The portfolio uses MOB EXTRA's shared review bootstrap and Firebase client. Keep `review-enabled=true` metadata and the shared `assets/js/review-bootstrap.js` module on owner-managed HTML pages; do not add page-specific review forms or Firebase setup.
+
 The `MOB EXTRA` link in the portfolio header returns visitors to the main site.

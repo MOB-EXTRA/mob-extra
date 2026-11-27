@@ -1,18 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // =================================================================
-  // 1. CONFIGURATIONS & REPOSITORIES FALLBACK ARRAY
-  // =================================================================
-  const repoConfigs = [
-    { url: "https://mob-extra.github.io/MOBEXTRA.github.shared-data-repo.1/codm-redeem-code/redeem-codes.js", name: "Repository 1" },
-    { url: "https://mob-extra.github.io/MOBEXTRA.github.shared-data-repo.2/codm-redeem-code/redeem-codes.js", name: "Repository 2" },
-    { url: "https://mob-extra.github.io/MOBEXTRA.github.shared-data-repo.3/codm-redeem-code/redeem-codes.js", name: "Repository 3" }
-  ];
-
-  let currentIndex = 0;
-  let activeRepoName = repoConfigs[0].name;
+  let activeRepoName = "";
 
   // =================================================================
-  // 2. DOM ELEMENT REFERENCES
+  // 1. DOM ELEMENT REFERENCES
   // =================================================================
   const toastEl = document.getElementById('toast');
   const tableBody = document.getElementById('codesTableBody');
@@ -43,50 +33,39 @@ document.addEventListener("DOMContentLoaded", () => {
   let parsedCodes = [];
   let filteredCodes = [];
   let currentPage = 1;
-  let rowsPerPage = 30;
+  let rowsPerPage = 20;
 
   // =================================================================
-  // 3. FALLBACK DATA LOADER
+  // 2. SHARED REPOSITORY DATA
   // =================================================================
   function loadSharedConfigWithFallback() {
-    if (currentIndex >= repoConfigs.length) {
-      console.error("Critical Error: All redeem code repositories failed.");
-      if (tableBody) {
-        tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 2rem; color: #e74c3c;">
-          <p style="font-weight: bold; font-size: 0.95rem; margin-bottom: 0.5rem;">All config sources failed!</p>
-          <p style="color: var(--text-secondary); font-size: 0.82rem; margin-bottom: 1rem;">Please contact the site admin via YouTube to report this issue.</p>
-          <a href="https://www.youtube.com/channel/UCbDtYZS08VvB6luAcyn08bQ" target="_blank" rel="noopener noreferrer" style="color: #fff; background: #FF0000; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.78rem; display: inline-block;">
-            Contact via YouTube
-          </a>
-        </td></tr>`;
-      }
+    if (!window.MobExtraDataClient) {
+      showRepositoryError(new Error("Shared data client is not loaded."));
       return;
     }
 
-    const currentRepo = repoConfigs[currentIndex];
-    const script = document.createElement("script");
-    script.src = currentRepo.url;
-    script.async = true;
-
-    script.onload = function() {
-      activeRepoName = currentRepo.name;
-      if (typeof redeemCodesData !== "undefined") {
-        parsedCodes = parseRedeemCodesData(redeemCodesData);
+    window.MobExtraDataClient.loadRedeemCodes("codm")
+      .then(({ data, repository }) => {
+        activeRepoName = repository;
+        parsedCodes = parseRedeemCodesData(data);
         updateDynamicHeaders(parsedCodes);
         applyFilters();
         renderRepoSourceInfo();
-      } else {
-        currentIndex++;
-        loadSharedConfigWithFallback();
-      }
-    };
+      })
+      .catch(showRepositoryError);
+  }
 
-    script.onerror = function() {
-      currentIndex++;
-      loadSharedConfigWithFallback();
-    };
-
-    document.head.appendChild(script);
+  function showRepositoryError(error) {
+    console.error("Shared redeem-code data is unavailable:", error);
+    if (tableBody) {
+      tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 2rem; color: #e74c3c;">
+        <p style="font-weight: bold; font-size: 0.95rem; margin-bottom: 0.5rem;">All config sources failed!</p>
+        <p style="color: var(--text-secondary); font-size: 0.82rem; margin-bottom: 1rem;">Please contact the site admin via YouTube to report this issue.</p>
+        <a href="https://www.youtube.com/channel/UCbDtYZS08VvB6luAcyn08bQ" target="_blank" rel="noopener noreferrer" style="color: #fff; background: #FF0000; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.78rem; display: inline-block;">
+          Contact via YouTube
+        </a>
+      </td></tr>`;
+    }
   }
 
   function renderRepoSourceInfo() {
@@ -103,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 4. DATA PARSER FUNCTION (Supports Explicit Lock Flag)
   // =================================================================
   function parseRedeemCodesData(dataString) {
-    if (typeof redeemCodesData === 'undefined') return [];
+    if (typeof dataString !== "string") return [];
     
     const entries = dataString.trim().split(/\n\s*\n/);
     const result = [];

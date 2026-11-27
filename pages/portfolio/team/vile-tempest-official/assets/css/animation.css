@@ -12,11 +12,8 @@
 }
 
 .js-typing-text {
-  display: inline-block;
-  /* Forces GPU layer rendering to completely eliminate subpixel jitter/flicker */
+  display: inline;
   will-change: contents;
-  transform: translateZ(0);
-  backface-visibility: hidden;
 }
 
 .js-typing-cursor {
@@ -24,7 +21,6 @@
   font-weight: 700;
   color: #38bdf8;
   margin-left: 2px;
-  /* Prevents cursor from wrapping or causing line shifts */
   white-space: nowrap;
 }
 
@@ -197,8 +193,6 @@
 .service-box,
 .utility-card,
 .intel-item-card,
-.play-store-summary-card,
-.review-form-card,
 .contact-card {
   transition:
     transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
@@ -211,14 +205,6 @@
 .intel-item-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 35px rgba(56, 189, 248, 0.12);
-}
-
-.play-store-bar-fill {
-  height: 100%;
-  background: #38bdf8;
-  border-radius: 4px;
-  width: 0%;
-  transition: width 6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-primary,
@@ -361,7 +347,6 @@
   .animate-scale-up,
   .service-box,
   .utility-card,
-  .play-store-bar-fill,
   .hero-floating-badge {
     animation: none !important;
     transition: none !important;
