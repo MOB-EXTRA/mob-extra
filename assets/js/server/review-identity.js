@@ -21,6 +21,26 @@ export function isReservedReviewAuthor(author) {
   );
 }
 
+export function normalizeReviewAuthor(author) {
+  return String(author || "")
+    .normalize("NFKC")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase();
+}
+
+export function generateReviewAuthor() {
+  const values = new Uint32Array(2);
+  if (globalThis.crypto?.getRandomValues) {
+    globalThis.crypto.getRandomValues(values);
+  } else {
+    values[0] = Math.floor(Math.random() * 0xffffffff);
+    values[1] = Math.floor(Math.random() * 0xffffffff);
+  }
+  const suffix = Array.from(values, (value) => value.toString(36)).join("");
+  return `Community-${suffix}`;
+}
+
 export function getReviewDeviceId() {
   let deviceId = DEVICE_ID_ALIASES.map((key) => localStorage.getItem(key)).find(
     Boolean,

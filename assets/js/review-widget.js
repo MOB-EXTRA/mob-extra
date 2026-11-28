@@ -7,7 +7,12 @@ import {
   populateReviewFeatureSelect,
   getReviewAuthorName,
   getReviewDeviceId,
+  generateReviewAuthor,
   isReservedReviewAuthor,
+  isReviewAuthorAvailable,
+  normalizeReviewAuthor,
+  releaseReviewAuthor,
+  reserveReviewAuthor,
   setReviewAuthorName,
   isReviewEnabled,
 } from "./server/api.js";
@@ -65,7 +70,7 @@ if (
         <label>Category<select name="reviewType"><option>General Feedback</option><option>Commissions / Services</option><option>Utilities</option><option>Buying in Shop</option></select></label>
         <label>Rating<select name="rating" required><option value="5">5 stars — Excellent</option><option value="4">4 stars — Good</option><option value="3">3 stars — Fair</option><option value="2">2 stars — Poor</option><option value="1">1 star — Very poor</option></select></label>
         <label class="review-submit-utility" data-review-utility-field hidden>Which utility or hub is this about?<select name="specificUtility"><option value="">Select a utility or hub</option></select></label>
-        <label class="review-submit-name">Name or gamer tag <span>(optional; shared across your reviews)</span><input name="author" maxlength="80" autocomplete="nickname" placeholder="Community member"></label>
+        <label class="review-submit-name">Username <span>(public and unique across reviews)</span><input name="author" maxlength="80" autocomplete="nickname" placeholder="Choose a username"><small class="review-username-hint" data-review-username-status role="status" aria-live="polite">Leave blank and we’ll generate a unique username for you.</small></label>
         <label class="review-submit-comment">Your review<textarea name="comment" minlength="5" maxlength="1200" rows="4" required placeholder="Share your experience…"></textarea></label>
       </div>
       <label class="review-submit-consent"><input type="checkbox" name="consent" required><span>I agree that my review may be displayed publicly. See the <a href="${new URL("pages/privacy.html", siteBase).href}">Privacy Policy</a>.</span></label>
@@ -104,6 +109,8 @@ if (
 
   const form = section.querySelector("[data-review-submit]");
   const formStatus = section.querySelector(".review-submit-status");
+  const authorInput = form.elements.author;
+  const authorStatus = form.querySelector("[data-review-username-status]");
   const submit = form.querySelector("button[type=submit]");
   const submitLabel = form.querySelector("[data-review-submit-label]");
   const formTitle = form.querySelector("[data-review-form-title]");
@@ -116,7 +123,10 @@ if (
   utilitySelect.disabled = true;
   const deviceToken = getReviewDeviceId();
   let authorProfileName = getReviewAuthorName();
-  if (authorProfileName) form.elements.author.value = authorProfileName;
+  if (authorProfileName) {
+    authorInput.value = authorProfileName;
+    setUsernameStatus("Your saved username is reserved for you.", "available");
+  }
 
   let isEditing = false;
   let isSubmitting = false;
@@ -147,6 +157,62 @@ if (
       compactReview.status.classList.toggle("is-warning", kind === "warning");
     }
   }
+
+  function setUsernameStatus(message, kind = "") {
+    authorStatus.textContent = message;
+    authorStatus.classList.toggle("is-warning", kind === "warning");
+    authorStatus.classList.toggle("is-available", kind === "available");
+  }
+
+  let usernameCheckSequence = 0;
+  let usernameCheckTimer;
+  authorInput.addEventListener("input", () => {
+    const sequence = ++usernameCheckSequence;
+    clearTimeout(usernameCheckTimer);
+    if (!targetNotice.hidden) setReviewStatus("");
+    const candidate = authorInput.value.trim();
+    if (!candidate) {
+      setUsernameStatus(
+        "Leave blank and we’ll generate a unique username for you.",
+      );
+      return;
+    }
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate)) {
+      setUsernameStatus(
+        "Email addresses aren’t public usernames. Leave this blank for a generated username.",
+        "warning",
+      );
+      return;
+    }
+    if (isReservedReviewAuthor(candidate)) {
+      setUsernameStatus(
+        "Choose a username that does not impersonate MOB EXTRA or its team.",
+        "warning",
+      );
+      return;
+    }
+    setUsernameStatus("Checking username availability…");
+    usernameCheckTimer = setTimeout(async () => {
+      try {
+        const available = await isReviewAuthorAvailable(candidate, deviceToken);
+        if (sequence !== usernameCheckSequence) return;
+        setUsernameStatus(
+          available
+            ? "This username is available."
+            : "That username is already in use. Try another, or leave this blank for a generated username.",
+          available ? "available" : "warning",
+        );
+      } catch (error) {
+        console.warn("Username availability could not be checked.", error);
+        if (sequence === usernameCheckSequence) {
+          setUsernameStatus(
+            "Username availability could not be checked right now. We’ll verify it when you submit.",
+            "warning",
+          );
+        }
+      }
+    }, 350);
+  });
 
   function setSubmissionDisabled(disabled) {
     submit.disabled = disabled;
@@ -681,6 +747,12 @@ if (
     }
     authorProfileName = setReviewAuthorName(event.newValue || "");
     form.elements.author.value = authorProfileName;
+    setUsernameStatus(
+      authorProfileName
+        ? "Your saved username is reserved for you."
+        : "Leave blank and we’ll generate a unique username for you.",
+      authorProfileName ? "available" : "",
+    );
   });
 
   form.addEventListener("submit", async (event) => {
@@ -708,10 +780,42 @@ if (
       isSubmitting = false;
       return;
     }
-    const author =
-      !enteredAuthor || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(enteredAuthor)
-        ? "Community member"
-        : enteredAuthor.slice(0, 80);
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(enteredAuthor)) {
+      setUsernameStatus(
+        "Email addresses aren’t public usernames. Leave this blank for a generated username.",
+        "warning",
+      );
+      authorInput.focus();
+      isSubmitting = false;
+      return;
+    }
+    let author = enteredAuthor
+      ? enteredAuthor.slice(0, 80)
+      : generateReviewAuthor();
+    const generatedAuthor = !enteredAuthor;
+    if (generatedAuthor) {
+      authorInput.value = author;
+      setUsernameStatus(`Generated ${author}. Checking availability…`);
+    }
+    try {
+      const available = await isReviewAuthorAvailable(author, deviceToken);
+      if (!available) {
+        const message =
+          "That username is already in use. Choose another, or leave the name blank for a generated username.";
+        setUsernameStatus(message, "warning");
+        setReviewStatus(message, "warning");
+        authorInput.focus();
+        isSubmitting = false;
+        return;
+      }
+    } catch (error) {
+      console.error("Username availability could not be checked.", error);
+      setReviewStatus(
+        "We couldn’t verify that username. Please try again before submitting.",
+      );
+      isSubmitting = false;
+      return;
+    }
     const reviewData = {
       userId: deviceToken,
       deviceToken,
@@ -744,6 +848,7 @@ if (
         ? "Checking your changes…"
         : "Checking for an existing review…",
     );
+    let newlyReservedUsername = false;
     try {
       const latest = await findReviewByDeviceToken(
         deviceToken,
@@ -792,13 +897,62 @@ if (
         );
       }
 
+      const previousAuthor = authorProfileName;
+      let reservationAttempts = 0;
+      while (true) {
+        try {
+          newlyReservedUsername = await reserveReviewAuthor(
+            author,
+            deviceToken,
+          );
+          break;
+        } catch (error) {
+          if (
+            error.code !== "review/username-taken" ||
+            !generatedAuthor ||
+            reservationAttempts >= 4
+          ) {
+            throw error;
+          }
+          reservationAttempts += 1;
+          author = generateReviewAuthor();
+          authorInput.value = author;
+          setUsernameStatus(
+            `Generated ${author}; checking another unique username…`,
+          );
+        }
+      }
+      reviewData.author = author;
       await synchronizeReviewAuthor(deviceToken, author);
       const savedReview = await saveReview({
         ...reviewData,
         timestamp: new Date(),
         isApproved: true,
       });
+      newlyReservedUsername = false;
+      let previousUsernameReleased = true;
+      if (
+        previousAuthor &&
+        normalizeReviewAuthor(previousAuthor) !== normalizeReviewAuthor(author)
+      ) {
+        try {
+          await releaseReviewAuthor(previousAuthor, deviceToken);
+        } catch (error) {
+          previousUsernameReleased = false;
+          console.warn(
+            "The previous review username could not be released.",
+            error,
+          );
+        }
+      }
       authorProfileName = setReviewAuthorName(author);
+      authorInput.value = author;
+      setUsernameStatus(
+        previousUsernameReleased
+          ? "Your unique username is saved."
+          : "Your new username is saved. The previous username could not be released yet.",
+        previousUsernameReleased ? "available" : "warning",
+      );
       reviewDrafts.delete(reviewData.reviewTargetId);
       setEditMode({ id: savedReview.id, ...reviewData });
       setReviewStatus(
@@ -806,7 +960,25 @@ if (
       );
     } catch (error) {
       console.error("Review submission failed.", error);
-      setReviewStatus("We couldn’t submit that review. Please try again later.");
+      if (newlyReservedUsername) {
+        try {
+          await releaseReviewAuthor(author, deviceToken);
+        } catch (releaseError) {
+          console.error(
+            "The reserved review username could not be released after submission failed.",
+            releaseError,
+          );
+        }
+      }
+      if (error.code === "review/username-taken") {
+        const message =
+          "That username was just claimed by someone else. Choose another, or leave the name blank for a generated username.";
+        setUsernameStatus(message, "warning");
+        setReviewStatus(message, "warning");
+        authorInput.focus();
+      } else {
+        setReviewStatus("We couldn’t submit that review. Please try again later.");
+      }
     } finally {
       setSubmissionDisabled(false);
       isSubmitting = false;

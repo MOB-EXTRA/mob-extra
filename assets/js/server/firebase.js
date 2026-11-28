@@ -1,4 +1,7 @@
-import { isReservedReviewAuthor } from "./review-identity.js";
+import {
+  isReservedReviewAuthor,
+  normalizeReviewAuthor,
+} from "./review-identity.js";
 
 const FIREBASE_CONFIG = Object.freeze({
   apiKey: "AIzaSyCbCgCRWV4cIDjfGg0llNQXzIscnKvLc9w",
@@ -13,8 +16,11 @@ const FIREBASE_CONFIG = Object.freeze({
 const FIREBASE_SDK_VERSION = "13.1.0";
 const FIREBASE_APP_NAME = "portfolio-community-reviews";
 const REVIEW_COLLECTION = "site_reviews";
+const USERNAME_REGISTRY_ANCHOR_FIELD = "usernameRegistryAnchor";
+const USERNAME_REGISTRY_FIELD = "usernameRegistry";
 
 let firebasePromise;
+let usernameRegistryRefPromise;
 
 function getFirebase() {
   if (!firebasePromise) {
@@ -56,9 +62,125 @@ function timestampValue(review) {
 }
 
 function assertReviewAuthorAllowed(author) {
+  if (typeof author !== "string" || !author.trim()) {
+    throw new Error("A public review username is required.");
+  }
+  if (author.trim().length > 80) {
+    throw new Error("Review usernames must be 80 characters or fewer.");
+  }
   if (isReservedReviewAuthor(author)) {
     throw new Error("Names that impersonate the site owner are not allowed.");
   }
+}
+
+async function getUsernameRegistryRef(firestore, db) {
+  if (!usernameRegistryRefPromise) {
+    usernameRegistryRefPromise = firestore
+      .getDocs(firestore.collection(db, REVIEW_COLLECTION))
+      .then((snapshot) => {
+        const anchors = snapshot.docs.filter(
+          (entry) => entry.data()[USERNAME_REGISTRY_ANCHOR_FIELD] === true,
+        );
+        if (anchors.length !== 1) {
+          throw new Error(
+            "The review username registry is not initialized. Please try again later.",
+          );
+        }
+        return anchors[0].ref;
+      })
+      .catch((error) => {
+        usernameRegistryRefPromise = undefined;
+        throw error;
+      });
+  }
+  return usernameRegistryRefPromise;
+}
+
+function createUsernameTakenError() {
+  const error = new Error(
+    "That username is already in use. Choose another or leave the name blank for a generated username.",
+  );
+  error.code = "review/username-taken";
+  return error;
+}
+
+export async function isReviewAuthorAvailable(author, ownerId) {
+  if (!ownerId) throw new Error("A review user ID is required.");
+  assertReviewAuthorAllowed(author);
+  const normalizedAuthor = normalizeReviewAuthor(author);
+  if (!normalizedAuthor) throw new Error("A review username is required.");
+
+  const { firestore, db } = await getFirebase();
+  const registryRef = await getUsernameRegistryRef(firestore, db);
+  const snapshot = await firestore.getDoc(registryRef);
+  const registry = snapshot.data()?.[USERNAME_REGISTRY_FIELD] || {};
+  const owner = Object.prototype.hasOwnProperty.call(
+    registry,
+    normalizedAuthor,
+  )
+    ? registry[normalizedAuthor]
+    : null;
+  return !owner || owner.ownerId === ownerId;
+}
+
+export async function reserveReviewAuthor(author, ownerId) {
+  if (!ownerId) throw new Error("A review user ID is required.");
+  assertReviewAuthorAllowed(author);
+  const normalizedAuthor = normalizeReviewAuthor(author);
+  if (!normalizedAuthor) throw new Error("A review username is required.");
+
+  const { firestore, db } = await getFirebase();
+  const registryRef = await getUsernameRegistryRef(firestore, db);
+  return firestore.runTransaction(db, async (transaction) => {
+    const snapshot = await transaction.get(registryRef);
+    const registry = snapshot.data()?.[USERNAME_REGISTRY_FIELD] || {};
+    const currentOwner = Object.prototype.hasOwnProperty.call(
+      registry,
+      normalizedAuthor,
+    )
+      ? registry[normalizedAuthor]
+      : null;
+    if (currentOwner && currentOwner.ownerId !== ownerId) {
+      throw createUsernameTakenError();
+    }
+    if (currentOwner) return false;
+
+    transaction.update(registryRef, {
+      [USERNAME_REGISTRY_FIELD]: {
+        ...registry,
+        [normalizedAuthor]: {
+          author: author.trim(),
+          ownerId,
+        },
+      },
+    });
+    return true;
+  });
+}
+
+export async function releaseReviewAuthor(author, ownerId) {
+  if (!author || !ownerId) return;
+  const normalizedAuthor = normalizeReviewAuthor(author);
+  if (!normalizedAuthor) return;
+
+  const { firestore, db } = await getFirebase();
+  const registryRef = await getUsernameRegistryRef(firestore, db);
+  await firestore.runTransaction(db, async (transaction) => {
+    const snapshot = await transaction.get(registryRef);
+    const registry = snapshot.data()?.[USERNAME_REGISTRY_FIELD] || {};
+    if (
+      !Object.prototype.hasOwnProperty.call(registry, normalizedAuthor) ||
+      registry[normalizedAuthor]?.ownerId !== ownerId
+    ) {
+      return;
+    }
+
+    const updatedRegistry = { ...registry };
+    delete updatedRegistry[normalizedAuthor];
+    transaction.update(registryRef, {
+      [USERNAME_REGISTRY_FIELD]: updatedRegistry,
+    });
+  });
 }
 
 export async function getReviewsByDeviceToken(deviceToken) {
