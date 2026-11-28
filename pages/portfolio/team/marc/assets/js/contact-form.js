@@ -24,7 +24,16 @@ function initializeContactForm() {
 
     const config = window.SITE_CONFIG;
     const details = new FormData(form);
-    const recipient = config?.links?.emailAddress || "mob.extra.contact@gmail.com";
+    const recipient = config?.links?.emailAddress;
+    if (!recipient) {
+      const formNote = form.querySelector("#form-note");
+      if (formNote) {
+        formNote.textContent =
+          "The contact email is unavailable right now. Please try again later.";
+      }
+      console.error("The contact form cannot be submitted without a configured recipient.");
+      return;
+    }
     const subject = `Project inquiry: ${details.get("service")} — ${config?.brandName || "Marc Johnford"}`;
     const body = [
       `Name: ${details.get("name")}`,

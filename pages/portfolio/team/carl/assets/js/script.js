@@ -41,6 +41,10 @@ if (menuButton && navRight) {
     const isOpen = navRight.classList.toggle("is-open");
 
     menuButton.setAttribute("aria-expanded", String(isOpen));
+    menuButton.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation" : "Open navigation",
+    );
   });
 
   document.querySelectorAll(".main-nav a").forEach((link) => {
@@ -48,6 +52,7 @@ if (menuButton && navRight) {
       navRight.classList.remove("is-open");
 
       menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Open navigation");
     });
   });
 }

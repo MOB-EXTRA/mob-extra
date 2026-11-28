@@ -1,0 +1,112 @@
+.portfolio-return-button {
+  position: fixed;
+  z-index: 1200;
+  left: max(16px, env(safe-area-inset-left));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  display: inline-flex;
+  box-sizing: border-box;
+  width: 38px;
+  height: 42px;
+  align-items: center;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #1684a0;
+  border-radius: 9px;
+  background: #11283d;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.28);
+  color: #f7fbff !important;
+  font: 700 0.7rem/1 system-ui, sans-serif;
+  text-decoration: none !important;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+  transition: width 0.18s ease, background-color 0.18s ease;
+}
+
+.portfolio-return-button:hover,
+.portfolio-return-button:focus-visible,
+.portfolio-return-button.is-expanded {
+  width: 120px;
+}
+
+.portfolio-return-button:hover,
+.portfolio-return-button:focus-visible,
+.portfolio-return-button.is-expanded {
+  background: #173a53;
+}
+
+.portfolio-return-button:focus-visible {
+  outline: 3px solid #8cc4ff;
+  outline-offset: 3px;
+}
+
+.portfolio-return-button.is-dragging {
+  cursor: grabbing;
+}
+
+.portfolio-return-grip {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  flex: 0 0 34px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-right: 0;
+  background: rgba(2, 19, 34, 0.5);
+  color: #b8d7e6;
+}
+
+.portfolio-return-grip i {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.portfolio-return-grip span {
+  font-size: 6px;
+  letter-spacing: 0.04em;
+}
+
+.portfolio-return-action {
+  display: inline-flex;
+  box-sizing: border-box;
+  min-width: 0;
+  flex: 1;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 8px;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+
+.portfolio-return-button:hover .portfolio-return-grip,
+.portfolio-return-button:focus-visible .portfolio-return-grip,
+.portfolio-return-button.is-expanded .portfolio-return-grip {
+  width: 34px;
+  flex: 0 0 34px;
+  border-right: 1px solid rgba(112, 190, 211, 0.45);
+}
+
+.portfolio-return-button:hover .portfolio-return-action,
+.portfolio-return-button:focus-visible .portfolio-return-action,
+.portfolio-return-button.is-expanded .portfolio-return-action {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.portfolio-return-action svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}

@@ -13,20 +13,11 @@
     const pathname = new URL(page.url).pathname;
     return isPortfolioIndex(pathname) || (pathname.startsWith(portfolioRoot.pathname) && page.section === "more" && Boolean(page.portfolioGroup));
   };
-  window.portfolioViewerUrl = (value) => {
-    const destination = new URL(value, siteRoot);
-    if (destination.origin !== portfolioRoot.origin || !destination.pathname.startsWith(portfolioRoot.pathname) || destination.pathname === portfolioRoot.pathname) return destination.href;
-    let source = `${destination.pathname.slice(portfolioRoot.pathname.length)}${destination.search}${destination.hash}`;
-    if (/\/(?:index\.html)?$/.test(source) && source !== "index.html") source = `${source.replace(/(?:index\.html)?$/, "")}index.html`;
-    const viewer = new URL("view.html", portfolioRoot);
-    viewer.searchParams.set("src", source);
-    return viewer.href;
-  };
 
   const header = `
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header"><div class="container nav-wrap">
-      <a class="brand" href="${path("index.html")}"><img src="${path("assets/img/mob-extra.png")}" alt="" width="38" height="38"><span>MOB<span class="brand-accent">EXTRA</span><small>PLAY SMARTER</small></span></a>
+      <a class="brand" href="${path("index.html")}"><img src="${path("assets/img/mob-extra.png")}" alt="" width="38" height="38"><span>MOB<span class="brand-accent">EXTRA</span><small>USEFUL EXTRAS</small></span></a>
       <button class="menu-toggle" aria-expanded="false" aria-label="Open navigation"><span></span><span></span></button>
       <nav class="main-nav" aria-label="Main navigation">
         <a class="${currentPath === `${sitePrefix}/index.html` || currentPath === `${sitePrefix}/` ? "active" : ""}" href="${path("index.html")}">Home</a>
@@ -51,11 +42,11 @@
 
   const footer = `
     <footer class="site-footer"><div class="container footer-main">
-      <div class="footer-brand"><a class="brand" href="${path("index.html")}"><img src="${path("assets/img/mob-extra.png")}" alt="" width="38" height="38"><span>MOB<span class="brand-accent">EXTRA</span><small>PLAY SMARTER</small></span></a><p>Independent resources for mobile players.<br>Made with curiosity and care.</p></div>
-      <div class="footer-col"><span>EXPLORE</span><a href="${path("pages/hubs/codm/codm-redeem-codes-hub.html")}">CODM redeem codes</a><a href="${path("pages/hubs/codm/codm-ptb-download.html")}">CODM test builds</a><a href="${path("pages/hubs/mlbb/mlbb-redeem-codes-hub.html")}">MLBB redeem codes</a><a href="${path("pages/tools/index.html")}">Player tools</a><a href="${path("pages/store/index.html")}">Store preview</a></div>
-      <div class="footer-col"><span>PEOPLE &amp; SERVICES</span><a href="${path("pages/portfolio/index.html")}">Portfolios</a><a href="${path("pages/portfolio/view.html?src=team%2Fmarc%2F")}">Marc Johnford</a><a href="${path("pages/portfolio/view.html?src=team%2Fcarl%2F")}">Carl Vincent</a><a href="${path("pages/services/index.html")}">Professional services</a></div>
+      <div class="footer-brand"><a class="brand" href="${path("index.html")}"><img src="${path("assets/img/mob-extra.png")}" alt="" width="38" height="38"><span>MOB<span class="brand-accent">EXTRA</span><small>USEFUL EXTRAS</small></span></a><p>Independent tools, game hubs, and digital resources.<br>Made with curiosity and care.</p></div>
+      <div class="footer-col"><span>EXPLORE</span><a href="${path("pages/hubs/codm/codm-redeem-codes-hub.html")}">CODM redeem codes</a><a href="${path("pages/hubs/codm/codm-ptb-download.html")}">CODM test builds</a><a href="${path("pages/hubs/mlbb/mlbb-redeem-codes-hub.html")}">MLBB redeem codes</a><a href="${path("pages/tools/index.html")}">Tools &amp; utilities</a><a href="${path("pages/store/index.html")}">Store preview</a></div>
+      <div class="footer-col"><span>PEOPLE &amp; SERVICES</span><a href="${path("pages/portfolio/index.html")}">Portfolios</a><a href="${path("pages/portfolio/team/marc/")}">Marc Johnford</a><a href="${path("pages/portfolio/team/carl/")}">Carl Vincent</a><a href="${path("pages/services/index.html")}">Professional services</a></div>
       <div class="footer-col"><span>ABOUT &amp; LEGAL</span><a href="${path("pages/about.html")}">About MOB EXTRA</a><a href="${path("pages/editorial.html")}">Editorial policy</a><a href="${path("pages/contact.html")}">Contact</a><a href="${path("pages/privacy.html")}">Privacy policy</a><a href="${path("pages/terms.html")}">Terms of use</a></div>
-    </div><div class="container footer-bottom"><span>© <span data-year>2026</span> MOB EXTRA</span><span>Built for players, wherever you play.</span><a href="#main">Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a></div></footer>`;
+    </div><div class="container footer-bottom"><span>© <span data-year>2026</span> MOB EXTRA</span><span>Tools, hubs, and more for mobile and desktop.</span><a href="#main">Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a></div></footer>`;
 
   document.querySelectorAll("[data-site-header]").forEach((node) => node.outerHTML = header);
   document.querySelectorAll("[data-site-footer]").forEach((node) => node.outerHTML = footer);
@@ -64,10 +55,21 @@
   const themeMenu = document.querySelector("[data-theme-menu]");
   const themeChoices = document.querySelectorAll("[data-theme-choice]");
   if (themeToggle && themeMenu && window.mobExtraTheme) {
-    const updateThemeControls = () => {
+    const themeToggleIcon = themeToggle.querySelector("i");
+    const updateThemeToggleIcon = () => {
       const currentTheme = document.documentElement.dataset.theme;
-      themeToggle.setAttribute("aria-label", `Color theme: ${currentTheme}. Choose appearance.`);
-      themeToggle.innerHTML = `<i class="fa-solid fa-${currentTheme === "light" ? "sun" : "moon"}" aria-hidden="true"></i>`;
+      const isExpanded = themeToggle.getAttribute("aria-expanded") === "true";
+      themeToggle.setAttribute(
+        "aria-label",
+        isExpanded
+          ? "Close appearance menu"
+          : `Color theme: ${currentTheme}. Choose appearance.`,
+      );
+      themeToggleIcon.className = `fa-solid fa-${isExpanded ? "xmark" : currentTheme === "light" ? "sun" : "moon"}`;
+    };
+
+    const updateThemeControls = () => {
+      updateThemeToggleIcon();
       themeChoices.forEach((choice) => {
         choice.setAttribute(
           "aria-pressed",
@@ -76,31 +78,33 @@
       });
     };
 
+    const setThemeMenuOpen = (open) => {
+      themeToggle.setAttribute("aria-expanded", String(open));
+      themeMenu.hidden = !open;
+      updateThemeToggleIcon();
+    };
+
     themeToggle.addEventListener("click", () => {
       const isExpanded = themeToggle.getAttribute("aria-expanded") === "true";
-      themeToggle.setAttribute("aria-expanded", String(!isExpanded));
-      themeMenu.hidden = isExpanded;
+      setThemeMenuOpen(!isExpanded);
     });
 
     themeChoices.forEach((choice) => {
       choice.addEventListener("click", () => {
         window.mobExtraTheme.setPreference(choice.dataset.themeChoice);
-        themeToggle.setAttribute("aria-expanded", "false");
-        themeMenu.hidden = true;
+        setThemeMenuOpen(false);
         themeToggle.focus();
       });
     });
 
     document.addEventListener("click", (event) => {
       if (!event.target.closest(".theme-control")) {
-        themeToggle.setAttribute("aria-expanded", "false");
-        themeMenu.hidden = true;
+        setThemeMenuOpen(false);
       }
     });
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && !themeMenu.hidden) {
-        themeToggle.setAttribute("aria-expanded", "false");
-        themeMenu.hidden = true;
+        setThemeMenuOpen(false);
         themeToggle.focus();
       }
     });
@@ -120,48 +124,124 @@
   document.body.append(reviewBootstrap);
 
   const getMeta = (doc, name) => doc.querySelector(`meta[name="${name}"]`)?.content?.trim() || "";
-  window.siteCatalogReady = fetch(path("sitemap.xml"))
-    .then((response) => { if (!response.ok) throw new Error("Sitemap unavailable"); return response.text(); })
-    .then((xml) => new DOMParser().parseFromString(xml, "application/xml"))
-    .then(async (sitemap) => {
-      const urls = [...sitemap.querySelectorAll("loc")]
-        .map((loc) => {
-          const publishedPath = new URL(loc.textContent.trim()).pathname;
-          const marker = "/mob-extra/";
-          const markerIndex = publishedPath.indexOf(marker);
-          if (markerIndex < 0) return null;
-          return new URL(publishedPath.slice(markerIndex + marker.length), siteRoot);
-        })
-        .filter((url) => url && url.pathname.startsWith(`${sitePrefix}/pages/`));
-      const pages = await Promise.all(urls.map(async (url) => {
-        try {
-          const response = await fetch(url.href);
-          if (!response.ok) return null;
-          const doc = new DOMParser().parseFromString(await response.text(), "text/html");
-          const section = getMeta(doc, "nav-section");
-          const label = getMeta(doc, "nav-label");
-          if (!section || !label) return null;
-          const directoryImage = getMeta(doc, "directory-image");
-          const directoryLogo = getMeta(doc, "directory-logo");
-          return {
-            section,
-            label,
-            reviewCategory: getMeta(doc, "review-category"),
-            reviewFeature: getMeta(doc, "review-feature"),
-            portfolioGroup: getMeta(doc, "portfolio-group"),
-            description: getMeta(doc, "nav-description") || getMeta(doc, "description"),
-            directoryTitle: getMeta(doc, "directory-title") || label,
-            directoryKicker: getMeta(doc, "directory-kicker") || "PORTFOLIO",
-            url: url.href,
-            image: directoryImage ? new URL(directoryImage, url).href : "",
-            imageAlt: getMeta(doc, "directory-image-alt") || `${label} preview`,
-            imageFit: getMeta(doc, "directory-image-fit"),
-            logo: directoryLogo ? new URL(directoryLogo, url).href : "",
-            logoAlt: getMeta(doc, "directory-logo-alt") || `${label} logo`,
-          };
-        } catch { return null; }
-      }));
-      const catalog = pages.filter(Boolean);
+  const catalogCacheKey = `mob-extra:site-catalog:v4:${siteRoot.pathname}`;
+  const catalogCacheTtl = 5 * 60 * 1000;
+  let catalogCacheWarningShown = false;
+
+  const warnCatalogCache = (error) => {
+    if (catalogCacheWarningShown) return;
+    catalogCacheWarningShown = true;
+    console.warn("The site catalog cache is unavailable; loading page metadata from the network.", error);
+  };
+
+  const readCatalogCache = () => {
+    try {
+      const cached = JSON.parse(sessionStorage.getItem(catalogCacheKey) || "null");
+      if (
+        !cached ||
+        typeof cached.sitemap !== "string" ||
+        !Array.isArray(cached.pages) ||
+        !Number.isFinite(cached.savedAt)
+      ) return null;
+      return cached;
+    } catch (error) {
+      warnCatalogCache(error);
+      return null;
+    }
+  };
+
+  const isFreshCatalogCache = (cached) =>
+    cached && Date.now() - cached.savedAt < catalogCacheTtl;
+
+  const loadCatalog = async () => {
+    const cached = readCatalogCache();
+    let response;
+    try {
+      response = await fetch(path("sitemap.xml"), { cache: "no-cache" });
+    } catch (error) {
+      if (isFreshCatalogCache(cached)) {
+        console.warn("Using the recent site catalog because the sitemap could not be fetched.", error);
+        return cached.pages;
+      }
+      throw error;
+    }
+    if (!response.ok) {
+      if (isFreshCatalogCache(cached)) {
+        console.warn(`Using the recent site catalog because the sitemap returned HTTP ${response.status}.`);
+        return cached.pages;
+      }
+      throw new Error(`Sitemap unavailable (HTTP ${response.status}).`);
+    }
+
+    const xml = await response.text();
+    if (
+      isFreshCatalogCache(cached) &&
+      cached.sitemap === xml
+    ) return cached.pages;
+
+    const sitemap = new DOMParser().parseFromString(xml, "application/xml");
+    if (sitemap.querySelector("parsererror")) {
+      throw new Error("The site sitemap could not be parsed.");
+    }
+    const urls = [...sitemap.querySelectorAll("loc")]
+      .map((loc) => {
+        const publishedPath = new URL(loc.textContent.trim()).pathname;
+        const marker = "/mob-extra/";
+        const markerIndex = publishedPath.indexOf(marker);
+        if (markerIndex < 0) return null;
+        return new URL(publishedPath.slice(markerIndex + marker.length), siteRoot);
+      })
+      .filter((url) => url && url.pathname.startsWith(`${sitePrefix}/pages/`));
+    const pages = await Promise.all(urls.map(async (url) => {
+      try {
+        const response = await fetch(url.href);
+        if (!response.ok) {
+          console.warn(`Page metadata could not be loaded from ${url.href} (HTTP ${response.status}).`);
+          return null;
+        }
+        const doc = new DOMParser().parseFromString(await response.text(), "text/html");
+        const section = getMeta(doc, "nav-section");
+        const label = getMeta(doc, "nav-label");
+        if (!section || !label) return null;
+        const directoryImage = getMeta(doc, "directory-image");
+        const directoryImageWebp = getMeta(doc, "directory-image-webp");
+        const directoryLogo = getMeta(doc, "directory-logo");
+        return {
+          section,
+          label,
+          reviewCategory: getMeta(doc, "review-category"),
+          reviewFeature: getMeta(doc, "review-feature"),
+          portfolioGroup: getMeta(doc, "portfolio-group"),
+          description: getMeta(doc, "nav-description") || getMeta(doc, "description"),
+          directoryTitle: getMeta(doc, "directory-title") || label,
+          directoryKicker: getMeta(doc, "directory-kicker") || "PORTFOLIO",
+          url: url.href,
+          image: directoryImage ? new URL(directoryImage, url).href : "",
+          imageWebp: directoryImageWebp ? new URL(directoryImageWebp, url).href : "",
+          imageAlt: getMeta(doc, "directory-image-alt") || `${label} preview`,
+          imageFit: getMeta(doc, "directory-image-fit"),
+          logo: directoryLogo ? new URL(directoryLogo, url).href : "",
+          logoAlt: getMeta(doc, "directory-logo-alt") || `${label} logo`,
+        };
+      } catch (error) {
+        console.warn(`Page metadata could not be read from ${url.href}.`, error);
+        return null;
+      }
+    }));
+    const catalog = pages.filter(Boolean);
+    try {
+      sessionStorage.setItem(
+        catalogCacheKey,
+        JSON.stringify({ sitemap: xml, savedAt: Date.now(), pages: catalog }),
+      );
+    } catch (error) {
+      warnCatalogCache(error);
+    }
+    return catalog;
+  };
+
+  window.siteCatalogReady = loadCatalog()
+    .then((catalog) => {
       for (const section of ["hubs", "tools", "more"]) {
         const group = document.querySelector(`[data-nav-group="${section}"] .nav-menu`);
         if (!group) continue;
@@ -175,9 +255,7 @@
         navigationPages.forEach((page) => {
           const link = document.createElement("a");
           const pagePath = new URL(page.url).pathname;
-          link.href = section !== "more"
-            ? page.url
-            : isPortfolioIndex(pagePath) ? portfolioIndexUrl : window.portfolioViewerUrl(page.url);
+          link.href = page.url;
           link.textContent = page.label;
           if (pagePath === currentPath || (isPortfolioIndex(pagePath) && isPortfolioIndex(currentPath))) link.setAttribute("aria-current", "page");
           group.append(link);
@@ -187,7 +265,10 @@
       window.dispatchEvent(new CustomEvent("sitecatalogready", { detail: catalog }));
       return catalog;
     })
-    .catch(() => []);
+    .catch((error) => {
+      console.error("The site catalog could not be loaded.", error);
+      return [];
+    });
 
   function renderTicker(catalog) {
     const track = document.querySelector("[data-ticker-track]");
@@ -195,7 +276,6 @@
     const destinations = catalog.filter((page) => {
       if (!["hubs", "tools", "more"].includes(page.section)) return false;
       if (page.section !== "more") return true;
-      const pagePath = new URL(page.url).pathname;
       return isPortfolioNavigationPage(page);
     });
     if (!destinations.length) return;
@@ -207,10 +287,7 @@
       destinations.forEach((page, index) => {
         const link = document.createElement("a");
         link.className = "ticker-item";
-        const pagePath = new URL(page.url).pathname;
-        link.href = page.section !== "more"
-          ? page.url
-          : isPortfolioIndex(pagePath) ? portfolioIndexUrl : window.portfolioViewerUrl(page.url);
+        link.href = page.url;
         link.textContent = page.label.toLocaleUpperCase();
         if (hidden) link.tabIndex = -1;
         set.append(link);

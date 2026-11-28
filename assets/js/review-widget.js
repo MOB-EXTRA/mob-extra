@@ -1,5 +1,5 @@
 import {
-  getReviewsByDeviceToken,
+  findReviewByDeviceToken,
   saveReview,
   synchronizeReviewAuthor,
   getCurrentReviewContext,
@@ -7,6 +7,7 @@ import {
   populateReviewFeatureSelect,
   getReviewAuthorName,
   getReviewDeviceId,
+  isReservedReviewAuthor,
   setReviewAuthorName,
   isReviewEnabled,
 } from "./server/api.js";
@@ -24,7 +25,7 @@ if (
     .querySelectorAll("#reviews, [data-review-widget]")
     .forEach((node) => node.remove());
   const section = document.createElement("section");
-  section.className = "service-reviews review-widget-section";
+  section.className = "service-reviews review-widget-section is-loading";
   section.id = "reviews";
   section.dataset.serviceReviews = "";
   section.setAttribute("aria-labelledby", "service-reviews-title");
@@ -40,11 +41,11 @@ if (
         <div class="review-dashboard" aria-label="Rating distribution" data-review-dashboard><div class="review-dashboard-title"><span>Rating<br>breakdown</span><span data-review-total>0 total</span></div><div class="review-rating-rows">
           ${[5,4,3,2,1].map((rating) => `<div class="review-rating-row" data-rating-row="${rating}"><span>${rating} <i class="fa-solid fa-star" aria-hidden="true"></i></span><span class="review-rating-track"><i data-rating-bar="${rating}"></i></span><span data-rating-count="${rating}">0</span></div>`).join("")}
         </div></div>
-        <div class="review-trend-chart" aria-label="Reviews by month over the last six months" data-review-trend></div>
+        <div class="review-trend-chart" aria-label="Reviews by month over the last six months" data-review-trend aria-busy="true"></div>
       </section>
-      <div class="review-recent-panel"><div class="review-recent-heading"><h3>Recent reviews</h3><span>Latest feedback</span></div><div class="review-recent-list" data-review-latest><p class="review-recent-empty">Loading reviews…</p></div></div>
+      <div class="review-recent-panel"><div class="review-recent-heading"><h3>Recent reviews</h3><span>Latest feedback</span></div><div class="review-recent-list" data-review-latest aria-busy="true"></div></div>
     </div>
-    <div class="review-type-overview" aria-label="Review types" data-review-type-overview></div>
+    <div class="review-type-overview" aria-label="Review types" data-review-type-overview aria-busy="true"></div>
     <div class="review-community-layout">
       <section class="review-all-panel" aria-labelledby="review-all-title">
         <div class="review-customer-heading"><div><h3 id="review-all-title">All reviews</h3><p>Feedback from across the community</p></div><p class="service-review-live is-connecting" data-review-live-status><span aria-hidden="true"></span> Connecting to live feed</p></div>
@@ -55,7 +56,7 @@ if (
           <button type="button" class="service-review-filter" data-review-filter="Utilities" aria-pressed="false">Utilities</button>
           <button type="button" class="service-review-filter" data-review-filter="Buying in Shop" aria-pressed="false">Shop</button>
         </div>
-        <div class="service-review-list" data-service-review-list aria-live="polite"><p class="service-review-state">Loading reviews…</p></div>
+        <div class="service-review-list" data-service-review-list aria-live="polite" aria-busy="true"></div>
       </section>
       <form class="review-submit-panel" data-review-submit>
       <div class="review-submit-heading"><p class="kicker">YOUR EXPERIENCE MATTERS</p><h3 data-review-form-title>Leave a review</h3><p>Tell us about your experience with this page or feature.</p></div>
@@ -77,6 +78,24 @@ if (
   else if (footer) footer.before(section);
   else document.body.append(section);
 
+  const skeleton = '<span class="review-loading-shimmer" aria-hidden="true"></span>';
+  section.querySelector("[data-review-latest]").innerHTML = Array.from(
+    { length: 5 },
+    () => `<div class="review-recent-skeleton" aria-hidden="true"><span class="review-loading-shimmer review-recent-skeleton-author"></span><span class="review-loading-shimmer review-recent-skeleton-rating"></span><span class="review-loading-shimmer review-recent-skeleton-comment"></span></div>`,
+  ).join("");
+  section.querySelector("[data-service-review-list]").innerHTML = Array.from(
+    { length: 6 },
+    () => `<div class="service-review-skeleton" aria-hidden="true"><span class="review-skeleton-avatar">${skeleton}</span><span class="review-skeleton-bubble"><span class="review-loading-shimmer"></span><span class="review-loading-shimmer"></span><span class="review-loading-shimmer"></span></span></div>`,
+  ).join("");
+  section.querySelector("[data-review-type-overview]").innerHTML = Array.from(
+    { length: 4 },
+    () => `<div class="review-type-skeleton" aria-hidden="true"><span class="review-loading-shimmer"></span><span class="review-loading-shimmer"></span><span class="review-loading-shimmer"></span></div>`,
+  ).join("");
+  section.querySelector("[data-review-trend]").innerHTML = Array.from(
+    { length: 6 },
+    (_, index) => `<span class="review-trend-skeleton" aria-hidden="true"><span class="review-loading-shimmer"></span><span class="review-loading-shimmer" style="--skeleton-bar-height:${[18, 32, 24, 42, 58, 76][index]}%"></span><span class="review-loading-shimmer"></span></span>`,
+  ).join("");
+
   import("./service-reviews.js").catch((error) => {
     console.warn("Review analytics could not be loaded.", error);
     const status = section.querySelector("[data-review-live-status]");
@@ -91,6 +110,10 @@ if (
   const categorySelect = form.elements.reviewType;
   const utilityField = form.querySelector("[data-review-utility-field]");
   const utilitySelect = form.elements.specificUtility;
+  let isCategoryLocked = true;
+  let isUtilityLocked = true;
+  categorySelect.disabled = true;
+  utilitySelect.disabled = true;
   const deviceToken = getReviewDeviceId();
   let authorProfileName = getReviewAuthorName();
   if (authorProfileName) form.elements.author.value = authorProfileName;
@@ -99,7 +122,6 @@ if (
   let isSubmitting = false;
   let activeReviewTargetId = "";
   let targetLookupSequence = 0;
-  let userReviewsPromise = null;
   let reviewLookup = Promise.resolve(false);
   const reviewDrafts = new Map();
   const targetNotice = form.querySelector("[data-review-target-notice]");
@@ -111,11 +133,12 @@ if (
       pagePath.replace(/index\.html$/i, "").replace(/\/+$/, "").toLowerCase() ||
       "/",
     features: [],
+    categoryChangeable: false,
   };
   let compactReview = null;
 
   function setReviewStatus(message, kind = "") {
-    formStatus.textContent = message;
+    formStatus.textContent = kind === "warning" ? "" : message;
     formStatus.classList.toggle("is-warning", kind === "warning");
     targetNotice.hidden = kind !== "warning" || !message;
     targetNotice.textContent = kind === "warning" ? message : "";
@@ -127,8 +150,8 @@ if (
 
   function setSubmissionDisabled(disabled) {
     submit.disabled = disabled;
-    categorySelect.disabled = disabled;
-    utilitySelect.disabled = disabled;
+    categorySelect.disabled = disabled || isCategoryLocked;
+    utilitySelect.disabled = disabled || isUtilityLocked;
     if (compactReview) compactReview.submitButton.disabled = disabled;
   }
 
@@ -157,34 +180,105 @@ if (
       : reviewContext.title;
   }
 
-  async function loadMyReviews(refresh = false) {
-    if (refresh || !userReviewsPromise) {
-      userReviewsPromise = getReviewsByDeviceToken(deviceToken).catch((error) => {
-        userReviewsPromise = null;
-        throw error;
-      });
+  function reviewMatchesCompactTarget(review) {
+    const targetId = getCurrentReviewTargetId();
+    if (review.reviewTargetId) return review.reviewTargetId === targetId;
+    if (review.reviewType !== categorySelect.value) return false;
+
+    const normalizeFeature = (value) =>
+      String(value || "")
+        .normalize("NFKC")
+        .trim()
+        .replace(/\s+/g, " ")
+        .toLowerCase();
+    if (
+      categorySelect.value === "Utilities" &&
+      normalizeFeature(review.specificUtility) ===
+        normalizeFeature(utilitySelect.value)
+    ) {
+      return true;
     }
-    return userReviewsPromise;
+    let legacyPath = String(review.pageId || "");
+    if (!legacyPath && review.pageUrl) {
+      try {
+        legacyPath = new URL(review.pageUrl, window.location.href).pathname;
+      } catch {
+        return false;
+      }
+    }
+    return (
+      legacyPath.replace(/index\.html$/i, "").replace(/\/+$/, "").toLowerCase() ||
+      "/"
+    ) === reviewContext.pageId;
   }
 
-  function adoptReviewAuthor(reviews) {
-    if (authorProfileName) {
-      form.elements.author.value = authorProfileName;
+  function renderCompactRecentReviews(reviews, error = null) {
+    if (!compactReview) return;
+    compactReview.recentSection.setAttribute("aria-busy", "false");
+    if (error) {
+      const state = document.createElement("p");
+      state.className = "compact-review-recent-state";
+      state.textContent = "Recent reviews are temporarily unavailable.";
+      compactReview.recent.replaceChildren(state);
       return;
     }
 
-    const savedAuthor = reviews
-      .map((review) => String(review.author || "").trim())
-      .find(
-        (author) =>
-          author &&
-          author !== "Community member" &&
-          author.length <= 80,
-      );
-    if (savedAuthor) {
-      authorProfileName = setReviewAuthorName(savedAuthor);
-      form.elements.author.value = authorProfileName;
+    const approvedReviews = reviews.filter(
+      (review) =>
+        review.isApproved !== false &&
+        Number.isInteger(Number(review.rating)) &&
+        Number(review.rating) >= 1 &&
+        Number(review.rating) <= 5 &&
+        typeof review.comment === "string" &&
+        review.comment.trim(),
+    );
+    approvedReviews.sort((first, second) => {
+      const getTimestamp = (review) => {
+        const timestamp =
+          review.timestamp || review.updatedAt || review.createdAt;
+        if (typeof timestamp?.toMillis === "function") {
+          return timestamp.toMillis();
+        }
+        if (typeof timestamp?.seconds === "number") {
+          return timestamp.seconds * 1000;
+        }
+        const parsed = Date.parse(timestamp || "");
+        return Number.isNaN(parsed) ? 0 : parsed;
+      };
+      return getTimestamp(second) - getTimestamp(first);
+    });
+    if (!approvedReviews.length) {
+      const state = document.createElement("p");
+      state.className = "compact-review-recent-state";
+      state.textContent = "No reviews for this page yet. Be the first to share your experience.";
+      compactReview.recent.replaceChildren(state);
+      return;
     }
+
+    const fragment = document.createDocumentFragment();
+    approvedReviews.slice(0, 3).forEach((review) => {
+      const card = document.createElement("article");
+      card.className = "compact-review-recent-item";
+      const meta = document.createElement("div");
+      meta.className = "compact-review-recent-meta";
+      const author = document.createElement("strong");
+      const rawAuthor = String(review.author || "").trim();
+      author.textContent =
+        !rawAuthor ||
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawAuthor) ||
+        isReservedReviewAuthor(rawAuthor)
+          ? "Community member"
+          : rawAuthor.slice(0, 80);
+      const rating = document.createElement("span");
+      rating.className = "compact-review-recent-rating";
+      rating.innerHTML = `<i class="fa-solid fa-star" aria-hidden="true"></i> ${Number(review.rating)}.0`;
+      meta.append(author, rating);
+      const comment = document.createElement("p");
+      comment.textContent = review.comment.trim();
+      card.append(meta, comment);
+      fragment.append(card);
+    });
+    compactReview.recent.replaceChildren(fragment);
   }
 
   function saveReviewDraft(targetId) {
@@ -242,6 +336,15 @@ if (
       ratingDescriptions[rating] || "Choose a rating";
   }
 
+  function setCompactReviewLoading(loading) {
+    if (!compactReview || (loading && compactReview.isReady)) return;
+    compactReview.section.classList.toggle("is-loading", loading);
+    compactReview.section.setAttribute("aria-busy", String(loading));
+    compactReview.skeleton.hidden = !loading;
+    compactReview.form.hidden = loading;
+    if (!loading) compactReview.isReady = true;
+  }
+
   function findCompactReviewTarget(context) {
     if (context.section !== "tools" && context.section !== "hubs") return null;
 
@@ -282,7 +385,8 @@ if (
     if (!target) return null;
 
     const quickSection = document.createElement("section");
-    quickSection.className = "compact-review-section";
+    quickSection.className = "compact-review-section is-loading";
+    quickSection.setAttribute("aria-busy", "true");
     if (
       target.matches(".container") ||
       !target.parentElement?.closest(".container")
@@ -295,7 +399,23 @@ if (
         <div><p class="kicker">YOUR EXPERIENCE MATTERS</p><h2 id="compact-review-title">Rate this page</h2></div>
         <span class="compact-review-context" data-compact-review-context></span>
       </div>
-      <form class="compact-review-form" data-compact-review-form>
+      <div class="compact-review-skeleton" data-compact-review-skeleton aria-hidden="true">
+        <div class="compact-review-skeleton-rating">
+          <span class="review-loading-shimmer"></span>
+          <div>${Array.from({ length: 5 }, () => '<span class="review-loading-shimmer"></span>').join("")}</div>
+          <span class="review-loading-shimmer"></span>
+        </div>
+        <div class="compact-review-skeleton-comment">
+          <span class="review-loading-shimmer"></span>
+          <span class="review-loading-shimmer"></span>
+        </div>
+        <div class="compact-review-skeleton-actions">
+          <span class="review-loading-shimmer"></span>
+          <span class="review-loading-shimmer"></span>
+        </div>
+        <span class="review-loading-shimmer compact-review-skeleton-status"></span>
+      </div>
+      <form class="compact-review-form" data-compact-review-form hidden>
         <fieldset class="compact-review-rating">
           <legend>Rating</legend>
           <div class="compact-review-stars" role="radiogroup" aria-label="Rating">
@@ -321,9 +441,28 @@ if (
         <p class="compact-review-status" role="status" aria-live="polite"></p>
       </form>`;
 
+    const recentReviews = document.createElement("section");
+    recentReviews.className = "compact-review-recent";
+    recentReviews.setAttribute("aria-labelledby", "compact-review-recent-title");
+    recentReviews.setAttribute("aria-busy", "true");
+    recentReviews.innerHTML = `
+      <div class="compact-review-recent-heading"><div><p class="kicker">COMMUNITY FEEDBACK</p><h3 id="compact-review-recent-title">Recent reviews</h3></div><span>Latest 3</span></div>
+      <div class="compact-review-recent-list" data-compact-review-recent>
+        ${Array.from(
+          { length: 3 },
+          () => '<article class="compact-review-recent-skeleton" aria-hidden="true"><span class="review-loading-shimmer"></span><span class="review-loading-shimmer"></span><span class="review-loading-shimmer"></span></article>',
+        ).join("")}
+      </div>`;
+    quickSection.prepend(recentReviews);
+
     const quickForm = quickSection.querySelector("[data-compact-review-form]");
     compactReview = {
       section: quickSection,
+      form: quickForm,
+      skeleton: quickSection.querySelector("[data-compact-review-skeleton]"),
+      recent: recentReviews.querySelector("[data-compact-review-recent]"),
+      recentSection: recentReviews,
+      isReady: false,
       rating: quickForm.elements.rating,
       comment: quickForm.elements.comment,
       consent: quickForm.elements.consent,
@@ -347,6 +486,22 @@ if (
         : context.category;
     compactReview.submitButton.disabled = true;
     target.before(quickSection);
+    compactReview.recentSection = recentReviews;
+    document.addEventListener("site:reviews-updated", (event) => {
+      const reviews = event.detail?.reviews;
+      if (!Array.isArray(reviews)) return;
+      renderCompactRecentReviews(reviews.filter(reviewMatchesCompactTarget));
+    });
+    document.addEventListener("site:reviews-error", () => {
+      renderCompactRecentReviews([], new Error("Review feed unavailable"));
+    });
+    if (Array.isArray(window.mobExtraReviews)) {
+      renderCompactRecentReviews(
+        window.mobExtraReviews.filter(reviewMatchesCompactTarget),
+      );
+    } else if (window.mobExtraReviewsError) {
+      renderCompactRecentReviews([], new Error("Review feed unavailable"));
+    }
     quickForm.addEventListener("change", (event) => {
       if (event.target.name === "rating") updateCompactRating();
     });
@@ -364,13 +519,15 @@ if (
     return compactReview;
   }
 
+  let reviewPanelHeight = "";
   function syncReviewPanelHeight() {
     if (window.innerWidth > 980) {
-      section.style.setProperty(
-        "--review-all-panel-height",
-        `${form.getBoundingClientRect().height}px`,
-      );
-    } else {
+      const height = `${form.getBoundingClientRect().height}px`;
+      if (height === reviewPanelHeight) return;
+      reviewPanelHeight = height;
+      section.style.setProperty("--review-all-panel-height", height);
+    } else if (reviewPanelHeight) {
+      reviewPanelHeight = "";
       section.style.removeProperty("--review-all-panel-height");
     }
   }
@@ -389,12 +546,18 @@ if (
         context.category === "Utilities" ? context.title : "",
       );
       categorySelect.value = context.category;
+      isCategoryLocked = !context.categoryChangeable;
+      isUtilityLocked =
+        context.category === "Utilities" && !context.categoryChangeable;
+      categorySelect.disabled = isCategoryLocked;
+      utilitySelect.disabled = isUtilityLocked;
       updateUtilityField();
       return context;
     })
     .catch((error) => {
       console.warn("The current review category could not be detected.", error);
       populateUtilityOptions("");
+      categorySelect.disabled = isCategoryLocked;
       updateUtilityField();
       return reviewContext;
     });
@@ -409,11 +572,20 @@ if (
       syncCompactReview();
       return;
     }
-    form.elements.author.value =
-      authorProfileName ||
-      (review.author === "Community member" ? "" : review.author || "");
-    categorySelect.value = review.reviewType || reviewContext.category;
-    populateUtilityOptions(review.specificUtility || reviewContext.title);
+    const savedAuthor =
+      review.author === "Community member" ||
+      isReservedReviewAuthor(review.author)
+        ? ""
+        : review.author || "";
+    form.elements.author.value = authorProfileName || savedAuthor;
+    categorySelect.value = isCategoryLocked
+      ? reviewContext.category
+      : review.reviewType || reviewContext.category;
+    populateUtilityOptions(
+      isUtilityLocked
+        ? reviewContext.title
+        : review.specificUtility || reviewContext.title,
+    );
     updateUtilityField();
     form.elements.rating.value = String(Number(review.rating) || 5);
     form.elements.comment.value = review.comment || "";
@@ -431,6 +603,7 @@ if (
       prepareNewReview("");
       setReviewStatus("Choose a utility or hub before submitting a review.");
       setSubmissionDisabled(false);
+      setCompactReviewLoading(false);
       return reviewLookup;
     }
     if (activeReviewTargetId && activeReviewTargetId !== targetId) {
@@ -441,15 +614,20 @@ if (
     const sequence = ++targetLookupSequence;
     const targetLabel = getCurrentReviewTargetLabel();
     setSubmissionDisabled(true);
+    setCompactReviewLoading(true);
     setReviewStatus(`Checking for an existing review for ${targetLabel}…`);
     reviewLookup = (async () => {
       try {
-        const reviews = await loadMyReviews(true);
+        const review = await findReviewByDeviceToken(deviceToken, targetId);
         if (sequence !== targetLookupSequence) return false;
-        adoptReviewAuthor(reviews);
-        const review =
-          reviews.find((entry) => entry.reviewTargetId === targetId) || null;
         if (review) {
+          if (
+            !authorProfileName &&
+            review.author &&
+            !isReservedReviewAuthor(review.author)
+          ) {
+            authorProfileName = setReviewAuthorName(review.author);
+          }
           setEditMode(review);
           setReviewStatus(
             `You already have a review for ${targetLabel}. Its saved values were loaded so you can edit it instead of submitting another.`,
@@ -468,13 +646,19 @@ if (
         }
         return false;
       } finally {
-        if (sequence === targetLookupSequence) setSubmissionDisabled(false);
+        if (sequence === targetLookupSequence) {
+          setSubmissionDisabled(false);
+          setCompactReviewLoading(false);
+        }
       }
     })();
     return reviewLookup;
   }
 
-  function handleReviewTargetChange() {
+  function handleReviewTargetChange(event) {
+    if (event.target === categorySelect && categorySelect.value === "Utilities") {
+      populateUtilityOptions(utilitySelect.value);
+    }
     updateUtilityField();
     syncCompactReview();
     refreshReviewTarget();
@@ -486,6 +670,15 @@ if (
 
   window.addEventListener("storage", (event) => {
     if (event.key !== "mob-extra-review-author") return;
+    if (isReservedReviewAuthor(event.newValue)) {
+      setReviewAuthorName("");
+      form.elements.author.value = "";
+      setReviewStatus(
+        "That name is reserved and cannot be used for a community review.",
+        "warning",
+      );
+      return;
+    }
     authorProfileName = setReviewAuthorName(event.newValue || "");
     form.elements.author.value = authorProfileName;
   });
@@ -506,6 +699,15 @@ if (
     }
     const data = new FormData(form);
     const enteredAuthor = String(data.get("author") || "").trim();
+    if (isReservedReviewAuthor(enteredAuthor)) {
+      setReviewStatus(
+        "That name is reserved and cannot be used for a community review.",
+        "warning",
+      );
+      form.elements.author.focus();
+      isSubmitting = false;
+      return;
+    }
     const author =
       !enteredAuthor || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(enteredAuthor)
         ? "Community member"
@@ -515,10 +717,12 @@ if (
       deviceToken,
       schemaVersion: 2,
       author,
-      reviewType: String(data.get("reviewType")),
+      reviewType: categorySelect.value,
       specificUtility:
         categorySelect.value === "Utilities"
-          ? String(data.get("specificUtility") || "").trim()
+          ? isUtilityLocked
+            ? reviewContext.title
+            : String(data.get("specificUtility") || "").trim()
           : null,
       rating: Number(data.get("rating")),
       comment: String(data.get("comment")).trim().slice(0, 1200),
@@ -541,11 +745,10 @@ if (
         : "Checking for an existing review…",
     );
     try {
-      const latestReviews = await loadMyReviews(true);
-      const latest =
-        latestReviews.find(
-          (review) => review.reviewTargetId === reviewData.reviewTargetId,
-        ) || null;
+      const latest = await findReviewByDeviceToken(
+        deviceToken,
+        reviewData.reviewTargetId,
+      );
       if (latest) {
         if (!isEditing) {
           setEditMode(latest);
@@ -596,7 +799,6 @@ if (
         isApproved: true,
       });
       authorProfileName = setReviewAuthorName(author);
-      userReviewsPromise = null;
       reviewDrafts.delete(reviewData.reviewTargetId);
       setEditMode({ id: savedReview.id, ...reviewData });
       setReviewStatus(

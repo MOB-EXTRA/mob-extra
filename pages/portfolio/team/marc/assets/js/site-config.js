@@ -1,3 +1,8 @@
+const sharedContactConfig = window.MOB_EXTRA_SITE_CONFIG;
+if (!sharedContactConfig) {
+  throw new Error("The shared MOB EXTRA site config must load before the Marc site config.");
+}
+
 /*
  * Site identity and external links.
  * Update this file to change destinations across the site.
@@ -18,9 +23,10 @@ window.SITE_CONFIG = Object.freeze({
       "https://www.youtube.com/channel/UCbDtYZS08VvB6luAcyn08bQ/videos",
     youtubeCommunity:
       "https://www.youtube.com/channel/UCbDtYZS08VvB6luAcyn08bQ/community",
-    emailAddress: "mob.extra.contact@gmail.com",
-    emailComposeUrl:
-      "mailto:mob.extra.contact@gmail.com?subject=Inquiry%20/%20Commission%20Request%20%E2%80%94%20Vile%20Tempest",
+    emailAddress: sharedContactConfig.contactEmail,
+    emailComposeUrl: sharedContactConfig.mailto(
+      "Inquiry / Commission Request — Vile Tempest",
+    ),
     facebook: "https://facebook.com/vile.tempest.extra",
     tiktok: "https://tiktok.com/@vile.tempest.extr",
     twitter: "https://x.com/VileTempestExtr",

@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Create sticky top search bar container
   const searchBarContainer = document.createElement("div");
   searchBarContainer.className = "sticky-search-bar-wrapper hidden-content";
+  searchBarContainer.id = "site-search-bar";
   searchBarContainer.innerHTML = `
     <div class="search-bar-inner">
       <div class="search-input-wrapper">
@@ -48,6 +49,38 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchInput = searchBarContainer.querySelector("#site-search-input");
   const closeSearchBtn = searchBarContainer.querySelector(".search-close-btn");
   const filterButtons = document.querySelectorAll(".nav-filter-btn");
+
+  function setSearchOpen(open) {
+    searchBarContainer.classList.toggle("hidden-content", !open);
+    if (!searchBtn) return;
+    searchBtn.setAttribute("aria-expanded", String(open));
+    searchBtn.setAttribute("aria-label", open ? "Close Search" : "Search");
+    searchBtn.setAttribute("title", open ? "Close Search" : "Search Tools");
+    const icon = searchBtn.querySelector("i");
+    if (icon) {
+      icon.classList.toggle("fa-magnifying-glass", !open);
+      icon.classList.toggle("fa-xmark", open);
+    }
+  }
+
+  function setFilterMenuOpen(open) {
+    if (!filterDropdownMenu) return;
+    filterDropdownMenu.classList.toggle("active", open);
+    if (!filterBtn) return;
+    filterBtn.setAttribute("aria-expanded", String(open));
+    filterBtn.setAttribute("aria-label", open ? "Close filters" : "Filter");
+    filterBtn.setAttribute("title", open ? "Close Filters" : "Filter View");
+    const icon = filterBtn.querySelector("i");
+    if (icon) {
+      icon.classList.toggle("fa-arrow-down-short-wide", !open);
+      icon.classList.toggle("fa-xmark", open);
+    }
+  }
+
+  if (searchBtn) {
+    searchBtn.setAttribute("aria-controls", searchBarContainer.id);
+    setSearchOpen(false);
+  }
 
   // Automatically store initial pristine sequence of ALL elements inside main-content (Future-Proof)
   const initialCardOrder = mainContent ? Array.from(mainContent.children) : [];
@@ -108,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
           resetPageToOriginalState();
         }
 
-        searchBarContainer.classList.add("hidden-content");
+        setSearchOpen(false);
         if (searchInput) {
           searchInput.value = keyword;
           searchInput.blur();
@@ -130,6 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     filterDropdownMenu = document.createElement("div");
     filterDropdownMenu.className = "filter-dropdown-menu";
+    filterDropdownMenu.id = "quick-view-filter-menu";
 
     const titleElements = document.querySelectorAll(
       ".utility-title, .services-title, .service-header-row h3, .intel-item-title, .contact-title, .section-main-title, .category-title",
@@ -163,6 +197,10 @@ document.addEventListener("DOMContentLoaded", function () {
     dropdownHtml += `</ul>`;
     filterDropdownMenu.innerHTML = dropdownHtml;
     headerActions.appendChild(filterDropdownMenu);
+    if (filterBtn) {
+      filterBtn.setAttribute("aria-controls", filterDropdownMenu.id);
+      setFilterMenuOpen(false);
+    }
 
     filterDropdownMenu
       .querySelectorAll(".filter-dropdown-item")
@@ -189,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
           if (!keyword) {
             resetPageToOriginalState();
           } else {
-            searchBarContainer.classList.add("hidden-content");
+            setSearchOpen(false);
             if (searchInput) {
               searchInput.value = keyword;
               searchInput.blur();
@@ -197,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
             executeSearch(keyword);
           }
 
-          filterDropdownMenu.classList.remove("active");
+          setFilterMenuOpen(false);
         });
       });
   }
@@ -208,7 +246,9 @@ document.addEventListener("DOMContentLoaded", function () {
     filterBtn.addEventListener("click", function (e) {
       e.stopPropagation();
       if (filterDropdownMenu) {
-        filterDropdownMenu.classList.toggle("active");
+        setFilterMenuOpen(
+          !filterDropdownMenu.classList.contains("active"),
+        );
       }
     });
   }
@@ -220,17 +260,17 @@ document.addEventListener("DOMContentLoaded", function () {
       !filterDropdownMenu.contains(e.target) &&
       !filterBtn.contains(e.target)
     ) {
-      filterDropdownMenu.classList.remove("active");
+      setFilterMenuOpen(false);
     }
   });
 
   function openSearch() {
-    searchBarContainer.classList.remove("hidden-content");
+    setSearchOpen(true);
     setTimeout(() => searchInput.focus(), 50);
   }
 
   function resetPageToOriginalState() {
-    searchBarContainer.classList.add("hidden-content");
+    setSearchOpen(false);
     if (searchInput) {
       searchInput.value = "";
       searchInput.blur();
@@ -481,7 +521,7 @@ document.addEventListener("DOMContentLoaded", function () {
     searchInput.addEventListener("keydown", function (e) {
       if (e.key === "Enter") {
         e.preventDefault();
-        searchBarContainer.classList.add("hidden-content");
+        setSearchOpen(false);
         searchInput.blur();
       }
     });

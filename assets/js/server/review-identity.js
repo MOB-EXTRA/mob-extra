@@ -5,6 +5,21 @@ const DEVICE_ID_ALIASES = [
   "vile_tempest_redeem_device_token",
 ];
 const AUTHOR_NAME_KEY = "mob-extra-review-author";
+const RESERVED_AUTHOR_FRAGMENTS = [
+  "mobextra",
+  "viletempest",
+  "marcjohnford",
+];
+
+export function isReservedReviewAuthor(author) {
+  const normalized = String(author || "")
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+  return RESERVED_AUTHOR_FRAGMENTS.some((fragment) =>
+    normalized.includes(fragment),
+  );
+}
 
 export function getReviewDeviceId() {
   let deviceId = DEVICE_ID_ALIASES.map((key) => localStorage.getItem(key)).find(
@@ -19,7 +34,12 @@ export function getReviewDeviceId() {
 }
 
 export function getReviewAuthorName() {
-  return localStorage.getItem(AUTHOR_NAME_KEY)?.trim() || "";
+  const name = localStorage.getItem(AUTHOR_NAME_KEY)?.trim() || "";
+  if (isReservedReviewAuthor(name)) {
+    localStorage.removeItem(AUTHOR_NAME_KEY);
+    return "";
+  }
+  return name;
 }
 
 export function setReviewAuthorName(author) {
@@ -27,6 +47,9 @@ export function setReviewAuthorName(author) {
   if (!name || name === "Community member") {
     localStorage.removeItem(AUTHOR_NAME_KEY);
     return "";
+  }
+  if (isReservedReviewAuthor(name)) {
+    throw new Error("Names that impersonate the site owner are not allowed.");
   }
   localStorage.setItem(AUTHOR_NAME_KEY, name);
   return name;

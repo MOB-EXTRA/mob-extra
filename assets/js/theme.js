@@ -19,7 +19,7 @@
   );
   let preference = "system";
 
-  if (portfolioTheme && ["marc", "vile"].includes(portfolioTheme.content)) {
+  if (portfolioTheme && ["marc", "vile", "carl"].includes(portfolioTheme.content)) {
     root.dataset.portfolioTheme = portfolioTheme.content;
   }
 
@@ -100,10 +100,17 @@
   }
 
   function installPortfolioThemeControl() {
-    if (!["marc", "vile"].includes(root.dataset.portfolioTheme)) return;
+    const hasPortfolioTheme = ["marc", "vile", "carl"].includes(
+      root.dataset.portfolioTheme,
+    );
+    const hasStandaloneThemeControl =
+      document.querySelector('meta[name="mob-extra-theme-control"]')?.content ===
+      "true";
+    if (!hasPortfolioTheme && !hasStandaloneThemeControl) return;
     if (document.querySelector("[data-portfolio-theme-control]")) return;
 
     const hostSelectors = [
+      ".site-header .nav-right",
       ".site-header .header-actions",
       ".hub-header .header-actions",
       ".site-header .nav-wrap",
@@ -138,13 +145,30 @@
     syncPortfolioStylesheet();
 
     const toggle = control.querySelector(".portfolio-theme-toggle");
+    const toggleIcon = toggle.querySelector("i");
     const menu = control.querySelector(".portfolio-theme-menu");
     const choices = control.querySelectorAll("[data-theme-choice]");
 
-    function updateControls() {
+    function updateToggleIcon() {
       const theme = root.dataset.theme;
-      toggle.setAttribute("aria-label", `Color theme: ${theme}. Choose appearance.`);
-      toggle.innerHTML = `<i class="fa-solid fa-${theme === "light" ? "sun" : "moon"}" aria-hidden="true"></i>`;
+      const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute(
+        "aria-label",
+        isExpanded
+          ? "Close appearance menu"
+          : `Color theme: ${theme}. Choose appearance.`,
+      );
+      toggleIcon.className = `fa-solid fa-${isExpanded ? "xmark" : theme === "light" ? "sun" : "moon"}`;
+    }
+
+    function setThemeMenuOpen(open) {
+      toggle.setAttribute("aria-expanded", String(open));
+      menu.hidden = !open;
+      updateToggleIcon();
+    }
+
+    function updateControls() {
+      updateToggleIcon();
       choices.forEach((choice) => {
         choice.setAttribute(
           "aria-pressed",
@@ -155,30 +179,26 @@
 
     toggle.addEventListener("click", () => {
       const expanded = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!expanded));
-      menu.hidden = expanded;
+      setThemeMenuOpen(!expanded);
     });
 
     choices.forEach((choice) => {
       choice.addEventListener("click", () => {
         window.mobExtraTheme.setPreference(choice.dataset.themeChoice);
-        toggle.setAttribute("aria-expanded", "false");
-        menu.hidden = true;
+        setThemeMenuOpen(false);
         toggle.focus();
       });
     });
 
     document.addEventListener("click", (event) => {
       if (!control.contains(event.target)) {
-        toggle.setAttribute("aria-expanded", "false");
-        menu.hidden = true;
+        setThemeMenuOpen(false);
       }
     });
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && !menu.hidden) {
-        toggle.setAttribute("aria-expanded", "false");
-        menu.hidden = true;
+        setThemeMenuOpen(false);
         toggle.focus();
       }
     });

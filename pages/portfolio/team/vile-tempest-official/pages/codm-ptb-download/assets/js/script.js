@@ -5,9 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let verifyData = null;
   let loadedServerData = null; // Holds info for sharing
 
-  const MAIN_PTB_HUB_URL =
-    "../../../../../../pages/hubs/codm/codm-ptb-download.html";
-
   // DOM Elements
   const bodyEl = document.getElementById("pageBody");
   const serverInfoContainer = document.getElementById("serverInfoContainer");
@@ -161,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label class="checkbox-container">
                   <input type="checkbox" id="disclaimerCheckbox" />
                   <span class="checkbox-label-text">
-                    <strong>Disclaimer:</strong> <br>I acknowledge that <strong>SlimeSpace</strong> acts as an independent portal for official developer links. I agree that <strong>SlimeSpace</strong> does not host these packages and is not responsible for their content. I proceed at my own risk and discretion.
+                    <strong>Disclaimer:</strong> <br>I acknowledge that <strong>MOB EXTRA</strong> is an independent community resource linking to official developer portals. MOB EXTRA does not host these packages and is not responsible for their content. I proceed at my own risk and discretion.
                   </span>
                 </label>
               </div>
@@ -275,9 +272,6 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 0.5rem;">
             The COD Mobile public test server is currently closed. It is not recommended to download or install the APK packages at this time, as players are unable to log in or access the game servers while they are closed.
-          </p>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.4; margin: 0;">
-            To receive instant alerts when the new season is officially released, please visit <a href="${MAIN_PTB_HUB_URL}" target="_blank" rel="noopener noreferrer" style="color: var(--codm-gold); text-decoration: underline; word-break: break-all;">${MAIN_PTB_HUB_URL}</a> to enable site notification permissions.
           </p>
         </div>
         `
@@ -435,40 +429,4 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize data loading with sequential fallback across the 3 shared repos
   loadSharedConfigWithFallback();
 
-  // --- Notification Popup Logic ---
-  const notificationPopup = document.getElementById("ptbNotificationPopup");
-  const btnMaybeLater = document.getElementById("btnMaybeLater");
-  const btnAllowNotif = document.getElementById("btnAllowNotif");
-  const btnClosePopup = document.getElementById("btnClosePopup");
-
-  function dismissPopup() {
-    if (notificationPopup) {
-      notificationPopup.classList.remove("active");
-    }
-  }
-
-  setTimeout(() => {
-    if (notificationPopup) {
-      notificationPopup.classList.add("active");
-    }
-  }, 10000);
-
-  if (btnMaybeLater) {
-    btnMaybeLater.addEventListener("click", () => {
-      dismissPopup();
-    });
-  }
-
-  if (btnAllowNotif) {
-    btnAllowNotif.addEventListener("click", () => {
-      dismissPopup();
-      window.open(MAIN_PTB_HUB_URL, "_blank", "noopener,noreferrer");
-    });
-  }
-
-  if (btnClosePopup) {
-    btnClosePopup.addEventListener("click", () => {
-      dismissPopup();
-    });
-  }
 });

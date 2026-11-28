@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
       { baseOffsetX: -140, baseOffsetY: -120, color: "#38bdf8" }, // Web Dev
       { baseOffsetX: 130, baseOffsetY: -140, color: "#ffffff" }, // C++
       { baseOffsetX: -180, baseOffsetY: 10, color: "#38bdf8" }, // Flowcharts
-      { baseOffsetX: 160, baseOffsetY: 30, color: "#22c55e" }, // Excel VBA
       { baseOffsetX: -100, baseOffsetY: 140, color: "#f59e0b" }, // SketchUp
       { baseOffsetX: 110, baseOffsetY: 160, color: "#a855f7" }, // AutoCAD
     ];

@@ -10,7 +10,7 @@ Official web hub and repository for **Vile Tempest Official** (MOB EXTRA), provi
 - **CODM IGN Formatter:** Custom Unicode space generator (non-breaking and Hangul spaces) engineered for custom in-game name styling.
 - **CODM Redeem Codes Hub:** Daily updated redemption codes for Garena and Global versions.
 - **Shared data services:** CODM data and Firebase review features use the MOB EXTRA site's centralized browser-side clients in [`assets/js/server/`](../../../../assets/js/server/), so repository endpoints, Firebase configuration, and database operations are not duplicated across pages.
-- **Professional Services & Commissions:** Client portals and inquiry management for custom Web Development, C++ console programs, Flowcharts & DFDs, Excel VBA automation, SketchUp 3D modeling, and AutoCAD drafting.
+- **Professional Services & Commissions:** Client portals and inquiry management for custom Web Development, C++ console programs, Flowcharts & DFDs, SketchUp 3D modeling, and AutoCAD drafting.
 - **Real-Time Community Reviews:** Uses the shared MOB EXTRA review bootstrap and Firebase client. Reviews are page-specific and editable per browser device; do not add portfolio-specific Firebase or review-form code.
 
 ---

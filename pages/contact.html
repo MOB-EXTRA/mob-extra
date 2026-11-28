@@ -1,53 +1,205 @@
 <!doctype html>
 <html lang="en">
-  <head>    <!-- Google Tag Manager -->
+  <head>
+    <!-- Google Tag Manager -->
     <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-TZ7P5GLL"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
     </script>
     <meta name="google-site-verification" content="oKpI2605t_0eu-Go_blNQpwz81QbXaXJcPsoFFaRDNA" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Contact MOB EXTRA with corrections, link issues, collaboration requests, and general questions.">
+    <meta name="description" content="Contact MOB EXTRA with a question, correction, broken-link report, privacy request, or project inquiry.">
     <meta name="theme-color" content="#07111e">
     <title>Contact MOB EXTRA</title>
     <link rel="icon" href="../assets/img/favicon.png">
     <script src="../assets/js/theme.js"></script>
     <link rel="stylesheet" href="../assets/css/site.css">
     <link rel="stylesheet" href="../assets/css/content-pages.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css" onerror="document.documentElement.classList.add('fa-unavailable')" />
-    <link rel="stylesheet" href="../assets/css/fontawesome-fallback.css" />
+    <link rel="stylesheet" href="../assets/css/contact.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css" onerror="document.documentElement.classList.add('fa-unavailable')" />
+    <link rel="stylesheet" href="../assets/css/fontawesome-fallback.css">
     <script defer src="../assets/js/fontawesome-fallback.js"></script>
   </head>
   <body>
     <div data-site-header></div>
     <script src="../assets/js/components.js" defer></script>
     <main id="main" class="page-shell">
-      <section class="page-hero container" data-reveal>
-        <div class="breadcrumbs"><a href="../index.html">Home</a><span>/</span><span>Contact</span></div>
-        <span class="page-kicker">SAY HELLO</span>
-        <h1>Help us keep<br><span>things accurate.</span></h1>
-        <p>Send a correction, report a broken source, suggest a game hub, or ask a general question.</p>
+      <section class="page-hero container contact-hero" data-reveal>
+        <div class="breadcrumbs">
+          <a href="../index.html">Home</a><span>/</span><span>Contact</span>
+        </div>
+        <span class="page-kicker">GET IN TOUCH</span>
+        <h1 id="contact-title">Let’s make your message<br><span>easy to act on.</span></h1>
+        <p>
+          Questions, corrections, broken links, privacy requests, and project
+          inquiries all have a clear path here. Share the details that will help
+          us understand what you need.
+        </p>
       </section>
-      <section class="page-content container">
-        <div class="content-grid">
-          <article class="content-card" data-reveal>
-            <h2>Reach MOB EXTRA</h2>
-            <p>Email is the best way to send details that need follow-up. Please include the relevant page link, the date you noticed the issue, and any source that helps us verify it.</p>
-            <p><a class="button button-primary" href="mailto:mob.extra.contact@gmail.com?subject=MOB%20EXTRA%20site%20inquiry">Email MOB EXTRA <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a></p>
-            <p><strong>Email:</strong> <a href="mailto:mob.extra.contact@gmail.com">mob.extra.contact@gmail.com</a></p>
-            <div class="callout"><strong>For urgent account or billing issues:</strong> contact the game publisher or platform directly. MOB EXTRA cannot access player accounts or grant in-game rewards.</div>
-            <h3>Corrections</h3>
-            <p>For a code report, include the game version or region and the error shown by the official redemption route. Please do not send passwords, one-time codes, or other sensitive account information.</p>
+
+      <section class="page-content container contact-content" aria-labelledby="contact-title">
+        <div class="contact-layout">
+          <article class="contact-form-card" data-reveal>
+            <header class="contact-card-header">
+              <div>
+                <span class="contact-eyebrow">MOB EXTRA INQUIRY</span>
+                <h2>Send a message</h2>
+                <p>
+                  Complete the fields below and choose <strong>Prepare email</strong>.
+                  Your email app will open with a draft for you to review and send.
+                </p>
+              </div>
+              <span class="contact-header-icon" aria-hidden="true">
+                <i class="fa-regular fa-paper-plane"></i>
+              </span>
+            </header>
+
+            <form id="site-contact-form">
+              <div class="contact-form-grid">
+                <div class="contact-field">
+                  <label for="contact-name">Your name <span aria-hidden="true">*</span></label>
+                  <input
+                    id="contact-name"
+                    name="name"
+                    type="text"
+                    autocomplete="name"
+                    maxlength="100"
+                    placeholder="How should we address you?"
+                    required
+                  >
+                </div>
+                <div class="contact-field">
+                  <label for="contact-email">Email address <span aria-hidden="true">*</span></label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    maxlength="254"
+                    placeholder="you@example.com"
+                    required
+                  >
+                </div>
+                <div class="contact-field">
+                  <label for="contact-topic">What can we help with? <span aria-hidden="true">*</span></label>
+                  <select id="contact-topic" name="topic" required>
+                    <option value="" selected disabled>Choose an inquiry type</option>
+                    <option>General question</option>
+                    <option>Correction or information update</option>
+                    <option>Broken link or technical issue</option>
+                    <option>Collaboration or business inquiry</option>
+                    <option>Privacy or legal request</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="contact-field">
+                  <label for="contact-page">Related page or link <span>Optional</span></label>
+                  <input
+                    id="contact-page"
+                    name="page"
+                    type="url"
+                    inputmode="url"
+                    maxlength="2048"
+                    placeholder="https://mob-extra.github.io/..."
+                  >
+                </div>
+                <div class="contact-field contact-field--wide">
+                  <label for="contact-message">Your message <span aria-hidden="true">*</span></label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    rows="6"
+                    maxlength="3000"
+                    placeholder="Tell us what happened, what you expected, or what you would like to discuss."
+                    required
+                  ></textarea>
+                  <span class="contact-field-hint">Please don’t include passwords, verification codes, or other sensitive account information.</span>
+                </div>
+              </div>
+
+              <div class="contact-submit-row">
+                <button class="button button-primary contact-submit" type="submit">
+                  Prepare email
+                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                </button>
+                <span class="contact-required-note"><span aria-hidden="true">*</span> Required</span>
+              </div>
+              <p class="contact-status" id="contact-form-status" role="status" aria-live="polite">
+                Nothing is sent until you review and send the draft from your email app.
+              </p>
+              <p class="contact-privacy-note">
+                This form prepares a message in your browser; it does not submit
+                or store your details on MOB EXTRA. See our
+                <a href="privacy.html">Privacy Policy</a>.
+              </p>
+            </form>
           </article>
-          <aside class="side-card" data-reveal><h2>Useful pages</h2><a href="editorial.html">How we update <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a><a href="privacy.html">Privacy policy <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a><a href="terms.html">Terms and disclaimer <span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a></aside>
+
+          <aside class="contact-aside" aria-label="Direct contact and message guidance">
+            <section class="contact-side-card contact-direct-card" data-reveal>
+              <span class="contact-eyebrow">DIRECT EMAIL</span>
+              <h2>Prefer to use your own email app?</h2>
+              <p>Copy the address below, or open a new email with one click.</p>
+              <div class="contact-email-row">
+                <a class="contact-email-address" data-site-email-link href="#" aria-label="Email MOB EXTRA">
+                  <span data-site-email></span>
+                </a>
+                <button class="contact-copy-button" id="copy-contact-email" type="button" aria-label="Copy MOB EXTRA email address">
+                  <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <p class="contact-copy-status" id="contact-copy-status" role="status" aria-live="polite"></p>
+              <div class="contact-fallback-note">
+                <strong>If “Prepare email” doesn’t open your email app</strong>
+                <p>
+                  Copy the address above, open Gmail or another email app, start
+                  a new message, paste the address into the recipient field, and
+                  send your message from there.
+                </p>
+              </div>
+              <a class="button button-quiet contact-open-email" data-site-email-link data-site-email-subject="MOB EXTRA contact inquiry" href="#">
+                Open email app
+                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              </a>
+            </section>
+
+            <section class="contact-side-card contact-guidance-card" data-reveal>
+              <span class="contact-eyebrow">HELP US HELP YOU</span>
+              <h2>Details that make a difference</h2>
+              <ul>
+                <li><strong>For a site issue:</strong> include the page link, what you expected, and what happened instead.</li>
+                <li><strong>For a correction:</strong> include a reliable source so we can verify the update.</li>
+                <li><strong>For a project inquiry:</strong> describe the goal, desired outcome, and any relevant timeline.</li>
+              </ul>
+              <div class="contact-security-note">
+                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                <p>
+                  For urgent game-account or billing issues, contact the game
+                  publisher or platform directly. MOB EXTRA cannot access player
+                  accounts or grant in-game rewards.
+                </p>
+              </div>
+            </section>
+
+            <nav class="contact-related-links" aria-label="Related information">
+              <a href="editorial.html">How we update the site <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+              <a href="privacy.html">Privacy Policy <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+              <a href="terms.html">Terms and disclaimer <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            </nav>
+          </aside>
         </div>
       </section>
     </main>
     <div data-site-footer></div>
+    <script src="../assets/js/site-config.js"></script>
+    <script src="../assets/js/contact.js" defer></script>
     <script src="../assets/js/site.js" defer></script>
-      <script src="../assets/ads/ads.js" defer></script>
+    <script src="../assets/ads/ads.js" defer></script>
   </body>
 </html>

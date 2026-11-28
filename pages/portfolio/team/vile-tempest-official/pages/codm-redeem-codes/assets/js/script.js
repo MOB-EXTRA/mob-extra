@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const monthYearString = latestDateObj.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
       if (dynamicHeadingDateEl) dynamicHeadingDateEl.textContent = `(${monthYearString})`;
-      if (pageSeoTitleEl) pageSeoTitleEl.textContent = `Active CODM Redeem Codes ${monthYearString} — Global & Garena | SlimeSpace`;
+      if (pageSeoTitleEl) pageSeoTitleEl.textContent = `Active CODM Redeem Codes ${monthYearString} — Global & Garena | MOB EXTRA`;
     }
   }
 
@@ -333,8 +333,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.shareSite = function() {
     const shareData = {
-      title: 'CODM Redeem Codes — SlimeSpace',
-      text: 'Check out working Call of Duty: Mobile redeem codes updated on SlimeSpace!',
+      title: 'CODM Redeem Codes | MOB EXTRA',
+      text: 'Check current Call of Duty: Mobile redeem codes on MOB EXTRA.',
       url: window.location.href
     };
     if (navigator.share) {

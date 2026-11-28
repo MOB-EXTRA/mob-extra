@@ -1,3 +1,5 @@
+import { isReservedReviewAuthor } from "./review-identity.js";
+
 const FIREBASE_CONFIG = Object.freeze({
   apiKey: "AIzaSyCbCgCRWV4cIDjfGg0llNQXzIscnKvLc9w",
   authDomain: "vile-tempest-reviews.firebaseapp.com",
@@ -53,6 +55,12 @@ function timestampValue(review) {
   return review.timestamp?.toMillis?.() || 0;
 }
 
+function assertReviewAuthorAllowed(author) {
+  if (isReservedReviewAuthor(author)) {
+    throw new Error("Names that impersonate the site owner are not allowed.");
+  }
+}
+
 export async function getReviewsByDeviceToken(deviceToken) {
   if (!deviceToken) throw new Error("A review device ID is required.");
   const { firestore, db } = await getFirebase();
@@ -69,15 +77,23 @@ export async function getReviewsByDeviceToken(deviceToken) {
 }
 
 export async function findReviewByDeviceToken(deviceToken, reviewTargetId) {
+  if (!deviceToken) throw new Error("A review device ID is required.");
   if (!reviewTargetId) throw new Error("A review target ID is required.");
-  const reviews = await getReviewsByDeviceToken(deviceToken);
-  return reviews.find((review) => review.reviewTargetId === reviewTargetId) || null;
+  const { firestore, db } = await getFirebase();
+  const documentId = `v2_${encodeURIComponent(deviceToken)}__${encodeURIComponent(reviewTargetId)}`;
+  const snapshot = await firestore.getDoc(
+    firestore.doc(db, REVIEW_COLLECTION, documentId),
+  );
+  return snapshot.exists()
+    ? { id: snapshot.id, ...snapshot.data() }
+    : null;
 }
 
 export async function saveReview(data) {
   if (!data.userId || !data.reviewTargetId) {
     throw new Error("A review user ID and target ID are required.");
   }
+  assertReviewAuthorAllowed(data.author);
 
   const { firestore, db } = await getFirebase();
   const documentId = `v2_${encodeURIComponent(data.userId)}__${encodeURIComponent(data.reviewTargetId)}`;
@@ -88,6 +104,7 @@ export async function saveReview(data) {
 
 export async function synchronizeReviewAuthor(deviceToken, author) {
   if (!deviceToken) throw new Error("A review device ID is required.");
+  assertReviewAuthorAllowed(author);
   const { firestore, db } = await getFirebase();
   const result = await firestore.getDocs(
     firestore.query(
@@ -109,6 +126,7 @@ export async function synchronizeReviewAuthor(deviceToken, author) {
 }
 
 export async function addReview(data) {
+  assertReviewAuthorAllowed(data.author);
   const { firestore, db } = await getFirebase();
   return firestore.addDoc(
     firestore.collection(db, REVIEW_COLLECTION),
@@ -117,6 +135,9 @@ export async function addReview(data) {
 }
 
 export async function updateReview(reviewId, data) {
+  if (Object.prototype.hasOwnProperty.call(data, "author")) {
+    assertReviewAuthorAllowed(data.author);
+  }
   const { firestore, db } = await getFirebase();
   return firestore.updateDoc(
     firestore.doc(db, REVIEW_COLLECTION, reviewId),

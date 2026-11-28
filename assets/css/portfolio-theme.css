@@ -194,6 +194,28 @@ html[data-portfolio-theme="marc"] .legal-page {
   color: var(--ink);
 }
 
+html[data-theme="light"][data-portfolio-theme="marc"] .art-card-back {
+  background: linear-gradient(145deg, var(--panel), var(--bg) 72%);
+}
+
+html[data-theme="light"][data-portfolio-theme="marc"] .card-back-index,
+html[data-theme="light"][data-portfolio-theme="marc"] .card-back-footer,
+html[data-theme="light"][data-portfolio-theme="marc"] .card-back-copy > span {
+  color: var(--muted);
+}
+
+html[data-theme="light"][data-portfolio-theme="marc"] .card-back-copy strong {
+  color: var(--ink);
+}
+
+html[data-theme="light"][data-portfolio-theme="marc"] .card-back-footer {
+  border-top-color: var(--line-strong);
+}
+
+html[data-theme="light"][data-portfolio-theme="marc"] .card-back-copy-layer::before {
+  background: linear-gradient(100deg, var(--lime-soft), transparent 92%);
+}
+
 html[data-portfolio-theme="vile"] .site-header,
 html[data-portfolio-theme="vile"] .site-nav,
 html[data-portfolio-theme="vile"] .quick-ticker-bar,

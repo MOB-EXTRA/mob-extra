@@ -23,6 +23,7 @@
     <meta name="nav-section" content="more" />
     <meta name="nav-label" content="Carl Vincent portfolio" />
     <meta name="portfolio-group" content="team" />
+    <meta name="mob-extra-portfolio" content="carl" />
     <meta
       name="nav-description"
       content="Carl Vincent Cagatin is a licensed civil engineer with practical experience in construction operations, site coordination, technical documentation, and structural project execution for clients."
@@ -30,6 +31,7 @@
     <meta name="directory-title" content="Engr. Carl Vincent Cagatin" />
     <meta name="directory-kicker" content="CIVIL ENGINEERING · CONSTRUCTION" />
     <meta name="directory-image" content="assets/img/thumbnail.png" />
+    <meta name="directory-image-webp" content="assets/img/thumbnail.webp" />
     <meta
       name="directory-image-alt"
       content="Carl Vincent Cagatin portfolio thumbnail"
@@ -42,6 +44,10 @@
     <meta
       name="description"
       content="Meet Carl Vincent Cagatin, a licensed civil engineer with practical experience in construction operations, site coordination, technical documentation, and project execution."
+    />
+    <link
+      rel="canonical"
+      href="https://mob-extra.github.io/mob-extra/pages/portfolio/team/carl/"
     />
 
     <title>Engr. Carl Vincent | Civil & Structural Engineering</title>
@@ -64,9 +70,13 @@
       rel="stylesheet"
     />
 
+    <script src="../../../../assets/js/theme.js"></script>
+    <link rel="stylesheet" href="../../../../assets/css/tokens.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/recent-projects.css" />
     <link rel="stylesheet" href="assets/css/animations.css" />
+    <link rel="stylesheet" href="../../../../assets/css/portfolio-theme.css" />
+    <link rel="stylesheet" href="../../../../assets/css/portfolio-return.css" />
 
     <link
       rel="stylesheet"
@@ -76,6 +86,18 @@
   </head>
 
   <body>
+    <a class="portfolio-return-button" href="../../index.html" data-portfolio-return draggable="false" aria-label="Back to portfolio index">
+      <span class="portfolio-return-grip" aria-hidden="true">
+        <i class="fa-regular fa-hand" aria-hidden="true"></i>
+        <span>DRAG</span>
+      </span>
+      <span class="portfolio-return-action" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5m7 7-7-7 7-7" />
+        </svg>
+        <span>BACK</span>
+      </span>
+    </a>
     <!-- HEADER -->
     <header class="site-header">
       <div class="nav-container">
@@ -94,7 +116,7 @@
         <button
           class="menu-toggle"
           type="button"
-          aria-label="Toggle navigation"
+          aria-label="Open navigation"
           aria-expanded="false"
         >
           <span></span>
@@ -186,7 +208,8 @@
                 ><i class="fa-solid fa-phone" aria-hidden="true"></i
               ></a>
               <a
-                href="mailto:mob.extra.contact@gmail.com"
+                data-site-email-link
+                href="#"
                 aria-label="Send Email"
                 ><i class="fa-solid fa-envelope" aria-hidden="true"></i
               ></a>
@@ -207,11 +230,16 @@
               </div>
             </div>
 
-            <img
-              src="assets/img/carl-img-2.png"
-              alt="Engr. Carl Vincent Cagatin"
-              class="seated-portrait"
-            />
+            <picture class="seated-portrait-picture">
+              <source srcset="assets/img/carl-img-2.webp" type="image/webp" />
+              <img
+                src="assets/img/carl-img-2.png"
+                alt="Engr. Carl Vincent Cagatin"
+                class="seated-portrait"
+                decoding="async"
+                fetchpriority="high"
+              />
+            </picture>
 
             <div class="floating-badge">
               <div class="badge-icon">
@@ -934,7 +962,8 @@
               <div class="cta-buttons">
                 <a
                   class="button-primary"
-                  href="mailto:mob.extra.contact@gmail.com"
+                  data-site-email-link
+                  href="#"
                 >
                   Let's Talk
                   <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
@@ -982,9 +1011,11 @@
       </div>
     </footer>
 
+    <script src="../../../../assets/js/site-config.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/animations.js"></script>
     <script src="assets/js/filter-recent-projects.js"></script>
     <script defer src="../../../../assets/js/scroll-header.js"></script>
+    <script defer src="../../../../assets/js/portfolio-return.js"></script>
   </body>
 </html>

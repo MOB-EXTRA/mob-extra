@@ -26,11 +26,11 @@
     />
     <meta
       name="description"
-      content="Official hub for Call of Duty: Mobile (CODM) test server links, Garena & Global redeem codes, custom web utilities, and professional freelance services including Web Development, C++, Excel VBA, SketchUp 3D Modeling, and AutoCAD Drafting by Vile Tempest Official (MOB EXTRA)."
+      content="Official hub for Call of Duty: Mobile (CODM) test server links, Garena & Global redeem codes, custom web utilities, and professional freelance services including Web Development, C++, SketchUp 3D Modeling, and AutoCAD Drafting by Vile Tempest Official (MOB EXTRA)."
     />
     <meta
       name="keywords"
-      content="Vile Tempest Official, MOB EXTRA, CODM test server, CODM PTB download, Garena redeem codes, CODM IGN formatter, Web Development services, HTML CSS JavaScript, C++ programming, Excel VBA macros, SketchUp 3D modeling, architectural rendering, AutoCAD drafting, floor plans, freelance commissions, Philippines developer"
+      content="Vile Tempest Official, MOB EXTRA, CODM test server, CODM PTB download, Garena redeem codes, CODM IGN formatter, Web Development services, HTML CSS JavaScript, C++ programming, SketchUp 3D modeling, architectural rendering, AutoCAD drafting, floor plans, freelance commissions, Philippines developer"
     />
     <meta name="author" content="Vile Tempest Official" />
     <meta name="nav-section" content="more" />
@@ -44,6 +44,7 @@
       content="Vile Tempest Official shares CODM test build updates, redeem code guidance, custom player tools, professional services for gaming and technical projects, and many more."
     />
     <meta name="directory-image" content="assets/img/thumbnail.png" />
+    <meta name="directory-image-webp" content="assets/img/thumbnail.webp" />
     <meta
       name="directory-image-alt"
       content="Vile Tempest Official portfolio thumbnail"
@@ -136,9 +137,10 @@
 
     <link rel="stylesheet" href="assets/css/animation.css" />
     <link rel="stylesheet" href="assets/css/footer.css" />
+    <link rel="stylesheet" href="../../../../assets/css/portfolio-return.css" />
 
     <!-- Structured Data (JSON-LD for All Search Engines) -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" data-site-email-schema>
       {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
@@ -147,8 +149,7 @@
         "url": "https://mob-extra.github.io/mob-extra/pages/portfolio/team/vile-tempest-official/",
         "logo": "https://mob-extra.github.io/mob-extra/pages/portfolio/team/vile-tempest-official/assets/img/favicon.png",
         "image": "https://mob-extra.github.io/mob-extra/pages/portfolio/team/vile-tempest-official/assets/img/favicon.png",
-        "description": "Provider of gaming web utilities, Call of Duty: Mobile test server resources, and professional freelance services including Web Development, SketchUp 3D Modeling, AutoCAD Drafting, Excel VBA, and C++ Console Programming.",
-        "email": "mob.extra.contact@gmail.com",
+        "description": "Provider of gaming web utilities, Call of Duty: Mobile test server resources, and professional freelance services including Web Development, SketchUp 3D Modeling, AutoCAD Drafting, and C++ Console Programming.",
         "areaServed": ["Worldwide", "Philippines"],
         "priceRange": "$$",
         "address": {
@@ -203,14 +204,6 @@
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Excel VBA Programming",
-                "description": "Automated spreadsheet macros, multi-sheet synchronization engines, and BOQ calculation modules."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
                 "name": "Flowcharts & Data Flow Diagrams (DFDs)",
                 "description": "Visual system architectures, logical program flowcharts, and Data Flow Diagrams (DFDs) for software systems."
               }
@@ -225,6 +218,18 @@
     <link rel="stylesheet" href="../../../../assets/css/portfolio-theme.css" />
 </head>
   <body>
+    <a class="portfolio-return-button" href="../../index.html" data-portfolio-return draggable="false" aria-label="Back to portfolio index">
+      <span class="portfolio-return-grip" aria-hidden="true">
+        <i class="fa-regular fa-hand" aria-hidden="true"></i>
+        <span>DRAG</span>
+      </span>
+      <span class="portfolio-return-action" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5m7 7-7-7 7-7" />
+        </svg>
+        <span>BACK</span>
+      </span>
+    </a>
     <header class="site-header">
       <div class="header-container">
         <a
@@ -275,8 +280,8 @@
                 href="../../../../index.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="badge-link config-link-slimespace"
-                >SlimeSpace</a
+                class="badge-link config-link-mob-extra-tools"
+                >Tools</a
               >
             </span>
 
@@ -323,11 +328,16 @@
           </div>
         </div>
         <div class="hero-image-wrapper">
-          <img
-            src="assets/img/thumbnail.png"
-            alt="Vile Tempest Official Banner"
-            class="hero-img"
-          />
+          <picture class="hero-image-picture">
+            <source srcset="assets/img/thumbnail.webp" type="image/webp" />
+            <img
+              src="assets/img/thumbnail.png"
+              alt="Vile Tempest Official Banner"
+              class="hero-img"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </picture>
         </div>
       </section>
 
@@ -418,32 +428,6 @@
                   <span>System Design</span>
                   <span>DFDs</span>
                   <span>Logic</span>
-                </div>
-              </div>
-              <a href="#contact" class="service-action-link">
-                <span>Inquire</span>
-                <i class="fa-solid fa-arrow-right"></i>
-              </a>
-            </div>
-
-            <!-- Service 3: Excel VBA Programming -->
-            <div class="service-box">
-              <div class="service-header-row">
-                <div class="service-icon-wrapper vba-glow">
-                  <i class="fa-solid fa-file-excel"></i>
-                </div>
-                <h3>Excel VBA Programming</h3>
-              </div>
-              <div class="service-content">
-                <p>
-                  Automated spreadsheet macros, multi-sheet synchronization
-                  engines, and BOQ calculation modules.
-                </p>
-                <div class="service-tech-tags">
-                  <span>VBA</span>
-                  <span>Macros</span>
-                  <span>Automation</span>
-                  <span>BOQ</span>
                 </div>
               </div>
               <a href="#contact" class="service-action-link">
@@ -1067,7 +1051,7 @@
               <li>
                 <a
                   href="../../../../pages/tools/codm-ign-formatter/"
-                  class="config-link-slimespace"
+                  class="config-link-mob-extra-tools"
                   ><i class="fa-solid fa-angle-right"></i> IGN Formatter</a
                 >
               </li>
@@ -1120,6 +1104,7 @@
     </footer>
 
     <!-- Scripts -->
+    <script src="../../../../assets/js/site-config.js"></script>
     <script src="assets/js/site-config.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/search-filter.js"></script>
@@ -1128,5 +1113,6 @@
     <script type="module" src="../../../../assets/js/review-bootstrap.js" data-review-bootstrap></script>
 
     <script src="../../../../assets/ads/ads.js" defer></script>
+    <script defer src="../../../../assets/js/portfolio-return.js"></script>
 </body>
 </html>

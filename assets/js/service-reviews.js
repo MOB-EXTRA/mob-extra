@@ -1,5 +1,7 @@
 import { subscribeToReviews } from "./server/api.js";
+import { REVIEW_INITIAL_LOADING_DELAY_MS } from "./server/review-config.js";
 import { renderAverageStars } from "./review-stars.js";
+import { isReservedReviewAuthor } from "./server/review-identity.js";
 
 const REVIEW_CATEGORIES = [
   "General Feedback",
@@ -32,11 +34,12 @@ function replayRatingBars() {
   bars.forEach((bar) => {
     bar.style.height = "0%";
   });
-  bars.forEach((bar) => void bar.offsetHeight);
   requestAnimationFrame(() =>
-    bars.forEach((bar) => {
-      bar.style.height = bar.dataset.targetHeight || "0%";
-    }),
+    requestAnimationFrame(() =>
+      bars.forEach((bar) => {
+        bar.style.height = bar.dataset.targetHeight || "0%";
+      }),
+    ),
   );
 }
 
@@ -51,12 +54,13 @@ function replayReviewTrend() {
   if (!chart) return;
   const bars = [...chart.querySelectorAll(".review-trend-track i")];
   bars.forEach((bar) => bar.classList.remove("is-animated"));
-  void chart.offsetWidth;
   requestAnimationFrame(() =>
-    bars.forEach((bar, index) => {
-      bar.style.transitionDelay = `${index * 100}ms`;
-      bar.classList.add("is-animated");
-    }),
+    requestAnimationFrame(() =>
+      bars.forEach((bar, index) => {
+        bar.style.transitionDelay = `${index * 100}ms`;
+        bar.classList.add("is-animated");
+      }),
+    ),
   );
 }
 
@@ -107,7 +111,11 @@ document.addEventListener("site:motion-leave", (event) => {
 
 function safeAuthor(value) {
   const author = typeof value === "string" ? value.trim() : "";
-  if (!author || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(author))
+  if (
+    !author ||
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(author) ||
+    isReservedReviewAuthor(author)
+  )
     return "Community member";
   return author.slice(0, 80);
 }
@@ -395,16 +403,15 @@ function renderRecentReviews() {
     panel?.querySelector(".review-recent-heading")?.getBoundingClientRect()
       .height || 0;
   const gapAllowance = 8;
-  const availableHeight = analytics?.getBoundingClientRect().height
+  const analyticsHeight = analytics?.getBoundingClientRect().height || 0;
+  const availableHeight = analyticsHeight
     ? Math.max(
         0,
-        analytics.getBoundingClientRect().height -
-          panelPadding -
-          headingHeight -
-          gapAllowance,
+        analyticsHeight - panelPadding - headingHeight - gapAllowance,
       )
     : Infinity;
-  let usedHeight = 0;
+  const fragment = document.createDocumentFragment();
+  const rows = [];
 
   currentReviews.forEach((review) => {
     const row = document.createElement("article");
@@ -424,16 +431,21 @@ function renderRecentReviews() {
     const comment = document.createElement("p");
     comment.textContent = review.comment.trim();
     row.append(meta, rating, comment);
-    list.append(row);
-    const rowHeight = row.getBoundingClientRect().height;
-
-    // if (usedHeight + rowHeight > availableHeight && list.children.length > 1) {
-    if (usedHeight > availableHeight && list.children.length > 1) {
-      row.remove();
-      return;
-    }
-    usedHeight += rowHeight;
+    rows.push(row);
+    fragment.append(row);
   });
+  list.replaceChildren(fragment);
+
+  let usedHeight = 0;
+  let visibleRows = rows.length;
+  for (let index = 0; index < rows.length; index += 1) {
+    if (usedHeight > availableHeight && index > 0) {
+      visibleRows = index;
+      break;
+    }
+    usedHeight += rows[index].getBoundingClientRect().height;
+  }
+  rows.slice(visibleRows).forEach((row) => row.remove());
 }
 
 function renderReviewTypeOverview() {
@@ -518,6 +530,8 @@ function bindReviewFilters() {
 }
 
 function showReviewLoadError() {
+  window.mobExtraReviewsError = true;
+  document.dispatchEvent(new CustomEvent("site:reviews-error"));
   const list = document.querySelector("[data-service-review-list]");
   const count = document.querySelector("[data-service-review-count]");
   if (count) count.textContent = "Reviews unavailable";
@@ -532,6 +546,20 @@ function showReviewLoadError() {
   state.textContent =
     "Reviews are temporarily unavailable. Please try again later.";
   list.replaceChildren(state);
+
+  const unavailableMessage = (className) => {
+    const message = document.createElement("p");
+    message.className = className;
+    message.textContent = "Review data is temporarily unavailable.";
+    return message;
+  };
+  document
+    .querySelector("[data-review-latest]")
+    ?.replaceChildren(unavailableMessage("review-recent-empty"));
+  document
+    .querySelector("[data-review-type-overview]")
+    ?.replaceChildren(unavailableMessage("review-analytics-unavailable"));
+  document.querySelector("[data-review-trend]")?.replaceChildren();
 }
 
 async function loadReviews() {
@@ -556,21 +584,72 @@ async function loadReviews() {
   if (initialStatus)
     initialStatus.lastChild.textContent = " Connecting to live feed";
 
+  let initialLoadSettled = false;
+  let initialLoadTimer = null;
+  let queuedReviews = null;
+  let queuedError = null;
+
+  function renderLoadedReviews(reviews) {
+    currentReviews = reviews;
+    window.mobExtraReviewsError = false;
+    window.mobExtraReviews = reviews;
+    document.dispatchEvent(
+      new CustomEvent("site:reviews-updated", { detail: { reviews } }),
+    );
+    const liveStatus = document.querySelector("[data-review-live-status]");
+    if (liveStatus) {
+      liveStatus.classList.remove("is-offline");
+      liveStatus.lastChild.textContent = " Live review feed";
+    }
+    updateSummary();
+    renderReviewCards();
+  }
+
+  function clearLoadingState() {
+    reviewSection.classList.remove("is-loading");
+    reviewSection.querySelectorAll('[aria-busy="true"]').forEach((element) => {
+      element.removeAttribute("aria-busy");
+    });
+  }
+
+  function queueInitialRender() {
+    if (initialLoadSettled) return;
+    if (initialLoadTimer !== null) return;
+
+    initialLoadTimer = window.setTimeout(() => {
+      initialLoadSettled = true;
+      clearLoadingState();
+      if (queuedError) showReviewLoadError();
+      else renderLoadedReviews(queuedReviews || []);
+    }, Math.max(0, REVIEW_INITIAL_LOADING_DELAY_MS));
+  }
+
   try {
     await subscribeToReviews(
       (reviews) => {
-        currentReviews = validReviews(reviews);
-        const liveStatus = document.querySelector("[data-review-live-status]");
-        if (liveStatus) {
-          liveStatus.classList.remove("is-offline");
-          liveStatus.lastChild.textContent = " Live review feed";
+        queuedReviews = validReviews(reviews);
+        queuedError = null;
+        window.mobExtraReviewsError = false;
+        window.mobExtraReviews = queuedReviews;
+        document.dispatchEvent(
+          new CustomEvent("site:reviews-updated", {
+            detail: { reviews: queuedReviews },
+          }),
+        );
+        if (initialLoadSettled) {
+          renderLoadedReviews(queuedReviews);
+        } else {
+          queueInitialRender();
         }
-        updateSummary();
-        renderReviewCards();
       },
       (error) => {
         console.warn("Live reviews could not be streamed.", error);
-        showReviewLoadError();
+        if (initialLoadSettled) {
+          showReviewLoadError();
+        } else {
+          queuedError = error;
+          queueInitialRender();
+        }
       },
     );
     let resizeTimer;
@@ -584,7 +663,11 @@ async function loadReviews() {
     );
   } catch (error) {
     console.warn("Reviews could not be initialized.", error);
-    showReviewLoadError();
+    if (initialLoadSettled) showReviewLoadError();
+    else {
+      queuedError = error;
+      queueInitialRender();
+    }
   }
 }
 

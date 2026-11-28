@@ -17,6 +17,10 @@
 })();
 
 const MOB_EXTRA_ROOT = new URL("../../../../../../", document.currentScript.src);
+const sharedContactConfig = window.MOB_EXTRA_SITE_CONFIG;
+if (!sharedContactConfig) {
+  throw new Error("The shared MOB EXTRA site config must load before the Vile Tempest site config.");
+}
 
 const SITE_CONFIG = {
   brandName: "Vile Tempest Official",
@@ -31,10 +35,11 @@ const SITE_CONFIG = {
       "https://www.youtube.com/channel/UCbDtYZS08VvB6luAcyn08bQ/videos",
     youtubeCommunity:
       "https://www.youtube.com/channel/UCbDtYZS08VvB6luAcyn08bQ/community",
-    slimeSpaceHub: new URL("pages/tools/codm-ign-formatter/", MOB_EXTRA_ROOT).href,
-    emailAddress: "mob.extra.contact@gmail.com",
-    emailComposeUrl:
-      "mailto:mob.extra.contact@gmail.com?subject=Inquiry%20/%20Commission%20Request%20—%20Vile%20Tempest%20Official",
+    mobExtraToolsHub: new URL("pages/tools/codm-ign-formatter/", MOB_EXTRA_ROOT).href,
+    emailAddress: sharedContactConfig.contactEmail,
+    emailComposeUrl: sharedContactConfig.mailto(
+      "Inquiry / Commission Request — Vile Tempest Official",
+    ),
     facebook: "https://facebook.com/vile.tempest.extra",
     tiktok: "https://tiktok.com/@vile.tempest.extr",
     twitter: "https://x.com/VileTempestExtr",
@@ -115,10 +120,12 @@ function renderDynamicSiteData() {
     link.href = SITE_CONFIG.links.youtubeChannel;
   });
 
-  // 5. Dynamic Link Bindings for SlimeSpace Hub
-  const slimeSpaceLinks = document.querySelectorAll("a.config-link-slimespace");
-  slimeSpaceLinks.forEach((link) => {
-    link.href = SITE_CONFIG.links.slimeSpaceHub;
+  // 5. Dynamic Link Bindings for MOB EXTRA Tools
+  const mobExtraToolsLinks = document.querySelectorAll(
+    "a.config-link-mob-extra-tools",
+  );
+  mobExtraToolsLinks.forEach((link) => {
+    link.href = SITE_CONFIG.links.mobExtraToolsHub;
   });
 
   // 6. Dynamic Email Web Compose Links

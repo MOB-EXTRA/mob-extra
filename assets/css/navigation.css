@@ -48,8 +48,17 @@
 .nav-group > a span {
   color: var(--lime);
 }
+.nav-group > a span i {
+  display: inline-block;
+  transition: transform 0.18s ease;
+}
+.nav-group:hover > a span i,
+.nav-group:focus-within > a span i,
+.nav-group.open > a span i {
+  transform: rotate(180deg);
+}
 .nav-menu {
-  display: none;
+  display: block;
   position: absolute;
   top: 100%;
   left: -16px;
@@ -59,6 +68,15 @@
   border-radius: 12px;
   min-width: 180px;
   box-shadow: 0 16px 32px #0007;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px) scale(0.98);
+  transform-origin: top;
+  transition:
+    opacity 0.18s ease,
+    transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s linear 0.22s;
 }
 .nav-menu a {
   display: block;
@@ -72,7 +90,14 @@
 .nav-group:hover .nav-menu,
 .nav-group:focus-within .nav-menu,
 .nav-group.open .nav-menu {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 0.18s ease,
+    transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s;
 }
 .nav-cta {
   border: 1px solid var(--line);
@@ -175,4 +200,11 @@
   height: 2px;
   background: var(--ink);
   margin: 5px;
+  transition: transform 0.18s ease;
+}
+.menu-toggle[aria-expanded="true"] span:first-child {
+  transform: translateY(6px) rotate(45deg);
+}
+.menu-toggle[aria-expanded="true"] span:last-child {
+  transform: translateY(-6px) rotate(-45deg);
 }

@@ -33,7 +33,16 @@
       image.loading = "lazy";
       image.decoding = "async";
       if (page.imageFit === "cover") image.classList.add("is-cover");
-      artwork.append(image);
+      if (page.imageWebp) {
+        const picture = document.createElement("picture");
+        const source = document.createElement("source");
+        source.type = "image/webp";
+        source.srcset = page.imageWebp;
+        picture.append(source, image);
+        artwork.append(picture);
+      } else {
+        artwork.append(image);
+      }
       card.append(artwork);
     }
 
@@ -71,7 +80,7 @@
 
     const link = document.createElement("a");
     link.className = "text-link";
-    link.href = window.portfolioViewerUrl(page.url);
+    link.href = page.url;
     link.append("View portfolio ");
     const arrow = document.createElement("i");
     arrow.className = "fa-solid fa-arrow-right";

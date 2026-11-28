@@ -88,6 +88,25 @@
   object-fit: cover;
   padding: 0;
 }
+.portfolio-tile-artwork > picture:first-child {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+}
+.portfolio-tile-artwork > picture:first-child > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  padding: 8px;
+  filter: contrast(1.05) saturate(1.05);
+}
+.portfolio-tile-artwork > picture:first-child > img.is-cover {
+  object-fit: cover;
+  padding: 0;
+}
 .portfolio-tile-header.is-overlay {
   position: relative;
   z-index: 2;
@@ -105,7 +124,7 @@
   overflow: hidden;
   border-radius: 11px 11px 0 0;
   background-color: #07111e;
-  background-image: url("../img/bg-1.png");
+  background-image: url("../img/bg-1.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -135,6 +154,25 @@
   filter: contrast(1.05) saturate(1.05);
 }
 .portfolio-tile-artwork > img:first-child.is-cover {
+  object-fit: cover;
+  padding: 0;
+}
+.portfolio-tile-artwork > picture:first-child {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+}
+.portfolio-tile-artwork > picture:first-child > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  padding: 8px;
+  filter: contrast(1.05) saturate(1.05);
+}
+.portfolio-tile-artwork > picture:first-child > img.is-cover {
   object-fit: cover;
   padding: 0;
 }

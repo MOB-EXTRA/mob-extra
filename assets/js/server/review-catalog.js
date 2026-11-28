@@ -13,6 +13,21 @@ function normalizePath(pathname) {
   return pathname.replace(/index\.html$/i, "").replace(/\/+$/, "") || "/";
 }
 
+function getSiteRelativePath(pathname) {
+  const path = normalizePath(pathname).toLowerCase();
+  const siteRootPath = normalizePath(SITE_ROOT.pathname).toLowerCase();
+  if (siteRootPath === "/") return path;
+  if (path === siteRootPath) return "/";
+  return path.startsWith(`${siteRootPath}/`)
+    ? path.slice(siteRootPath.length)
+    : path;
+}
+
+function isGeneralReviewPage(pathname) {
+  const path = getSiteRelativePath(pathname);
+  return path === "/" || /^\/pages\/[^/]+$/.test(path);
+}
+
 function normalizeFeatureName(value) {
   return String(value || "")
     .normalize("NFKC")
@@ -28,8 +43,9 @@ export function getReviewTargetId(reviewType, specificUtility, pageId) {
   return `page:${encodeURIComponent(normalizePath(pageId).toLowerCase())}`;
 }
 
-function categoryForPage(page, pathname, hash) {
+function categoryForPage(page, pathname, hash, pageReviewCategory) {
   const path = pathname.toLowerCase();
+  const normalizedPath = normalizePath(path);
   const section = page?.section?.toLowerCase();
   if (path.includes("/shop/") || path.endsWith("/shop")) {
     return "Buying in Shop";
@@ -41,10 +57,13 @@ function categoryForPage(page, pathname, hash) {
   ) {
     return "Commissions / Services";
   }
-  if (page?.reviewCategory) return page.reviewCategory;
+  if (page?.reviewCategory || pageReviewCategory) {
+    return page?.reviewCategory || pageReviewCategory;
+  }
   if (
     section === "hubs" ||
     section === "tools" ||
+    /\/pages\/(?:hubs|tools)\/.+/i.test(normalizedPath) ||
     /\/pages\/(?:codm-ptb-download|codm-redeem-codes)(?:\/|$)/i.test(path)
   ) {
     return "Utilities";
@@ -177,6 +196,7 @@ export async function getCurrentReviewContext() {
     page,
     pathname,
     window.location.hash.toLowerCase(),
+    getMeta(document, "review-category"),
   );
   const section = (
     page?.section ||
@@ -199,5 +219,6 @@ export async function getCurrentReviewContext() {
     features: [...features.values()].sort((first, second) =>
       first.localeCompare(second),
     ),
+    categoryChangeable: isGeneralReviewPage(pathname),
   };
 }

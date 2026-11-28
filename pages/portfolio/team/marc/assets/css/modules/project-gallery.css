@@ -1,0 +1,222 @@
+.work-gallery-dialog {
+  width: min(920px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(84vh, 860px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+.work-gallery-dialog::backdrop {
+  background: rgba(3, 7, 13, 0.8);
+  backdrop-filter: blur(7px);
+}
+
+.work-gallery-window {
+  display: flex;
+  height: min(84vh, 860px);
+  max-height: min(84vh, 860px);
+  flex-direction: column;
+}
+
+.work-gallery-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(120deg, var(--panel2), var(--panel));
+}
+
+.work-gallery-kicker {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font: 500 9px var(--mono);
+  letter-spacing: 0.12em;
+}
+
+.work-gallery-header h2 {
+  margin: 0;
+  color: var(--ink);
+  font: 600 21px var(--display);
+}
+
+.work-gallery-close {
+  display: flex;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--muted);
+  background: var(--panel2);
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  font: 400 24px/1 var(--display);
+  cursor: pointer;
+}
+
+.work-gallery-close:hover {
+  color: var(--ink);
+  border-color: var(--lime-border);
+  background: var(--lime-soft);
+}
+
+.work-gallery-body {
+  min-height: 0;
+  flex: 1;
+  overflow: auto;
+  padding: 22px;
+}
+
+.work-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.work-gallery-item {
+  display: grid;
+  min-height: 180px;
+  width: 100%;
+  padding: 0;
+  place-items: center;
+  overflow: hidden;
+  color: inherit;
+  background: var(--panel2);
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  cursor: zoom-in;
+  font: inherit;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.work-gallery-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--lime-border);
+  box-shadow: var(--shadow-md);
+}
+
+.work-gallery-item img {
+  display: block;
+  width: 100%;
+  max-height: 56vh;
+  object-fit: contain;
+}
+
+.work-gallery-empty {
+  margin: 0;
+  padding: 38px 20px;
+  color: var(--muted);
+  text-align: center;
+  border: 1px dashed var(--line-strong);
+  border-radius: 7px;
+}
+
+.work-gallery-viewer {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  justify-items: center;
+  gap: clamp(10px, 3vw, 34px);
+  padding: 62px clamp(12px, 4vw, 56px) 30px;
+  background: rgba(3, 7, 13, 0.94);
+  cursor: zoom-out;
+}
+
+.work-gallery-viewer[hidden] {
+  display: none;
+}
+
+.gallery-viewer-frame {
+  display: grid;
+  min-width: 0;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  justify-items: center;
+  gap: 14px;
+  cursor: default;
+}
+
+.gallery-viewer-frame img {
+  display: block;
+  max-width: min(74vw, 1120px);
+  max-height: 76vh;
+  object-fit: contain;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  box-shadow: var(--shadow-lg);
+}
+
+.gallery-viewer-frame figcaption {
+  color: var(--muted);
+  font: 10px var(--mono);
+  letter-spacing: 0.12em;
+}
+
+.gallery-viewer-nav,
+.gallery-viewer-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  cursor: pointer;
+  line-height: 1;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.work-gallery-close > i,
+.gallery-viewer-nav > i,
+.gallery-viewer-close > i {
+  display: block;
+  margin: 0;
+  line-height: 1;
+}
+
+.gallery-viewer-nav {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 19px;
+}
+
+.gallery-viewer-nav:hover:not(:disabled),
+.gallery-viewer-close:hover {
+  background: var(--panel2);
+  border-color: var(--lime-border);
+}
+
+.gallery-viewer-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.gallery-viewer-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 23px;
+}
