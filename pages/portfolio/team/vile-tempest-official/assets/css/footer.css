@@ -4,11 +4,11 @@
 
 .site-footer {
   width: 100%;
-  background-color: var(--bg-surface, #131a26);
-  border-top: 1px solid var(--border-subtle, #1e293b);
+  background-color: var(--panel, #131a26);
+  border-top: 1px solid var(--line, #1e293b);
   padding: 48px 24px 32px;
   margin-top: 60px;
-  color: var(--text-secondary, #94a3b8);
+  color: var(--muted, #94a3b8);
   font-size: 0.88rem;
 }
 
@@ -41,7 +41,7 @@
   gap: 10px;
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--text-primary, #f8fafc);
+  color: var(--ink, #f8fafc);
 }
 
 .footer-brand-title img {
@@ -52,7 +52,7 @@
 .footer-description {
   font-size: 0.85rem;
   line-height: 1.6;
-  color: var(--text-secondary, #94a3b8);
+  color: var(--muted, #94a3b8);
   max-width: 420px;
   margin: 0;
 }
@@ -73,7 +73,7 @@
 .footer-column-title {
   font-size: 0.82rem;
   font-weight: 700;
-  color: var(--accent-primary, #38bdf8);
+  color: var(--lime, #38bdf8);
   text-transform: uppercase;
   letter-spacing: 0.8px;
   margin: 0;
@@ -89,7 +89,7 @@
 }
 
 .footer-navList li a {
-  color: var(--text-secondary, #94a3b8);
+  color: var(--muted, #94a3b8);
   text-decoration: none;
   font-size: 0.85rem;
   display: inline-flex;
@@ -99,7 +99,7 @@
 }
 
 .footer-navList li a:hover {
-  color: var(--text-primary, #f8fafc);
+  color: var(--ink, #f8fafc);
   transform: translateX(3px);
 }
 
@@ -116,10 +116,10 @@
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
-  background: var(--bg-subtle, #202b3c);
-  border: 1px solid var(--border-subtle, #1e293b);
+  background: var(--panel2, #202b3c);
+  border: 1px solid var(--line, #1e293b);
   border-radius: var(--radius-md, 8px);
-  color: var(--text-primary, #f8fafc);
+  color: var(--ink, #f8fafc);
   font-size: 0.82rem;
   font-weight: 600;
   text-decoration: none;
@@ -140,21 +140,21 @@
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  background: var(--bg-subtle, #202b3c);
-  border: 1px solid var(--border-subtle, #1e293b);
+  background: var(--panel2, #202b3c);
+  border: 1px solid var(--line, #1e293b);
   border-radius: var(--radius-md, 8px);
   transition: border-color 0.2s ease;
 }
 
 .email-badge-card:hover {
-  border-color: var(--accent-primary, #38bdf8);
+  border-color: var(--lime, #38bdf8);
 }
 
 .email-address-link {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--text-primary, #f8fafc);
+  color: var(--ink, #f8fafc);
   font-size: 0.82rem;
   font-weight: 600;
   text-decoration: none;
@@ -164,15 +164,15 @@
   user-select: all; /* Allows one-click full selection of the email string */
   -webkit-user-select: all;
   -moz-user-select: all;
-  color: var(--accent-primary, #38bdf8);
-  font-family: var(--font-mono, monospace);
+  color: var(--lime, #38bdf8);
+  font-family: var(--mono, monospace);
   letter-spacing: -0.2px;
 }
 
 .email-copy-btn {
   background: transparent;
   border: none;
-  color: var(--text-secondary, #94a3b8);
+  color: var(--muted, #94a3b8);
   font-size: 0.85rem;
   cursor: pointer;
   padding: 4px;
@@ -194,7 +194,7 @@
   max-width: 100%;
   margin: 36px auto 0;
   padding-top: 24px;
-  border-top: 1px solid var(--border-subtle, #1e293b);
+  border-top: 1px solid var(--line, #1e293b);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -212,12 +212,12 @@
 
 .footer-copyright {
   font-size: 0.8rem;
-  color: var(--text-muted, #64748b);
+  color: var(--dim, #64748b);
   margin: 0;
 }
 
 .footer-copyright a {
-  color: var(--accent-primary, #38bdf8);
+  color: var(--lime, #38bdf8);
   font-weight: 600;
 }
 
@@ -229,7 +229,7 @@
   background: rgba(56, 189, 248, 0.08);
   border: 1px solid rgba(56, 189, 248, 0.25);
   border-radius: var(--radius-full, 9999px);
-  color: var(--accent-primary, #38bdf8);
+  color: var(--lime, #38bdf8);
   font-size: 0.72rem;
   font-weight: 700;
 }

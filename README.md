@@ -12,14 +12,20 @@ Static, mobile-first website for the MOB EXTRA gaming resource hub. The source i
 - `pages/portfolio/` — shared portfolio directory and viewer, with `team/` for MOB EXTRA project owners and `community/` for hosted member portfolios.
 - `pages/portfolio/view.html` — shared same-tab portfolio viewer with a floating return link; it hosts each unique portfolio in an iframe to preserve its own styling.
 - `pages/services/` — professional commissions for engineering estimates, CAD/SketchUp, diagrams, automation, and web tools.
+- `pages/store/` — storefront preview with sample products, searchable/filterable catalog, and browser-local demo cart; checkout is intentionally disabled until real products and order processing are configured.
 - `pages/about.html`, `contact.html`, `editorial.html`, `privacy.html`, `terms.html` — ownership, contact, content standards, and policy pages.
 - `assets/css/site.css` — import root for the shared shell and responsive styles.
+- `assets/css/tokens.css` — the single source for the shared dark/light color palette, typography, spacing, and surface tokens used by MOB EXTRA, tools, hubs, the store, and the Marc/Vile portfolios.
+- `assets/css/themes.css` and `assets/css/portfolio-theme.css` — shared component rules for the main site and the themed portfolios; feature styles should consume the central tokens instead of declaring their own palette.
+- `assets/js/theme.js` — device-default startup, saved Light/Dark preference, dynamic injection of the shared appearance control on Marc and Vile pages, and loading of the shared scroll-header controller.
+- `assets/js/scroll-header.js` and `assets/css/scroll-header.css` — shared hide-on-scroll-down and reveal-on-scroll-up behavior for top-pinned headers. Pages using `theme.js` receive it automatically; Carl's independent portfolio loads the controller directly.
 - `assets/css/content-pages.css`, `redeem-hubs.css`, `ptb-hub.css`, `portfolio.css`, `tools.css` — focused page modules loaded only by the pages that use them.
 - `assets/css/animations/` and `assets/js/animations/` — shared animation styles and viewport replay controller. It observes static and dynamically added content, emits `site:motion-enter` / `site:motion-leave` for scripted effects, and also runs inside portfolio pages opened through the shared viewer. Portfolio-specific art and motion styles remain with each portfolio.
 - `assets/js/site.js` — shared navigation, scroll reveals, and footer year.
 - `assets/js/server/` — the browser-side service layer. `api.js` is the public entry point for page and portfolio modules; `firebase.js` owns the Firebase SDK and Firestore operations; `shared-data.js` owns the mirrored GitHub data requests and failover; review policy, identity, and catalog helpers stay beside those adapters.
 - `assets/js/portfolio-showcase.js` — reusable sitemap-driven portfolio cards shared by the home page and portfolio directory. Add `<div data-portfolio-showcase></div>` and load this file after `components.js` to place the same section elsewhere. Portfolio details come from their sitemap-listed page metadata.
 - `assets/js/pages/` — page behavior kept separate for redeem hubs, CODM test builds, and player tools.
+- `assets/css/store.css` and `assets/js/pages/store.js` — focused storefront presentation, sample catalog, filters, and non-purchasable local cart.
 - `assets/ads/` — site-wide sponsored promotion configuration, placement loader, and styles. Edit `config.json` to update promotions or set `enabled` to `false` to turn them off.
 - `assets/js/review-bootstrap.js`, `assets/js/review-widget.js`, and `assets/css/review-widget.css` — shared review bootstrap, live review panel, and submission form. MOB EXTRA pages use the shared bootstrap; owner-managed Vile Tempest and Marc Johnford portfolio pages opt in with metadata. Third-party portfolios are excluded by default.
 - `assets/img/` — shared MOB EXTRA brand artwork. All embedded projects use `img/` for image folders inside their own `assets/` directories.
@@ -40,7 +46,7 @@ CODM and MLBB redeem listings and CODM test-build status are read from the three
 To change the mirror host, repository order, request timeout, or source parsing, edit `assets/js/server/shared-data.js` once. To add another game's redeem-code data, add its repository folder to `REDEEM_CODE_GAMES` there, add the game's display name/default region to `GAME_CONFIG` in `assets/js/pages/redeem-hub.js`, then use `loadRedeemCodes("<game>")` from the page. Current supported source files are `codm-redeem-code/redeem-codes.js`, `mlbb-redeem-code/redeem-codes.js`, and `codm-test-server/codm-config.js`. Main hub pages and the Vile Tempest portfolio's equivalent CODM pages already load this shared module; do not add repository URLs or fallback logic to individual page scripts.
 
 The retired standalone project sites are not used for internal navigation. Game publisher links, creator contact channels, and the shared-data repositories listed above remain external by design.
-Each portfolio keeps its original visual identity and frontend assets; the portfolio directory and MOB EXTRA pages provide the common path back into the main site.
+Marc Johnford and Vile Tempest Official keep their page layouts and artwork, but use the central MOB EXTRA palette and appearance preference on every page, including embedded portfolio views. Add the portfolio marker and shared theme assets when creating portfolio pages. Carl Vincent's portfolio remains independent and must not load the shared portfolio theme.
 
 ## Adding pages to shared navigation and directories
 

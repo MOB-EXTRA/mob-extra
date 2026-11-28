@@ -191,6 +191,9 @@
   font-size: 13px;
   line-height: 1.65;
 }
+.portfolio-tile-artwork + p {
+  margin-top: 14px;
+}
 .portfolio-tile .text-link {
   margin-top: auto;
   padding-top: 14px;

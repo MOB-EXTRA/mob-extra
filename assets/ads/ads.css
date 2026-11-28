@@ -45,6 +45,21 @@
   text-decoration: none;
 }
 .sponsored-placement__link:hover { filter: brightness(1.08); }
+
+html[data-theme="light"] .sponsored-placement {
+  background: linear-gradient(110deg, #ffffff, #edf4f8 72%);
+  box-shadow: var(--shadow-soft);
+  color: var(--ink);
+}
+
+html[data-theme="light"] .sponsored-placement p {
+  color: #52677a;
+}
+
+html[data-theme="light"] .sponsored-placement__link {
+  color: #ffffff;
+}
+
 @media (max-width: 600px) {
   .sponsored-placement {
     width: calc(100% - 36px);

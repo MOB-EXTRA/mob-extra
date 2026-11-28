@@ -34,11 +34,11 @@ body {
 .portfolio-viewer-control {
   position: fixed;
   z-index: 2147483000;
-  left: 16px;
+  left: 0;
   bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   display: inline-flex;
   align-items: center;
-  max-width: calc(100vw - 24px);
+  max-width: 28px;
   overflow: hidden;
   border: 1px solid rgba(32, 199, 233, 0.55);
   border-radius: 6px;
@@ -46,6 +46,12 @@ body {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  transition: max-width 160ms ease;
+}
+
+.portfolio-viewer-control:hover,
+.portfolio-viewer-control:focus-within {
+  max-width: calc(100vw - 24px);
 }
 
 .portfolio-viewer-drag-handle {
@@ -153,6 +159,11 @@ body {
 
 @media (max-width: 480px) {
   .portfolio-viewer-control {
+    max-width: 32px;
+  }
+
+  .portfolio-viewer-control:hover,
+  .portfolio-viewer-control:focus-within {
     max-width: calc(100vw - 16px);
   }
 

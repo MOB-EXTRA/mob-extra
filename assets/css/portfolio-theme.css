@@ -1,0 +1,379 @@
+.portfolio-theme-control {
+  position: relative;
+  z-index: 1101;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  margin-left: 10px;
+  font-family: var(--sans);
+}
+
+.portfolio-theme-toggle {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: var(--panel);
+  color: var(--lime);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.portfolio-theme-toggle:hover {
+  transform: translateY(-1px);
+  border-color: var(--lime);
+  background: var(--panel2);
+}
+
+.portfolio-theme-menu {
+  position: absolute;
+  z-index: 1102;
+  top: calc(100% + 9px);
+  right: 0;
+  display: grid;
+  width: 210px;
+  gap: 4px;
+  padding: 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 11px;
+  background: var(--panel);
+  box-shadow: var(--shadow-lg);
+}
+
+.portfolio-theme-menu[hidden] {
+  display: none;
+}
+
+.portfolio-theme-menu-title {
+  padding: 5px 9px 7px;
+  color: var(--dim);
+  font: 9px var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.portfolio-theme-menu button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 36px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: 11px var(--sans);
+  text-align: left;
+}
+
+.portfolio-theme-menu button:hover,
+.portfolio-theme-menu button[aria-pressed="true"] {
+  background: var(--panel2);
+  color: var(--lime);
+}
+
+.portfolio-theme-menu button[aria-pressed="true"]::after {
+  content: "Selected";
+  color: var(--lime);
+  font: 8px var(--mono);
+  text-transform: uppercase;
+}
+
+.portfolio-theme-menu button[aria-pressed="true"] i {
+  display: none;
+}
+
+.portfolio-theme-hint {
+  color: var(--dim);
+  font: 9px var(--mono);
+}
+
+.portfolio-theme-control[hidden] {
+  display: none !important;
+}
+
+html[data-portfolio-theme] body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+html[data-portfolio-theme="marc"] .site-header {
+  background: var(--panel-glass);
+  border-color: var(--line);
+}
+
+html[data-portfolio-theme="marc"] .site-nav > a:not(.nav-cta),
+html[data-portfolio-theme="marc"] .text-link,
+html[data-portfolio-theme="marc"] .hero-intro,
+html[data-portfolio-theme="marc"] .heading-note,
+html[data-portfolio-theme="marc"] .work-type,
+html[data-portfolio-theme="marc"] .work-info p:not(.work-type),
+html[data-portfolio-theme="marc"] .about-copy > p,
+html[data-portfolio-theme="marc"] .contact-copy,
+html[data-portfolio-theme="marc"] .proof-label,
+html[data-portfolio-theme="marc"] .service-number,
+html[data-portfolio-theme="marc"] .service-card > p,
+html[data-portfolio-theme="marc"] .aside-caption,
+html[data-portfolio-theme="marc"] .hero-meta,
+html[data-portfolio-theme="marc"] .wordmark-note {
+  color: var(--muted);
+}
+
+html[data-portfolio-theme="marc"] .nav-cta {
+  border-color: var(--lime);
+  background: var(--lime-soft);
+  color: var(--lime) !important;
+}
+
+html[data-portfolio-theme="marc"] .hero h1,
+html[data-portfolio-theme="marc"] .section-heading h2,
+html[data-portfolio-theme="marc"] .about-copy h2,
+html[data-portfolio-theme="marc"] .contact-wrap h2,
+html[data-portfolio-theme="marc"] .work-info h3,
+html[data-portfolio-theme="marc"] .service-card h3 {
+  color: var(--ink);
+}
+
+html[data-portfolio-theme="marc"] .hero h1 span,
+html[data-portfolio-theme="marc"] .contact-wrap h2 span,
+html[data-portfolio-theme="marc"] .about-copy h2 span,
+html[data-portfolio-theme="marc"] .kicker,
+html[data-portfolio-theme="marc"] .section-heading .kicker,
+html[data-portfolio-theme="marc"] .service-card > a,
+html[data-portfolio-theme="marc"] .about-facts strong {
+  color: var(--lime);
+}
+
+html[data-portfolio-theme="marc"] .button-dark {
+  background: var(--lime);
+  color: #fff;
+}
+
+html[data-portfolio-theme="marc"] .proof-strip,
+html[data-portfolio-theme="marc"] .services-section,
+html[data-portfolio-theme="marc"] .contact-section,
+html[data-portfolio-theme="marc"] .site-footer,
+html[data-portfolio-theme="marc"] .service-card,
+html[data-portfolio-theme="marc"] .contact-card {
+  border-color: var(--line);
+  background: var(--panel);
+}
+
+html[data-portfolio-theme="marc"] .proof-inner > div a,
+html[data-portfolio-theme="marc"] .contact-card label {
+  color: var(--ink);
+}
+
+html[data-portfolio-theme="marc"] .contact-card input,
+html[data-portfolio-theme="marc"] .contact-card select,
+html[data-portfolio-theme="marc"] .contact-card textarea {
+  border-color: var(--line-strong);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+html[data-portfolio-theme="marc"] .contact-card input::placeholder,
+html[data-portfolio-theme="marc"] .contact-card textarea::placeholder {
+  color: var(--dim);
+}
+
+html[data-portfolio-theme="marc"] .contact-card select option {
+  background: var(--panel);
+  color: var(--ink);
+}
+
+html[data-portfolio-theme="marc"] .legal-page {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+html[data-portfolio-theme="vile"] .site-header,
+html[data-portfolio-theme="vile"] .site-nav,
+html[data-portfolio-theme="vile"] .quick-ticker-bar,
+html[data-portfolio-theme="vile"] .bottom-nav,
+html[data-portfolio-theme="vile"] .sticky-search-bar-wrapper {
+  background: var(--panel-glass);
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+html[data-portfolio-theme="vile"] .filter-dropdown-menu,
+html[data-portfolio-theme="vile"] .search-input-wrapper,
+html[data-portfolio-theme="vile"] .site-brand-badge,
+html[data-portfolio-theme="vile"] .icon-btn,
+html[data-portfolio-theme="vile"] .ticker-chip,
+html[data-portfolio-theme="vile"] .service-card,
+html[data-portfolio-theme="vile"] .legal-toc,
+html[data-portfolio-theme="vile"] .legal-note {
+  border-color: var(--line);
+  background: var(--panel);
+}
+
+html[data-portfolio-theme="vile"] .filter-dropdown-item,
+html[data-portfolio-theme="vile"] .ticker-chip,
+html[data-portfolio-theme="vile"] .nav-item,
+html[data-portfolio-theme="vile"] .legal-page,
+html[data-portfolio-theme="vile"] .legal-content {
+  color: var(--ink);
+}
+
+html[data-portfolio-theme="vile"] .filter-dropdown-header,
+html[data-portfolio-theme="vile"] .filter-dropdown-item i,
+html[data-portfolio-theme="vile"] .ticker-chip i,
+html[data-portfolio-theme="vile"] .nav-item.active,
+html[data-portfolio-theme="vile"] .legal-home,
+html[data-portfolio-theme="vile"] .legal-content a {
+  color: var(--lime);
+}
+
+html[data-portfolio-theme="vile"] .site-footer {
+  background: var(--panel);
+  border-color: var(--line);
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] body,
+html[data-theme="light"][data-portfolio-theme="marc"] body {
+  background-image: none;
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] .site-nav,
+html[data-theme="light"][data-portfolio-theme="vile"] .site-header,
+html[data-theme="light"][data-portfolio-theme="vile"] .quick-ticker-bar,
+html[data-theme="light"][data-portfolio-theme="vile"] .bottom-nav,
+html[data-theme="light"][data-portfolio-theme="vile"] .sticky-search-bar-wrapper,
+html[data-theme="light"][data-portfolio-theme="vile"] .legal-toc,
+html[data-theme="light"][data-portfolio-theme="vile"] .legal-note {
+  box-shadow: var(--shadow-md);
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] .site-name,
+html[data-theme="light"][data-portfolio-theme="vile"] .brand-suffix,
+html[data-theme="light"][data-portfolio-theme="vile"] .filter-dropdown-item:hover,
+html[data-theme="light"][data-portfolio-theme="vile"] .filter-dropdown-item.active,
+html[data-theme="light"][data-portfolio-theme="vile"] .nav-item:hover,
+html[data-theme="light"][data-portfolio-theme="vile"] .ticker-chip:hover {
+  color: var(--ink);
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] .header-card-glow,
+html[data-theme="light"][data-portfolio-theme="vile"] .app-header .top-nav-btn,
+html[data-theme="light"][data-portfolio-theme="vile"] .hub-header,
+html[data-theme="light"][data-portfolio-theme="vile"] .credits-box {
+  border-color: var(--line);
+  background: var(--panel);
+  color: var(--ink);
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] .version-tag {
+  border-color: var(--lime-border);
+  background: var(--lime-soft);
+  color: var(--lime);
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] .app-subtitle,
+html[data-theme="light"][data-portfolio-theme="vile"] .credits-box,
+html[data-theme="light"][data-portfolio-theme="vile"] .top-nav-btn {
+  color: var(--muted);
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] body#pageBody {
+  --dim: var(--muted);
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] .hub-header .hero-title,
+html[data-theme="light"][data-portfolio-theme="vile"] .section-title-row h2,
+html[data-theme="light"][data-portfolio-theme="vile"] .note-header,
+html[data-theme="light"][data-portfolio-theme="vile"] .instructions-header,
+html[data-theme="light"][data-portfolio-theme="vile"] .device-title,
+html[data-theme="light"][data-portfolio-theme="vile"] .ptb-popup-header h3 {
+  color: var(--ink);
+  text-shadow: none;
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] .note-box,
+html[data-theme="light"][data-portfolio-theme="vile"] .instruction-column,
+html[data-theme="light"][data-portfolio-theme="vile"] .download-instructions-box,
+html[data-theme="light"][data-portfolio-theme="vile"] .disclaimer-checkbox-wrapper,
+html[data-theme="light"][data-portfolio-theme="vile"] .url-preview-box {
+  border-color: var(--line);
+  background: var(--panel);
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] .input-action-group input {
+  border-color: var(--line-strong);
+  background: var(--panel);
+  color: var(--ink);
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] .legal-page {
+  background: var(--bg);
+}
+
+html[data-theme="light"][data-portfolio-theme="marc"] .proof-strip,
+html[data-theme="light"][data-portfolio-theme="marc"] .services-section,
+html[data-theme="light"][data-portfolio-theme="marc"] .contact-section,
+html[data-theme="light"][data-portfolio-theme="marc"] .site-footer {
+  background: var(--panel);
+}
+
+html[data-theme="light"][data-portfolio-theme="vile"] .contact-footer-bar {
+  border-color: var(--line);
+  background: var(--panel2);
+}
+
+html[data-portfolio-theme] .legal-page {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+html[data-portfolio-theme] .legal-header,
+html[data-portfolio-theme] .legal-footer,
+html[data-portfolio-theme] .legal-section {
+  border-color: var(--line);
+}
+
+html[data-portfolio-theme] .legal-home,
+html[data-portfolio-theme] .legal-footer a,
+html[data-portfolio-theme] .legal-kicker,
+html[data-portfolio-theme] .legal-section a {
+  color: var(--lime);
+}
+
+html[data-portfolio-theme] .legal-mark,
+html[data-portfolio-theme] .legal-updated,
+html[data-portfolio-theme] .legal-lede,
+html[data-portfolio-theme] .legal-section p,
+html[data-portfolio-theme] .legal-note p,
+html[data-portfolio-theme] .legal-footer {
+  color: var(--muted);
+}
+
+html[data-portfolio-theme] .legal-content h1,
+html[data-portfolio-theme] .legal-section h2,
+html[data-portfolio-theme] .legal-note strong {
+  color: var(--ink);
+}
+
+html[data-portfolio-theme] .legal-section h3 {
+  color: var(--lime);
+}
+
+html[data-portfolio-theme] .legal-scope-note,
+html[data-portfolio-theme] .legal-toc,
+html[data-portfolio-theme] .legal-note {
+  border-color: var(--line);
+  background: var(--panel);
+  color: var(--muted);
+}
+
+html[data-portfolio-theme] .legal-toc a {
+  border-color: var(--line);
+  color: var(--muted);
+}

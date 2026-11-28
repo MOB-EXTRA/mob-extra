@@ -53,6 +53,12 @@
   gap: 25px;
   align-items: start;
 }
+.content-card,
+.side-card,
+.info-card,
+.steps-card {
+  padding: 25px;
+}
 .content-card+.content-card {
   margin-top: 16px;
 }

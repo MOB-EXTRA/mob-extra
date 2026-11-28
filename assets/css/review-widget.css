@@ -1,11 +1,14 @@
 @import url("./animations/reviews.css");
 @import url("./service-reviews.css");
 
+.review-widget-section,
+.review-widget-section *,
+.review-widget-section *::before,
+.review-widget-section *::after {
+  box-sizing: border-box;
+}
+
 .review-widget-section {
-  --ink: #e6eef8;
-  --display: "Manrope", "DM Sans", system-ui, sans-serif;
-  --mono: "DM Mono", ui-monospace, monospace;
-  --accent: #20c7e9;
   width: min(1470px, calc(100% - 48px));
   margin: clamp(40px, 6vw, 72px) auto 72px;
   color: var(--ink);
@@ -100,7 +103,7 @@
 
 .review-submit-heading .kicker {
   margin: 0 0 6px;
-  color: var(--accent);
+  color: var(--lime);
   font: 600 10px var(--mono);
   letter-spacing: 0.11em;
 }
@@ -188,7 +191,7 @@
 .review-submit-fields input:focus-visible,
 .review-submit-fields select:focus-visible,
 .review-submit-fields textarea:focus-visible {
-  border-color: var(--accent);
+  border-color: var(--lime);
   outline: 2px solid #65dcf255;
   outline-offset: 1px;
 }
@@ -208,7 +211,7 @@
   width: 18px;
   height: 18px;
   margin: 1px 0 0;
-  accent-color: var(--accent);
+  accent-color: var(--lime);
 }
 
 .review-submit-consent a {
@@ -234,7 +237,7 @@
   padding: 0 20px;
   border: 1px solid #30c6e6;
   border-radius: 8px;
-  background: var(--accent);
+  background: var(--lime);
   color: #07111e;
   font: 700 13px var(--display);
   cursor: pointer;
@@ -764,4 +767,288 @@
   .compact-review-actions button {
     width: 100%;
   }
+}
+
+html[data-theme="light"] .service-reviews {
+  border-top-color: var(--line);
+}
+
+html[data-theme="light"] .service-reviews-heading,
+html[data-theme="light"] .review-dashboard,
+html[data-theme="light"] .review-dashboard-title,
+html[data-theme="light"] .review-type-card,
+html[data-theme="light"] .service-review-rating,
+html[data-theme="light"] .review-rating-row,
+html[data-theme="light"] .review-submit-fields label,
+html[data-theme="light"] .review-submit-consent {
+  color: #52677a;
+}
+
+html[data-theme="light"] .service-review-rating strong,
+html[data-theme="light"] .review-type-count,
+html[data-theme="light"] .review-widget-section,
+html[data-theme="light"] .review-widget-section .review-panel-heading h3,
+html[data-theme="light"] .review-widget-section .review-recent-heading h3,
+html[data-theme="light"] .review-widget-section .review-customer-heading h3 {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .review-analytics-panel,
+html[data-theme="light"] .review-recent-panel,
+html[data-theme="light"] .review-all-panel,
+html[data-theme="light"] .review-submit-panel,
+html[data-theme="light"] .review-type-card {
+  background: #ffffff;
+  border-color: var(--line);
+}
+
+html[data-theme="light"] .review-type-card:hover,
+html[data-theme="light"] .review-type-card.is-leading {
+  background: #f2f8fb;
+}
+
+html[data-theme="light"] .review-type-name {
+  color: #52677a;
+}
+
+html[data-theme="light"] .review-type-meta {
+  color: #64788a;
+}
+
+html[data-theme="light"] .review-type-bar {
+  border-color: #c7d4df;
+}
+
+html[data-theme="light"] .review-dashboard {
+  border-color: var(--line);
+  background: linear-gradient(90deg, #f0f5f8, transparent);
+}
+
+html[data-theme="light"] .review-dashboard-title,
+html[data-theme="light"] .review-panel-heading h4,
+html[data-theme="light"] .review-customer-heading h4,
+html[data-theme="light"] .review-recent-heading h4 {
+  color: var(--ink);
+}
+
+
+
+html[data-theme="light"] .review-dashboard-title span:last-child,
+html[data-theme="light"] .review-panel-heading > span,
+html[data-theme="light"] .review-recent-heading > span,
+html[data-theme="light"] .review-recent-empty,
+html[data-theme="light"] .review-recent-meta span,
+html[data-theme="light"] .review-trend-column,
+html[data-theme="light"] .review-customer-heading > div p,
+html[data-theme="light"] .service-review-live {
+  color: #64788a;
+}
+
+html[data-theme="light"] .review-stat-card {
+  border-color: var(--line);
+  background: #f7fafc;
+}
+
+html[data-theme="light"] .review-stat-card > span,
+html[data-theme="light"] .review-recent-item p {
+  color: #52677a;
+}
+
+html[data-theme="light"] .review-stat-card > strong,
+html[data-theme="light"] .review-recent-meta strong {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .review-stat-card > small {
+  color: #718395;
+}
+
+html[data-theme="light"] .review-rating-track {
+  border-color: #c7d4df;
+  background: linear-gradient(180deg, #edf3f7, #e2ebf1);
+  box-shadow: inset 0 1px 5px rgba(20, 45, 65, 0.1);
+}
+
+html[data-theme="light"] .review-trend-chart,
+html[data-theme="light"] .review-customer-heading {
+  border-color: var(--line);
+}
+
+html[data-theme="light"] .review-trend-track {
+  border-bottom-color: #bdcbd6;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 24px,
+    rgba(25, 50, 72, 0.055) 25px
+  );
+}
+
+html[data-theme="light"] .review-recent-item {
+  border-top-color: var(--line);
+}
+
+html[data-theme="light"] .service-review-filter {
+  border-color: var(--line);
+  background: #ffffff;
+  color: #52677a;
+}
+
+html[data-theme="light"] .service-review-filter:hover {
+  color: #076f8b;
+}
+
+html[data-theme="light"] .service-review-filter.is-active {
+  border-color: rgba(8, 124, 155, 0.34);
+  background: rgba(8, 124, 155, 0.09);
+  color: #076f8b;
+}
+
+html[data-theme="light"] .service-review-filter::after {
+  color: #718395;
+}
+
+html[data-theme="light"] .service-review-list {
+  scrollbar-color: #a9bdca #edf3f7;
+}
+
+html[data-theme="light"] .service-review-list::-webkit-scrollbar-track {
+  background: #edf3f7;
+}
+
+html[data-theme="light"] .service-review-list::-webkit-scrollbar-thumb {
+  border-color: #edf3f7;
+  background: #a9bdca;
+}
+
+html[data-theme="light"] .service-review-avatar {
+  border-color: rgba(8, 124, 155, 0.25);
+  background: linear-gradient(145deg, #e3f3f7, #edf0fa);
+  color: #087c9b;
+}
+
+html[data-theme="light"] .service-review-bubble {
+  border-color: #c5d2dc;
+  background: linear-gradient(135deg, #ffffff, #f5f8fa);
+  box-shadow: 0 8px 22px rgba(20, 45, 65, 0.08);
+}
+
+html[data-theme="light"] .service-review-bubble::before {
+  border-color: #c5d2dc;
+  background: #ffffff;
+}
+
+html[data-theme="light"] .service-review-card:hover .service-review-bubble {
+  border-color: #9fb8c8;
+  background: linear-gradient(135deg, #ffffff, #eef5f8);
+}
+
+html[data-theme="light"] .service-review-card-stars {
+  border-color: #e1bf72;
+  background: #fff4d6;
+  color: #8c5900;
+}
+
+html[data-theme="light"] .service-review-author {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .service-review-category,
+html[data-theme="light"] .service-review-detail {
+  border-color: #d4dfe7;
+  background: #f1f6f9;
+  color: #597084;
+}
+
+html[data-theme="light"] .service-review-comment,
+html[data-theme="light"] .service-review-state {
+  color: #40576b;
+}
+
+html[data-theme="light"] .service-review-state {
+  border-color: #c8d6e0;
+}
+
+html[data-theme="light"] .review-submit-heading .kicker {
+  color: #087c9b;
+}
+
+html[data-theme="light"] .review-submit-heading > p:last-child,
+html[data-theme="light"] .review-submit-status {
+  color: #52677a;
+}
+
+html[data-theme="light"] .compact-review-section {
+  border-color: var(--line);
+  background: linear-gradient(145deg, #ffffff, #f4f8fa);
+  color: var(--ink);
+  box-shadow: var(--shadow-soft);
+}
+
+html[data-theme="light"] .compact-review-heading h2 {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .compact-review-context {
+  border-color: var(--line);
+  background: #f1f6f9;
+  color: #597084;
+}
+
+html[data-theme="light"] .compact-review-form > label,
+html[data-theme="light"] .compact-review-rating,
+html[data-theme="light"] .compact-review-rating legend {
+  color: #40576b;
+}
+
+html[data-theme="light"] .compact-review-form textarea {
+  border-color: #c7d4df;
+  background: #ffffff;
+  color: var(--ink);
+}
+
+html[data-theme="light"] .compact-review-consent,
+html[data-theme="light"] .compact-review-rating-description,
+html[data-theme="light"] .compact-review-status {
+  color: #64788a;
+}
+
+html[data-theme="light"] .compact-review-consent a {
+  color: #087c9b;
+}
+
+html[data-theme="light"] .review-submit-fields input,
+html[data-theme="light"] .review-submit-fields select,
+html[data-theme="light"] .review-submit-fields textarea {
+  border-color: #c7d4df;
+  background: #ffffff;
+  color: var(--ink);
+}
+
+html[data-theme="light"] .review-submit-actions button,
+html[data-theme="light"] .compact-review-actions button {
+  border-color: var(--lime);
+  color: #ffffff;
+}
+
+html[data-theme="light"] .review-submit-actions button:hover,
+html[data-theme="light"] .compact-review-actions button:hover:not(:disabled) {
+  border-color: #06677f;
+  background: #06677f;
+}
+
+html[data-theme="light"] .review-submit-fields input::placeholder,
+html[data-theme="light"] .review-submit-fields textarea::placeholder,
+html[data-theme="light"] .review-submit-fields label > span {
+  color: #718395;
+}
+
+html[data-theme="light"] .review-submit-consent a {
+  color: #087c9b;
+}
+
+html[data-theme="light"] .review-target-notice {
+  border-color: #e1c98b;
+  background: #fff9e9;
+  color: #785719;
 }

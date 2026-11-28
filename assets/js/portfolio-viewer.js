@@ -116,7 +116,7 @@
       const { isReviewEnabled } = await import(
         new URL("assets/js/server/api.js", commonRoot).href
       );
-      if (!isReviewEnabled(page, destination.pathname)) {
+      if (!isReviewEnabled(page, page.location.pathname)) {
         page
           .querySelectorAll(
           "#reviews, [data-service-reviews], [data-review-widget]",

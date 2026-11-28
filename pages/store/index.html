@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Explore the MOB EXTRA demo shop: sample gaming gear, desk accessories, and digital goods."
+    />
+    <meta name="theme-color" content="#07111e" />
+    <meta name="nav-section" content="more" />
+    <meta name="nav-label" content="Store" />
+    <meta name="nav-description" content="Browse sample gaming gear, desk accessories, and digital goods in the MOB EXTRA store preview." />
+    <meta name="review-category" content="Buying in Shop" />
+    <title>MOB EXTRA Store | Gear for your next session</title>
+    <link rel="icon" type="image/png" href="../../assets/img/favicon.png" />
+    <link rel="apple-touch-icon" href="../../assets/img/favicon.png" />
+    <script src="../../assets/js/theme.js"></script>
+    <link rel="stylesheet" href="../../assets/css/site.css" />
+    <link rel="stylesheet" href="../../assets/css/store.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"
+      onerror="document.documentElement.classList.add('fa-unavailable')"
+    />
+    <link rel="stylesheet" href="../../assets/css/fontawesome-fallback.css" />
+    <script defer src="../../assets/js/fontawesome-fallback.js"></script>
+    <script src="../../assets/js/components.js" defer></script>
+  </head>
+  <body data-page="store">
+    <div data-site-header></div>
+    <main id="main">
+      <section class="store-hero">
+        <div class="container store-hero-inner">
+          <div class="store-hero-copy" data-reveal>
+            <div class="store-eyebrow">
+              <span class="store-live-dot" aria-hidden="true"></span>
+              MOB EXTRA SUPPLY // STORE PREVIEW
+            </div>
+            <h1>Gear up for<br /><span>your next session.</span></h1>
+            <p>
+              A curated selection of gaming essentials, desk upgrades, and
+              digital extras. Explore the preview while we build the real shop.
+            </p>
+            <a class="store-primary-button" href="#catalog">
+              Explore the collection
+              <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+            </a>
+            <div class="store-assurance">
+              <span><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Demo products</span>
+              <span><i class="fa-solid fa-credit-card" aria-hidden="true"></i> No payments collected</span>
+            </div>
+          </div>
+          <div class="store-hero-art" aria-label="Featured sample gaming setup">
+            <img
+              src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
+              alt="Modern computer workstation and gaming setup"
+              fetchpriority="high"
+            />
+            <div class="store-art-shade"></div>
+            <div class="store-art-label">
+              <span>FIELD NOTES / 001</span>
+              <strong>Make room<br />for play.</strong>
+            </div>
+            <span class="store-art-index">M+ / 2026</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="store-benefits" aria-label="Store preview details">
+        <div class="container store-benefit-row">
+          <div><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><span><strong>Curated picks</strong><small>Thoughtful gear for play and work</small></span></div>
+          <div><i class="fa-solid fa-box-open" aria-hidden="true"></i><span><strong>Sample collection</strong><small>Placeholder products to preview the shop</small></span></div>
+          <div><i class="fa-solid fa-lock" aria-hidden="true"></i><span><strong>Preview only</strong><small>No checkout or payment processing</small></span></div>
+        </div>
+      </section>
+
+      <section id="catalog" class="store-catalog container">
+        <div class="store-section-heading">
+          <div>
+            <span class="store-section-kicker">THE MOB EXTRA EDIT</span>
+            <h2>Find your next favorite.</h2>
+            <p>Sample listings only. Final products and pricing will be added later.</p>
+          </div>
+          <button class="store-cart-trigger" type="button" data-open-cart aria-label="Open demo bag">
+            <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+            <span>Demo bag</span>
+            <span class="store-cart-count" data-cart-count aria-live="polite">0</span>
+          </button>
+        </div>
+
+        <div class="store-toolbar">
+          <div class="store-category-list" role="group" aria-label="Filter products by category">
+            <button type="button" class="store-category is-active" data-category="all" aria-pressed="true">All items</button>
+            <button type="button" class="store-category" data-category="gear" aria-pressed="false">Gaming gear</button>
+            <button type="button" class="store-category" data-category="desk" aria-pressed="false">Desk setup</button>
+            <button type="button" class="store-category" data-category="digital" aria-pressed="false">Digital</button>
+          </div>
+          <div class="store-tools">
+            <label class="store-search">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              <span class="visually-hidden">Search sample products</span>
+              <input type="search" data-store-search placeholder="Search the collection" />
+            </label>
+            <label class="store-sort-label">
+              <span class="visually-hidden">Sort products</span>
+              <select data-store-sort>
+                <option value="featured">Featured</option>
+                <option value="price-low">Price: low to high</option>
+                <option value="price-high">Price: high to low</option>
+                <option value="name">Name: A to Z</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="store-results-line">
+          <p data-result-count aria-live="polite">Loading the sample collection…</p>
+          <span><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Prices shown are fictional preview prices.</span>
+        </div>
+        <div class="store-product-grid" data-product-grid aria-live="polite"></div>
+        <div class="store-empty-state" data-empty-state hidden>
+          <i class="fa-solid fa-box-open" aria-hidden="true"></i>
+          <h3>No matching samples</h3>
+          <p>Try another search or choose a different category.</p>
+          <button type="button" data-clear-filters>Clear filters</button>
+        </div>
+      </section>
+
+      <section class="store-preview-note container">
+        <div class="store-preview-icon"><i class="fa-solid fa-flask" aria-hidden="true"></i></div>
+        <div>
+          <span>STORE STATUS / PREVIEW BUILD</span>
+          <h2>This is a storefront mockup, not an active shop.</h2>
+          <p>
+            Product names, images, descriptions, stock labels, and prices are
+            sample content. Adding an item only updates this browser’s demo bag.
+            Checkout, shipping, and payment services are not enabled.
+          </p>
+        </div>
+        <a href="../contact.html">Ask about the store <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+      </section>
+    </main>
+
+    <div class="store-cart-backdrop" data-cart-backdrop hidden></div>
+    <aside class="store-cart-panel" data-cart-panel aria-labelledby="cart-title" aria-hidden="true">
+      <div class="store-cart-header">
+        <div><span class="store-section-kicker">LOCAL PREVIEW</span><h2 id="cart-title">Your demo bag</h2></div>
+        <button type="button" class="store-cart-close" data-close-cart aria-label="Close demo bag"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      </div>
+      <p class="store-cart-disclaimer">This bag is saved only in this browser. No order will be placed.</p>
+      <div class="store-cart-items" data-cart-items></div>
+      <div class="store-cart-empty" data-cart-empty>
+        <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+        <p>Your demo bag is empty.</p>
+        <button type="button" data-close-cart>Browse samples</button>
+      </div>
+      <div class="store-cart-footer" data-cart-footer hidden>
+        <div class="store-cart-subtotal"><span>Preview subtotal</span><strong data-cart-subtotal>₱0</strong></div>
+        <p>Fictional estimate only. Shipping, tax, and checkout are not available.</p>
+        <button type="button" class="store-checkout-button" disabled>
+          Checkout unavailable
+          <i class="fa-solid fa-lock" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="store-clear-cart" data-clear-cart>Clear demo bag</button>
+      </div>
+    </aside>
+    <div class="store-toast" data-store-toast role="status" aria-live="polite"></div>
+
+    <div data-site-footer></div>
+    <script src="../../assets/js/site.js" defer></script>
+    <script src="../../assets/js/pages/store.js" defer></script>
+    <script src="../../assets/ads/ads.js" defer></script>
+  </body>
+</html>

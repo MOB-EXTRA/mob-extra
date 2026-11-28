@@ -1,26 +1,16 @@
 /* =================================================================
    1. GLOBAL VARIABLES & RESET
    ================================================================ */
-:root {
-  --bg-primary: #070c18;
-  --bg-card: #0e172a;
-  --border-color: #1e293b;
-  --accent-cyan: #38bdf8;
-  --accent-blue: #3b82f6;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: var(--sans);
 }
 
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: var(--bg);
+  color: var(--ink);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -44,9 +34,9 @@ body {
 }
 
 .top-nav-btn {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--ink);
   padding: 6px 12px;
   border-radius: 20px;
   display: flex;
@@ -59,7 +49,7 @@ body {
 }
 
 .top-nav-btn:hover {
-  border-color: var(--accent-cyan);
+  border-color: var(--lime);
   background: rgba(56, 189, 248, 0.05);
 }
 
@@ -95,7 +85,7 @@ body {
 
 .version-tag {
   background: rgba(56, 189, 248, 0.12);
-  color: var(--accent-cyan);
+  color: var(--lime);
   padding: 3px 10px;
   border-radius: 20px;
   font-size: 0.72rem;
@@ -104,7 +94,7 @@ body {
 }
 
 .app-subtitle {
-  color: var(--text-secondary);
+  color: var(--muted);
   font-size: 0.84rem;
   margin-bottom: 12px;
   line-height: 1.4;
@@ -112,14 +102,14 @@ body {
 
 .credits-box {
   font-size: 0.75rem;
-  color: var(--text-secondary);
-  border-top: 1px solid var(--border-color);
+  color: var(--muted);
+  border-top: 1px solid var(--line);
   padding-top: 10px;
   margin-top: 4px;
 }
 
 .credits-link {
-  color: var(--accent-cyan);
+  color: var(--lime);
   text-decoration: none;
   font-weight: 600;
 }
@@ -133,8 +123,8 @@ body {
 }
 
 .app-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: 14px;
   padding: 16px;
   margin-bottom: 16px;
@@ -142,9 +132,9 @@ body {
 
 .last-updated-banner {
   font-size: 0.82rem;
-  color: var(--text-secondary);
+  color: var(--muted);
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--line);
   padding: 8px 12px;
   border-radius: 8px;
   margin-bottom: 14px;
@@ -154,7 +144,7 @@ body {
 }
 
 .text-cyan {
-  color: var(--accent-cyan);
+  color: var(--lime);
 }
 
 /* =================================================================
@@ -167,7 +157,7 @@ body {
 .seo-section-title {
   font-size: 1.05rem;
   margin-bottom: 8px;
-  color: var(--text-primary);
+  color: var(--ink);
   font-weight: 700;
 }
 
@@ -175,19 +165,19 @@ body {
   font-size: 0.92rem;
   margin-top: 12px;
   margin-bottom: 6px;
-  color: var(--text-primary);
+  color: var(--ink);
   font-weight: 700;
 }
 
 .seo-text {
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: var(--muted);
   line-height: 1.6;
 }
 
 .seo-faq-box {
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: var(--muted);
   line-height: 1.5;
 }
 
@@ -198,7 +188,7 @@ body {
 .section-divider {
   width: 100%;
   height: 1px;
-  background: var(--border-color);
+  background: var(--line);
   margin: 16px 0;
 }
 
@@ -216,8 +206,8 @@ body {
 .search-group input {
   width: 100%;
   padding: 8px 34px 8px 12px;
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
+  background: var(--bg);
+  border: 1px solid var(--line);
   border-radius: 8px;
   color: #fff;
   font-size: 0.82rem;
@@ -229,7 +219,7 @@ body {
   right: 10px;
   background: transparent;
   border: none;
-  color: var(--text-secondary);
+  color: var(--muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -240,7 +230,7 @@ body {
 }
 
 .clear-search-btn:hover {
-  color: var(--text-primary);
+  color: var(--ink);
 }
 
 .filter-controls-row {
@@ -257,14 +247,14 @@ body {
   align-items: center;
   gap: 6px;
   font-size: 0.78rem;
-  color: var(--text-secondary);
+  color: var(--muted);
   white-space: nowrap;
 }
 
 .filter-group select,
 .limit-group select {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
+  background: var(--bg);
+  border: 1px solid var(--line);
   color: #fff;
   padding: 5px 8px;
   border-radius: 8px;
@@ -288,20 +278,20 @@ body {
 }
 
 .codes-table th {
-  background: var(--bg-primary);
-  color: var(--text-secondary);
+  background: var(--bg);
+  color: var(--muted);
   font-size: 0.6rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.3px;
   padding: 8px 3px;
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--line);
   white-space: nowrap;
 }
 
 .codes-table td {
   padding: 8px 3px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--line);
   font-size: 0.72rem;
   vertical-align: middle;
 }
@@ -332,12 +322,12 @@ body {
    6. TABLE CELLS, SMALLER BADGES, DATES & BUTTONS
    ================================================================ */
 .code-cell code {
-  font-family: var(--font-mono, "JetBrains Mono", Consolas, monospace);
+  font-family: var(--mono);
   background: rgba(56, 189, 248, 0.08);
   border: 1px solid rgba(56, 189, 248, 0.2);
   padding: 3px 5px;
   border-radius: 5px;
-  color: var(--accent-cyan);
+  color: var(--lime);
   font-weight: 700;
   font-size: 0.7rem;
   letter-spacing: 0.2px;
@@ -432,7 +422,7 @@ body {
 }
 
 .date-cell {
-  color: var(--text-secondary);
+  color: var(--muted);
   white-space: nowrap;
   font-size: 0.6rem;
   font-weight: 500;
@@ -483,7 +473,7 @@ body {
   align-items: center;
   margin-top: 12px;
   font-size: 0.78rem;
-  color: var(--text-secondary);
+  color: var(--muted);
 }
 
 .pagination-btns {
@@ -491,8 +481,8 @@ body {
   gap: 6px;
 }
 .page-btn {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
+  background: var(--bg);
+  border: 1px solid var(--line);
   color: #fff;
   padding: 5px 10px;
   border-radius: 6px;
@@ -507,7 +497,7 @@ body {
 
 .important-note-box {
   background: rgba(56, 189, 248, 0.05);
-  border: 1px dashed var(--accent-cyan);
+  border: 1px dashed var(--lime);
   border-radius: 10px;
   padding: 10px;
   font-size: 0.78rem;
@@ -519,17 +509,17 @@ body {
 .note-badge {
   display: inline-block;
   font-weight: 700;
-  color: var(--accent-cyan);
+  color: var(--lime);
   font-size: 0.7rem;
   margin-bottom: 4px;
 }
 
 .portal-info {
   line-height: 1.5;
-  color: var(--text-secondary);
+  color: var(--muted);
 }
 .link-cyan {
-  color: var(--accent-cyan);
+  color: var(--lime);
   text-decoration: underline;
 }
 
@@ -537,8 +527,8 @@ body {
    8. VIDEO TUTORIAL & PROMO CARDS
    ================================================================ */
 .video-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: 14px;
   padding: 12px;
   margin-bottom: 16px;
@@ -608,7 +598,7 @@ body {
 
 .yt-video-desc {
   font-size: 0.78rem;
-  color: var(--text-secondary);
+  color: var(--muted);
   line-height: 1.4;
   margin-bottom: 12px;
 }
@@ -634,15 +624,15 @@ body {
 }
 
 .promo-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: 14px;
   padding: 16px;
   margin-bottom: 16px;
 }
 
 .promo-badge {
-  color: var(--accent-cyan);
+  color: var(--lime);
   font-size: 0.72rem;
   font-weight: 700;
   display: flex;
@@ -654,7 +644,7 @@ body {
 .live-dot {
   width: 8px;
   height: 8px;
-  background: var(--accent-cyan);
+  background: var(--lime);
   border-radius: 50%;
 }
 
@@ -664,7 +654,7 @@ body {
 }
 .promo-desc {
   font-size: 0.78rem;
-  color: var(--text-secondary);
+  color: var(--muted);
   margin-bottom: 10px;
 }
 
@@ -672,7 +662,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: var(--accent-cyan);
+  color: var(--lime);
   text-decoration: none;
   font-weight: 700;
   font-size: 0.8rem;
@@ -686,7 +676,7 @@ body {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
-  background: var(--accent-cyan);
+  background: var(--lime);
   color: #070c18;
   padding: 8px 18px;
   border-radius: 30px;
@@ -703,7 +693,7 @@ body {
 .app-footer {
   text-align: center;
   font-size: 0.75rem;
-  color: var(--text-secondary);
+  color: var(--muted);
   margin-top: auto;
   padding: 16px 0;
 }
@@ -712,11 +702,11 @@ body {
   margin: 4px 0;
 }
 .credit-link {
-  color: var(--accent-cyan);
+  color: var(--lime);
   text-decoration: none;
 }
 .footer-links a {
-  color: var(--text-secondary);
+  color: var(--muted);
   text-decoration: none;
 }
 .dot {

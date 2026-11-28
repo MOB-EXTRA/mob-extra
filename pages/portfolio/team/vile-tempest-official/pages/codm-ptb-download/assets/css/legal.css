@@ -11,11 +11,11 @@ body.legal-page {
   max-width: 860px;
   margin: 0 auto;
   padding: 1.5rem;
-  background: var(--codm-card-bg);
+  background: var(--panel-glass);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--codm-border);
-  border-left: 4px solid var(--codm-gold);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--lime);
   border-radius: 4px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
 }
@@ -30,31 +30,31 @@ body.legal-page {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  border-bottom: 1px solid var(--codm-border);
+  border-bottom: 1px solid var(--line);
   padding-bottom: 0.75rem;
   margin-bottom: 0.5rem;
 }
 
 .legal-title {
-  font-family: var(--font-heading);
+  font-family: var(--display);
   font-size: 1.3rem;
   font-weight: 700;
-  color: var(--codm-gold);
+  color: var(--lime);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .effective-date {
-  font-family: var(--font-heading);
+  font-family: var(--display);
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--dim);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .legal-block h3 {
-  font-family: var(--font-heading);
+  font-family: var(--display);
   font-size: 1.05rem;
   font-weight: 700;
   color: #fff;
@@ -64,7 +64,7 @@ body.legal-page {
 
 .legal-block p {
   font-size: 0.9rem;
-  color: var(--text-muted);
+  color: var(--dim);
   line-height: 1.6;
 }
 

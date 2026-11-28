@@ -1,5 +1,5 @@
 .legal-page {
-  background-color: var(--bg-primary);
+  background-color: var(--bg);
 }
 
 .legal-card {
@@ -14,7 +14,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--line);
   padding-bottom: 10px;
   margin-bottom: 16px;
 }
@@ -22,12 +22,12 @@
 .legal-title {
   font-size: 1.25rem;
   font-weight: 800;
-  color: var(--accent-cyan);
+  color: var(--lime);
 }
 
 .effective-date {
   font-size: 0.75rem;
-  color: var(--text-secondary);
+  color: var(--muted);
 }
 
 .legal-block {
@@ -37,12 +37,12 @@
 .legal-block h3 {
   font-size: 0.95rem;
   margin-bottom: 6px;
-  color: var(--text-primary);
+  color: var(--ink);
 }
 
 .legal-block p {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--muted);
   line-height: 1.5;
 }
 
@@ -50,7 +50,7 @@
   margin-left: 20px;
   margin-top: 8px;
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--muted);
 }
 
 .legal-list li {
@@ -59,6 +59,6 @@
 
 .legal-divider {
   height: 1px;
-  background-color: var(--border-color);
+  background-color: var(--line);
   margin: 24px 0;
 }

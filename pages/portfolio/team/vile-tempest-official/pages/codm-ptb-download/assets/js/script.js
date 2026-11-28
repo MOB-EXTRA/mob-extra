@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("selectstart", (e) => {
     if (!isUnlocked) {
       if (
-        e.target &&
+        e.target instanceof Element &&
         (e.target.tagName === "INPUT" ||
           e.target.closest("#verificationGateway"))
       ) {

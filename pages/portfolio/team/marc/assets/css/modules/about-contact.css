@@ -33,7 +33,7 @@
   position: absolute;
   right: 2px;
   top: 10px;
-  background: var(--paper);
+  background: var(--bg);
   font-style: normal;
   font-size: 26px;
   padding: 5px
@@ -96,7 +96,7 @@
   display: grid;
   grid-template-columns: 1fr .78fr;
   gap: 90px;
-  align-items: center
+  align-items: start
 }
 
 .contact-wrap h2 {
@@ -163,6 +163,7 @@
 }
 
 .contact-card input,.contact-card select,.contact-card textarea {
+  box-sizing: border-box;
   width: 100%;
   border: 1px solid #dfe3dc;
   background: #fff;
